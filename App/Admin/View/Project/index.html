@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>奖金设定</title>  
+    <link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+    <link rel="stylesheet" href="/Public/Admin/css/admin.css">
+    <script src="/Public/Admin/js/jquery.js"></script>
+    <script src="/Public/Admin/js/pintuer.js"></script>  
+    <script src="/Public/js/jquery-2.1.1.min.js"></script>  
+    <script src="/Public/js/layer/layer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 奖金设定</strong> </div>
+    <div class="padding border-bottom">
+    </div>
+	<div class="table-responsive">
+    <table class="table table-hover text-center">
+      <thead>
+		<tr>
+			<th >序号</th>
+			<th >名称</th>
+			<th >价格</th>
+			<th >推荐奖</th>
+			<th >操作</th>
+		</tr>
+      </thead>
+	  <tbody>
+      <volist name="list" id="vo" key='k'>
+		<tr>
+			<form method="post" class="form-x" action="{:U('Project/save')}" enctype="multipart/form-data">
+				  <td>{$k}</td>
+				  <input type='hidden' name='id' value='{$vo.id}'>
+				  <td>
+					<input type="text" name="name" value="{$vo.name}"  data-validate="required:名称"  />
+				  </td>
+				  <td>
+					<input type="text" name="money" value="{$vo.money}"  data-validate="required:价格"  />
+				  </td>
+				  <td>
+					<input type="text" name="tuijian_money" value="{$vo.tuijian_money}"  data-validate="required:推荐奖"  />
+				  </td>
+				  <td>
+					<input type='submit' class="button border-red icon-trash-o" value='修改'>
+				  </td>
+			</form>
+		</tr>
+   	  </volist>
+       </tbody> 
+    </table>
+	</div>
+  </div>
+  <div class="pagelist"> <ul>{$page}</ul></div>
+</div>
+
+
+</body></html>

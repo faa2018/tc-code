@@ -1,0 +1,63 @@
+				<!-- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(5).addClass("nav-active")
+});
+</script>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+				<!--body wrapper start-->
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+						<section style="padding: 28px;">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default" style="overflow-x:auto;">
+										<div class="panel-heading">
+											<h3 class="panel-title">友情链接</h3>
+										</div>
+										<div class="widget-body innerAll overthrow">
+										<volist name="list" id="vo">
+											<div class="col-md-12" style="padding:15px;">
+														<div class="col-md-12" style="width:100%">
+															<div style="height:45px; font-size:16px; float: left; width:220px;line-height:35px;" >
+																网站名 :{$vo['title']}
+															</div>
+															<div id=""  style=" height:45px; font-size:16px;float: left; width:45px;line-height:35px;" >
+																网址:
+															</div>	
+															<div id=""  style=" height:45px;font-size:16px;float: left; width:200px;line-height:35px;" >
+																{$vo['url']}
+															</div>
+															<div id=""  style=" height:45px;margin-left:20px;float: left;width:220px;" >
+																<a target="_blank" class="btn btn-primary" href="{$vo['url']}">立即访问</a>
+															</div>
+														</div>
+														<div class="col-md-12" style="width:100%;">
+															<div style="height:45px; font-size:16px; width:45px; float:left;" >
+																说明:	
+															</div>
+															<div id=""  style=" height:45px; font-size:16px;float: left; width:200px;" >
+																{$vo['desc']} 
+															</div>
+														</div>
+											</div>
+											<hr style="width:100%; float:left;"/>
+										</volist>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<!--./主体开始-->
+					</section>
+				</div>
+<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+				<!---------------------------footer引入位置--------------------------->

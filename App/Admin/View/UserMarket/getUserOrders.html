@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>记录列表</title>
+	<bootstrapcss />
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+	<a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+	&gt;
+	下注记录列表
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+		 <a href="#home" data-toggle="tab">下注记录列表</a>
+   </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr>
+				<th>编号</th>
+				<th>用户信息</th>
+				<th>交易品种</th>
+				<th>金额</th>
+				<th>类型</th>
+				<th>下注时间</th>
+				<th>开奖时间</th>
+				<th>结果</th>
+			</tr>
+			<foreach name="list" item="v">
+				<tr>
+					<td>{$v['i']}</td>
+					<td>{$v['username']}</td>
+					<td>{$v['market_name']}</td>
+					<td>{$v['money']}</td>
+					<td>{$v['type']}</td>
+					<td>{$v['time']}</td>
+					<td>{$v['check_time']}</td>
+					<td>{$v['status']}</td>
+				</tr>
+			</foreach>
+		</table>
+   </div>
+</div>
+<bootstrapjs />
+</body>
+</html>

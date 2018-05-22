@@ -1,0 +1,88 @@
+<include file="App/Home/View/Public/header.html" /> 
+<!--头部导航结束-->
+<!--注册开始-->
+<div class="register_bg">
+	<!--<img src="image/register.png" class="w_100">-->
+
+<div class="login">
+	<div class="login_content pt-45">
+	<div class="register_title">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</div>
+		<form class="form-horizontal login_form" id="myform"> 
+		  <div class="form-group mt-10">
+			<label for="inputEmail3" class="col-sm-2 col-xs-3 control-label tl">用户名</label>
+			<div class="col-sm-8 col-xs-10">
+			  <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+			</div>
+			<div class="col-xs-2"></div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 col-xs-3 control-label tl">密码</label>
+			<div class="col-sm-8 col-xs-10">
+			  <input type="password" class="form-control" placeholder="请输入密码" name="password" id="password">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 col-xs-10 control-label tl">验证码</label>
+			<div class="col-sm-4  col-xs-6">
+			  <input type="text" class="form-control" placeholder="填写验证码" name="code">
+			</div>
+			<div class="col-sm-4 col-xs-6">
+			<img src="{:U('Login/verify')}" style="width: 120px;height:35px;" onClick="getCode();" id="captcha">
+			</div>
+		  </div>
+		  <div class="form-group" style="text-align: center;">
+			<input type="button" class="col-sm-offset-1 col-sm-8 col-xs-10 index_login_btn" value="登录" style="font-size: 18px; margin-top: 25px;" onclick="login()">
+		  </div> 
+		  <div class="clear"></div>
+		</form>
+	</div>
+</div>
+</div>
+<!--注册结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />  
+<!--底部结束-->
+<script>	
+		function login(){
+			$.ajax({
+                cache: true,
+                type: "POST",
+                url:"{:U('Login/login')}",
+                data:$('#myform').serialize(),// 你的formid
+                async: false,
+                error: function(request) {
+                    layer.msg(d['info']);
+                },
+                success: function(data) {
+					layer.msg(data['info']);
+                    if(data['status'] == '1'){
+						setTimeout("JumpUrl()",1500);
+					}else{
+						getCode();
+					}
+                }
+            });
+		}
+		function JumpUrl(){
+			location.href="{:U('Index/index')}";
+		}
+		function getCode(){
+			document.getElementById('captcha').src="{:U('Login/verify')}?"+Math.random();	
+		}
+		
+	
+		$('#password').blur(function() {
+		var regex = /^[a-zA-Z0-9]{6,18}$/;
+		var password = $("#password").val();
+		if ("" != password && null != password) {
+			if (!regex.test(password)) {
+				$('#passwordshow').html("<span style='color: red'>请输入6~18位的密码</span>");
+			} else {
+				$("#passwordshow").html("<span style='color: red'></span>");
+			}
+		} else {
+			$("#passwordshow").html("<span style='color: red'></span>");
+		}
+	});
+		
+	</script> 

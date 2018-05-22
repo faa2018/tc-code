@@ -1,0 +1,283 @@
+
+<!--头部引入位置->
+				<!分割线  以下为主体内容->
+				<!- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(0).addClass("nav-active")
+});
+</script>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 会员提币
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						
+						<section style="padding: 28px;">
+					<div class="row">
+							<div class="col-md-12">
+								<div style=" background-color:#3C8DBD; padding:10px; padding-bottom:20px; margin-bottom:20px; color:#fff;border-radius:5px;">
+									<h3 class="font-light m-b-xs">提币注意事项</h3>
+									<span>
+										{$cue.content}
+									</span>
+								</div>
+							</div>
+					</div>
+					<form id='myform'>
+					<div class="row">
+						<div class="col-md-12">
+					<div class="widget panel panel-default">
+						<div class="panel-heading">
+								<h3 class="panel-title"> 会员提币</h3>
+						</div>
+						    <div class="widget widget-body-white padding-none">
+								<div class="widget-body" style="padding: 20px; overflow: auto;">
+								<div class="row"  style=" padding:10px;">
+  										<div class="form-group">
+                                			<label class="col-md-3 control-label">虚拟币数量<span class="ast">:</span></label>
+                                			<div class="col-md-9">
+                                 				<span style="color:#ff0000;" id= 'Coinnum'>{$num|default="暂无"}</span>
+                                			</div>
+                            			</div>
+                            	</div>
+								<div class="row"  style=" padding:10px;">
+  										<div class="form-group">
+                                			<label class="col-md-3 control-label">提币手续费<span class="ast">:</span></label>
+                                			<div class="col-md-9">
+                                 				<span style="color:#ff0000;">{$fee|default="暂无手续费"}</span>
+                                			</div>
+                            			</div>
+                            	</div>
+									<!-- <div class="row"  style=" padding:10px;">
+  										<div class="form-group">
+                                			<label class="col-md-3 control-label">提现类型<span class="ast">:</span></label>
+                                			<div class="col-md-9">
+                                			<select class="form-control" name="type" id="droCoinType">
+                                					<option  value="2">收益积分提现</option>
+                                					<option  value="1">本金提现</option>
+											</select>
+                                			</div>
+                            			</div>
+                            			</div> -->
+                            			<div class="row"  style=" padding:10px;">
+  										<div class="form-group">
+                                			<label class="col-md-3 control-label">币种<span class="ast">:</span></label>
+                                			<div class="col-md-9">
+                                			<select class="form-control" name="coin_type" id="droCoinType" onchange="bili(this)">
+                                					<volist name='coin' id='vo'>
+                                					<option <eq name="type" value="$vo.id"  > selected </eq> value="{$vo.id}">{$vo.name}<eq name="vo['tibikg']" value="0" >【已关闭提币业务】<else/>【已开启提币业务】</eq></option>
+                                					</volist>
+											</select>
+                                			</div>
+                            			</div>
+                            			</div>
+                            			<!-- <div class="row"  style=" padding:10px;">
+                            			<div class="form-group">
+                                			<label class="col-md-3 control-label">提币市值<span class="ast">:</span></label>
+                                			<div class="col-md-9">
+                                 				<span style="color:#ff0000;" id= 'Coinbili'> {$coin_bili}</span>
+                                			</div>
+                            			</div>
+                            			</div> -->
+										<div class="row"  style=" padding:10px;">
+							     		<div class="form-group">
+                                		<label class="col-md-3 control-label">提币数量<span class="ast">*</span>:</label>
+                                			<div class="col-md-9">
+			                                  	<input <eq name="tibikg" value="0"> disabled</eq>  class="form-control coinkg"  name="money"  type="number" required="" size="400" >
+                                			</div>
+                            			</div>
+                            			</div>
+										<div class="row"  style=" padding:10px;">
+							     		<div class="form-group">
+                                		<label class="col-md-3 control-label">提币地址<span class="ast">*</span>:</label>
+                                			<div class="col-md-9">
+			                                  	<input <eq name="tibikg" value="0"> disabled</eq>  class="form-control coinkg"  name="url"  type="text"  size="400">
+                                			</div>
+                            			</div>
+                            			</div>
+                            		<div class="row"  style=" padding:10px;">
+                            			<div class="form-group">
+                                			<label class="col-md-3 control-label">二级密码<span class="ast">*</span></label>
+                                			<div class="col-md-9">
+		                                  		<input <eq name="tibikg" value="0"> disabled</eq>  class="form-control coinkg"  name="twopwd"  type="password"   size="400">
+		                                 		
+		                                	</div>
+                            			</div>
+                            			</div>
+                            			<div class="row"  style=" padding:10px;">
+	                            			<div class="form-group">
+	                                			<label class="col-md-3 control-label">手机验证码<span class="ast">*</span></label>
+	                                			<div class="col-md-9">
+	                                			<input <eq name="tibikg" value="0">  disabled</eq> class="form-control coinkg" style="display:inline;width:50%;" name="phone_code"  type="text" required>
+												<input <eq name="tibikg" value="0"> disabled</eq> id="phone" style=" color: #0e131d; background-color: #c1c8d2;" class="btn btn-primary btn-sm coinkg"  value="发送验证码" onclick="sendPhone()" type="button">
+			                                	</div>
+	                            			</div>
+                            			</div>
+                            		</div>
+                            			
+		    </div>
+		    <div class="data-footer innerAll half text-right clearfix" style="text-align:center; padding:10px;">
+			<button <eq name="tibikg" value="0"> disabled</eq>  type="button" class="btn btn-primary coinkg" onclick="cashout();">提交</button>
+		    </div>
+		</div>
+	    </div>
+	    </form>
+	    <br>
+	    <script>
+	    function sendPhone(){
+			        var phone = $('#phone').val();
+			        $.post("{:U('User/sendphone')}",{'type':2},function(d){
+			        layer.msg(d['info']);
+			        });
+			     }	
+	    </script>
+	    <notempty name='list'> 
+	    <div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">提币记录</h3>
+					</div>
+					<div class="widget-body innerAll overthrow" style="padding: 20px;overflow: auto;">
+						<table class="table table-bordered table-primary">
+							<thead>
+								<tr class="tac">
+									<th>ID</th>
+									<th>提币数量</th>
+									<th>实际到账数量</th>
+									<th>手续费</th>
+									<th>币种</th>
+									<!-- <th>提现类型</th> -->
+									<th>提现地址</th>
+									<th>状态</th>
+									<th>申请时间</th>
+								</tr>
+							</thead>
+							<tbody>
+								<foreach name="list" item="vo">
+									<tr class="tac">
+										<td>{$vo.id}</td>
+										<td>{$vo.money}</td>
+										<td>{$vo.factmoney}</td>
+										<td>{$vo.feemoney}</td>
+										<td>{$vo.coin_type}</td>
+										<!-- <td>{$vo.money_type}</td> -->
+										<td>{$vo.url}</td>
+										<td>{$vo.tibi_status}</td>
+										<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+									</tr>
+								</foreach>
+							</tbody>
+						</table>
+						{$page}
+						<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</notempty>
+    <script>
+    $(document).ready(function(){
+    	var dtype = $("#droCoinType").val();
+    	//alert(dtype);
+    	$.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('UserMoney/getCoinKg')}",
+            data:{coin_type:dtype},// 你的formid
+            async: false,
+            error: function(request) {
+                layer.msg(d['info']);
+            },
+            success: function(data) {
+           	 /* alert(data);  */
+           	 if(data == 0){
+                	$(".coinkg").attr("disabled",true);
+           	 }else{
+           		 $(".coinkg").removeAttr("disabled");
+           	 }
+            }
+        });
+    	
+    })
+	function cashout(){
+          $.ajax({
+              cache: true,
+              type: "POST",
+              url:"{:U('UserMoney/withdraw')}",
+              data:$('#myform').serialize(),// 你的formid
+              async: false,
+              error: function(request) {
+                  layer.msg(d['info']);
+              },
+              success: function(data) {
+                  layer.msg(data['info']);
+                  if(data['status'] == 1){
+                	  window.location.reload();//刷新当前页面
+                  }
+              }
+          });
+		
+	}
+	 function bili(_this){
+		console.log(_this.value);
+		  $.ajax({
+             cache: true,
+             type: "POST",
+             url:"{:U('UserMoney/getCoinKg')}",
+             data:{coin_type:_this.value},// 你的formid
+             async: false,
+             error: function(request) {
+                 layer.msg(d['info']);
+             },
+             success: function(data) {
+            	 /* alert(data);  */
+            	 if(data == 0){
+                 	$(".coinkg").attr("disabled",true);
+            	 }else{
+            		 $(".coinkg").removeAttr("disabled");
+            	 }
+             }
+         });
+		 $.ajax({
+             cache: true,
+             type: "POST",
+             url:"{:U('UserMoney/getCoinnum')}",
+             data:{coin_type:_this.value},// 你的formid
+             async: false,
+             error: function(request) {
+                 layer.msg(d['info']);
+             },
+             success: function(data) {
+                 console.log(data);
+                 $("#Coinnum").html(data);
+                
+             }
+         });
+	} 
+	</script>
+  	</div>
+				</div>
+               
+
+</div>				</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+					<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--分割线  主体内容  结束->
+				
+				<!-footer引入位置-->
+			

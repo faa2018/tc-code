@@ -1,0 +1,123 @@
+<include file="App/Kuang/View/Public/header.html"/>
+
+		<!-- END EMPTY PAGE SIDEBAR -->
+	<div class="page-head">
+		<div class="container-fluid">
+			<!-- BEGIN PAGE TITLE -->
+			<div class="page-title">
+				<h3>收入明细报告</h3>
+			</div>
+			<!-- END PAGE TITLE -->
+		</div>
+	</div>
+	
+	<!-- BEGIN PAGE -->
+
+	<div class="page-content">
+
+		<div class="container-fluid">
+			<!-- BEGIN PAGE HEADER-->
+
+			<div class="row-fluid">
+
+				<div class="span12">
+
+					<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+					<ul class="breadcrumb">
+
+						<li>
+							<i class="icon-home"></i><a href="">主页</a> <i class="icon-angle-right"></i>
+						</li>
+						<li>报告 <i class="icon-angle-right"></i></li>
+
+						<li>收入明细报告</li>
+					</ul>
+
+					<!-- END PAGE TITLE & BREADCRUMB-->
+
+				</div>
+
+			</div>
+
+			<!-- END PAGE HEADER-->
+
+			<!-- BEGIN PAGE CONTENT-->
+
+			<div class="row-fluid search-form-body">
+
+				<div class="span12">
+
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+					<div class="portlet">
+					<form id="report-form" class="form-horizontal" method="post" action="https://www.unityminer.com/members/report/income_detail/">
+						<div class="and-label"></div>
+						<div class="control-group">
+							<label class="control-label">从会员（用户名）</label>
+							<div class="controls">
+								<input name="username" class="m-wrap medium" type="text">
+							</div>
+						</div>							
+						<div class="control-group">
+							<label class="control-label">收入日期</label>
+							<div class="controls">
+								<select id="income_date" name="income_date" class="medium m-wrap" tabindex="1">
+									<option value="1">所有时间</option>
+									<option selected="selected" value="2">今天</option>
+									<option value="3">昨天</option>
+									<option value="4">最近7天</option>
+									<option value="5">这个月</option>
+									<option value="6">上个月</option>
+								</select>
+							</div>
+						</div>								
+						
+						<div id="custom_date_panel" class="no_display">
+							<div class="control-group">
+								<label class="control-label">开始日期</label>
+								<div class="controls">
+									<div class="input-append date date-picker" data-date="19-04-2016" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+										<input class="m-wrap m-ctrl-medium date-picker" readonly size="16" name="start_date" value="04/19/2016" type="text"><span class="add-on"><i class="icon-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">结束日期</label>
+								<div class="controls">
+									<div class="input-append date date-picker" data-date="19-04-2016" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+										<input class="m-wrap m-ctrl-medium date-picker" readonly size="16" name="end_date" value="04/19/2016" type="text"><span class="add-on"><i class="icon-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+						<div class="form-actions">
+							<input class="no_display" id="csrf_pkc_token" name="csrf_pkc_token" value="905c6139bad8982dfccbb704b01e75ed" type="hidden">
+							<button type="submit" class="btn blue"><i class="icon-ok"></i> 提交</button>
+						</div>
+					</form>
+					</div>
+
+					<!-- END EXAMPLE TABLE PORTLET-->
+
+				</div>
+
+			</div>
+
+			<!-- END PAGE CONTENT -->
+			
+					</div><!-- End Dv Container-fluid -->
+		<!-- END PAGE CONTAINER--> 
+
+	</div>
+
+<!-- END PAGE --> 	
+
+	</div>
+
+	<!-- END CONTAINER -->
+<include file="App/Kuang/View/Public/footer.html"/>
+        <script>
+$(".menu5").addClass("uc-current");
+</script>

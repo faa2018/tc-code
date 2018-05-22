@@ -1,0 +1,83 @@
+
+
+				<!-- page heading start-->
+		<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/Js1/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(4).addClass("nav-active")
+});
+</script>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						<section style="padding: 28px;">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"> 财务日志</h3>
+										</div>
+
+										<div class="widget" style="padding: 20px;">
+
+											<div class="widget-head">
+												<h4 class="heading">[ {$vo.type_name} ]}</h4>
+											</div>
+											<div class="widget-body margin-none">
+								
+													<div class='media-body innerAnnounce'>
+														<div class='readMore' data-url="{:U('News/newspage',array(id=>$info['id']))}">
+															<h5>
+                                              
+                                                    	{$vo.content}
+                                                
+                                                </h5>
+															<p class='text-muted'>
+																{$vo.add_time|date="Y-m-d",###}
+															</p>
+															<p class='margin-none'>
+															
+															</p>
+														</div>
+													</div>
+											{$vo.sz_type_name}
+											{$vo.money}
+											{$vo.money_type_name}
+
+											</div>
+											<footer class="data-footer innerAll half text-right clearfix">
+												<div class="pull-left">
+													<a href="{:U('Finance/getFinance')}" class="btn btn-inverse btn-sm">返回</a>
+												</div>
+												<div class="custom-pagi pull-right">
+												
+
+												</div>
+											</footer>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+	<include file="App/Kuang/View/Public/footer1.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+	
+				<!---------------------------footer引入位置--------------------------->
+	

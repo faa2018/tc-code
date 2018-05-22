@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{$geshi}用户</title>
+    <bootstrapcss />
+    <icheckcss />
+</head>
+<body>
+<script src="__PUBLIC__/Home/js/jquery-1.11.3.min.js"></script>
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <i class="fa fa-home"></i> 首页
+    &gt;
+    后台管理
+    &gt;
+    {$geshi}用户
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li>
+         <a href="{:U('Admin/User/showUserList')}">用户列表</a>
+   </li>
+   <li class="active">
+        <a href="#">{$geshi}用户</a>
+    </li>
+</ul>
+<form class="form-inline" >
+    <table class="table table-striped table-bordered table-hover table-condensed">
+		<input type="hidden" name="id"  value="{$list['uid']}"  />
+<!-- 		<tr>
+            <th>头像</th>
+            <td>
+                <div id='preview'><img style="width: 200px;" src="{$list.pic}"></div>
+                 <a href=''><input size="100" type="file" name="pic" onchange="preview(this)"/></a>
+            </td>
+        </tr> -->
+		<notempty name="list['uid']" >
+        <tr>
+            <th>用户账号</th>
+            <td>
+                <input class="form-control" type="text" disabled value="{$list['phone']}">
+            </td>
+        </tr>
+		<else/>
+		<tr>
+            <th>用户账号</th>
+            <td>
+                <input class="form-control" id='phone' type="text" name='phone'  >
+            </td>
+        </tr>
+        </notempty>
+        <tr>
+            <th>用户姓名</th>
+            <td>
+                <input class="form-control" id='real_name' type="text" name='real_name' value='{$list.real_name}' >
+            </td>
+        </tr>
+		<notempty name="list['uid']" >
+		<tr>
+            <th>邀约人账号</th>
+            <td>
+                <input class="form-control" disabled type="text" name="tuijian_name" value="{$list['tuijian_phone']}">
+            </td>
+        </tr>
+		<else/>
+		<tr>
+            <th>邀约人账号</th>
+            <td>
+                <input class="form-control" type="text" id='tuijian_phone' name="tuijian_name"  value="">
+            </td>
+        </tr>
+        </notempty>
+        <tr>
+            <th>邀约人姓名</th>
+            <td>
+                <input class="form-control" type="text" id='tuijian_phone' name="tuijian_name"  value="{$list['tuijian_phone']}">
+            </td>
+        </tr>
+		
+        <tr>
+            <th>密码</th>
+            <td>
+            <input class="form-control" id='pwd' type="password" name="pwd">
+            </td>
+        </tr>
+        <tr>
+            <th>账号状态</th>
+            <td>
+            <volist name='user_status_name' id='vo'>
+                <input class="xb-icheck" type="radio" name="status" value="{$key}" <eq name="list['status']" value="$key"> checked="checked" </eq> >
+            {$vo}
+            </volist>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input class="btn btn-success" type="button" onclick="check()" value="提交">
+            </td>
+        </tr>
+    </table>
+</form>
+<bootstrapjs />
+<icheckjs color="blue" />
+<script type="text/javascript">
+function check()
+{
+	var phone = $('#tuijian_phone').val();
+    $.post("{:U('User/checkTuijian')}",{'phone':phone},function(d){
+    	if(d['status']==-1){
+    		var a=confirm("推荐人不存在,是否确认添加");
+    		 if(a==true)
+    		 {
+    			tijiao()
+    		 }
+    	}else{
+    		tijiao()
+    	}
+    });
+ }
+ function tijiao(){
+	 var phone = $('#phone').val();
+		var real_name = $('#real_name').val();
+		var tuijian_phone = $('#tuijian_phone').val();
+		var pwd = $('#pwd').val();
+	    $.post("{:U('User/updUser')}",{'phone':phone,'real_name':real_name,'tuijian_phone':tuijian_phone,'pwd':pwd},function(d){
+	    	layer.msg(d['info']);
+         if(d['status']==1){
+           window.location.href="{:U('User/showUserList')}"
+         }
+	    })
+ }
+ function preview(file)  
+ {  
+ var prevDiv = document.getElementById('preview');  
+ if (file.files && file.files[0])  
+ {  
+ var reader = new FileReader();  
+ reader.onload = function(evt){  
+ prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+}    
+ reader.readAsDataURL(file.files[0]);  
+}   
+}
+</script>
+</body>
+</html>

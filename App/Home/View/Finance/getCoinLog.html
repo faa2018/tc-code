@@ -1,0 +1,100 @@
+
+				<!-- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(2).addClass("nav-active")
+});
+</script>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						<section style="padding: 28px;">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">充币/提币记录</h3>
+										</div>
+										<form action="{:U('Finance/getCoinLog')}" class="search3">
+										<div style="margin-top:10px;">
+										<div style="height:35px; margin:10px 0 0 20px;" class="search">
+										<select name = 'status' style="width:174px;">
+										<option value= '' >全部</option>
+										<volist name='status' id='vo'>
+										<option value='{$key}' >
+										{$vo}
+										</option>
+										</volist>
+										</select>
+										</div>
+										<input type='hidden' name='type' value={$type}/>
+										<div style="height:35px; margin:7px 0 0 20px;" class="search2">
+										<button type="submit" class="btn btn-primary" >搜索</button>
+										</div>
+										</div>
+										</form>
+										<div class="widget-body innerAll overthrow col-md-12" style=" margin:10px 0; overflow-x:auto;">
+											<table class="table table-bordered table-primary">
+												<thead>
+													<tr class="tac">
+														 <th>币种名</th>
+													  	 <th>数量</th>
+													  	 <th>地址</th>
+														 <th>状态</th>
+														 <th><eq name="Think.get.type" value="1">充币时间<else/>提币时间</eq></th>
+													</tr>
+												</thead>
+												<tbody>
+													<foreach name="list" item="vo">
+														<tr class="tac">
+															<td>{$vo.coin_type}</td>
+															<td><eq name="type" value="1">{$vo.num}<else/>{$vo.money}</eq></td>
+															<td>{$vo.url}</td>
+															<td><eq name="type" value="1">{$vo.chongbi_status}<else/>{$vo.tibi_status}</eq></td>
+															<td>{$vo.add_time|date="Y-m-d,H:i:s",###}</td>
+														</tr>
+													</foreach>
+												</tbody>
+
+											</table>
+											<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+												{$page}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+					 <script>
+	function search(){
+		
+		var all =$('#all').val();
+		if(all ==9999){
+			window.location.reload();
+		}
+	};
+	</script>
+<include file="App/Home/View/Public/footer.html" />
+
+
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+			
+				<!---------------------------footer引入位置--------------------------->
+			

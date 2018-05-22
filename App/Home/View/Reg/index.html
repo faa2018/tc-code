@@ -1,0 +1,121 @@
+<include file="App/Home/View/Public/header.html" />
+    <style>
+        .fly_11 {
+            display: none;
+            position: absolute;
+            top: 60px;
+            width: 80%;
+            background: #F50;
+            height: 350px;
+            left: 10%;
+            right: 10%;
+            border-radius: 5px;
+        }
+    </style>
+
+
+    <div class="head">
+        <div class="headBox">
+             <a class="backIcon" href="javascript:history.go(-1)"></a>
+            <h3>注册激活</h3>
+            <!--<a class="searchIcon deleteIcon"></a>-->
+        </div>
+    </div>
+
+    <div class="middle">
+        <div class="mailTile">
+            <div class="mailLT mailSlt">
+                注册
+            </div>
+            <div class="mailRt ">
+                <a href="{:U('Project/index')}">激活</a>
+            </div>
+
+        </div>
+        <input class="textBox" name="kye" type="hidden" id="kye" value="28">
+        <input class="textBox" name="zdtxe" type="hidden" id="zdtxe" value="200">
+        <input class="textBox" name="txmoney" type="hidden" id="txmoney" value="100">
+        <div class="changeBox zcMsg">
+            <div>
+                <div style="margin-left:45%;">
+                    <p><a href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#" id="cksm">查看说明</a></p>
+                </div>
+            </div>
+            <ul>
+
+                <li>
+                    <div class="changeLt">会员编号：</div>
+                    <div class="changeRt">
+                        <i><span id="number">15850138354</span></i>
+                    </div>
+                </li>
+
+                <li class="zcSltHight">
+                    <div class="changeLt">提现金额：</div>
+                    <div class="changeRt">
+                        <input type="text" class="textBox" id="txtMoney" name="money" onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;) " onbeforepaste="clipboardData.setData(&#39;text&#39;,clipboardData.getData(&#39;text&#39;).replace(/[^\d]/g,&#39;&#39;))"><br>
+                        <b>账户余额： <i><span id="rmoney" style="color:Red;">38</span></i></b>
+                    </div>
+                </li>
+                <li>
+                    <div class="changeLt">二级密码：</div>
+                    <div class="changeRt">
+                        <input class="textBox" name="password" type="password" id="password">
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="changeLt">开户银行：</div>
+                    <div class="changeRt">
+                        <span id="Label1"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="changeLt">开户名：</div>
+                    <div class="changeRt">
+                        <span id="Label2">白艳涛</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="changeLt">银行卡号：</div>
+                    <div class="changeRt">
+                        <span id="Label3"></span>
+                    </div>
+                </li>
+                <li class="zcSltHight txsq">
+                    <div class="changeLt">备注：</div>
+                    <div class="changeRt">
+                        <textarea name="remark" id="remark"></textarea>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="fly_11" style="display:none;">
+            <div>
+                <p>提现说明1提现说明1提现说明1提现说明1</p>
+            </div>
+
+
+        </div>
+
+
+        
+        <input type="hidden" id="hide">
+        <div class="changeBtnBox zc">
+            <a class="changeBtn" id="btn_Apply" href="javascript:void(0)">提&nbsp;&nbsp;现&nbsp;&nbsp;申&nbsp;&nbsp;请</a>
+        </div>
+    </div>
+    <div class="foot">
+        <div class="footBox">
+            <ul>
+                <li><a class="option1" id="sy" href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#">首 页</a></li>
+                <li><a class="option2" id="gg" href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#">公告</a></li>
+                <li><a class="option3" id="xx" href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#">消息</a></li>
+                <li><a class="option4" id="aq" href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#">安全修改</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+<div class="swal2-container"><div class="swal2-overlay" tabindex="-1"></div><div class="swal2-modal" style="display: none" tabindex="-1"><div class="swal2-icon swal2-error"><span class="x-mark"><span class="line left"></span><span class="line right"></span></span></div><div class="swal2-icon swal2-question">?</div><div class="swal2-icon swal2-warning">!</div><div class="swal2-icon swal2-info">i</div><div class="swal2-icon swal2-success"><span class="line tip"></span> <span class="line long"></span><div class="placeholder"></div> <div class="fix"></div></div><img class="swal2-image"><h2></h2><div class="swal2-content"></div><input class="swal2-input"><select class="swal2-select"></select><div class="swal2-radio"></div><label for="swal2-checkbox" class="swal2-checkbox"><input type="checkbox" id="swal2-checkbox"></label><textarea class="swal2-textarea"></textarea><div class="swal2-validationerror"></div><hr class="swal2-spacer"><button class="swal2-confirm">OK</button><button class="swal2-cancel">Cancel</button><span class="swal2-close">×</span></div></div></body></html>

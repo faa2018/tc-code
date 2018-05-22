@@ -1,0 +1,270 @@
+<include file="App/Home/View/Public/header.html" />
+<div style="width: 100%; height: 2px; background-color: #e8ecef;"></div>
+<!--头部导航结束-->
+<!--增值会场开始-->
+<div class="container mt-40 mb-80" style="margin-bottom: 140px;min-height:463px;">
+	<div class="row">
+		<div class="col-md-4 new hd_content">
+			<div class="new_bigtitle" status="1">新手场</div>
+			<div class="new_smalltitle"></div>
+			<div class="tc mt-10" style="color: #FFF;">五日为一期</div>
+			<div class="tc mt-10" style="color: #FFF;">每期增值5%</div>
+			<div class="increment1 col-md-offset-2 col-md-8 col-xs-11 col-xs-offset-1">
+				<div class="fl change tc mt-35 col-md-6 col-xs-6" onClick="change(this)">
+					<div class="increment_yes" status="1"></div>
+					<div class="increment_option" style="margin-right: 10px;">1股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-35 col-md-6 col-xs-6" onClick="change(this)">
+					<div class="increment_no" status="2"></div>
+					<div class="increment_option" style="margin-right: 10px;">2股</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="type col-md-offset-1 col-md-9 col-xs-12">
+				<div class="col-md-6 change tr mt-30 col-xs-6" onClick="change(this)">
+					<div class="increment_yes" status="1"></div>
+					<div class="increment_option">增值积分</div>
+				</div>
+				<div class="col-md-6 change tr mt-30 col-xs-6" onClick="change(this)">
+					<div class="increment_no" status="2"></div>
+					<div class="increment_option">报单积分</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="col-md-offset-2 new_left"></div>
+			<div class="new_center">90%</div>
+			<div class="new_right"></div>
+			<div class="clear"></div>
+			<input type="button" class="col-md-6 col-md-offset-3 new_join col-xs-offset-3 col-xs-6" value="立即加入" onClick="join_diately(this)">
+		</div>
+		<div class="col-md-4 primary hd_content">
+			<div class="primary_bigtitle" status="2">初级场</div>
+			<div class="primary_smalltitle"></div>
+			<div class="tc mt-10" style="color: #FFF;">十日为一期</div>
+			<div class="tc mt-10" style="color: #FFF;">每期增值15%</div>
+			<div class="increment1 col-md-offset-2 col-md-8 col-xs-12">
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_yes" status="1"></div>
+					<div class="increment_option" style="margin-right: 10px;">1股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="2"></div>
+					<div class="increment_option" style="margin-right: 10px;">2股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="3"></div>
+					<div class="increment_option" style="margin-right: 10px;">3股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="4"></div>
+					<div class="increment_option" style="margin-right: 10px;">4股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="5"></div>
+					<div class="increment_option" style="margin-right: 10px;">5股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="6"></div>
+					<div class="increment_option" style="margin-right: 10px;">6股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="7"></div>
+					<div class="increment_option" style="margin-right: 10px;">7股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-10" onClick="change(this)">
+					<div class="increment_no" status="8"></div>
+					<div class="increment_option" style="margin-right: 10px;">8股</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="type col-md-offset-1 col-md-9 col-xs-12">
+				<div class="col-md-6 change tr mt-30 col-xs-6" onClick="change(this)">
+					<div class="increment_yes" status="1"></div>
+					<div class="increment_option">增值积分</div>
+				</div>
+				<div class="col-md-6 change tr mt-30 col-xs-6" onClick="change(this)">
+					<div class="increment_no" status="2"></div>
+					<div class="increment_option">报单积分</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="col-md-offset-2 primary_left"></div>
+			<div class="primary_center">50%</div>
+			<div class="primary_right"></div>
+			<div class="clear"></div>
+			<input type="button" class="col-md-6 col-md-offset-3 col-xs-offset-3 col-xs-6 primary_join" value="立即加入" onClick="join_diately(this)">
+		</div>
+		<div class="col-md-4 senior hd_content">
+			<div class="senior_bigtitle" status="3">高级场</div>
+			<div class="senior_smalltitle"></div>
+			<div class="tc mt-10" style="color: #FFF;">十五日为一期</div>
+			<div class="tc mt-10" style="color: #FFF;">每期增值30%</div>
+			<div class="increment1 col-md-offset-2 col-md-9 col-xs-11 col-xs-offset-1">
+				<div class="fl change tc mt-5" onClick="change(this)">
+					<div class="increment_yes" status="1"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">1股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-5" onClick="change(this)">
+					<div class="increment_no" status="2"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">2股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-5" onClick="change(this)">
+					<div class="increment_no" status="3"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">3股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc mt-5" onClick="change(this)">
+					<div class="increment_no" status="4"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">4股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="5"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">5股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="6"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">6股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="7"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">7股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="8"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">8股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="9"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">9股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="10"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">10股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="11"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">11股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="12"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">12股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="13"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">13股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="14"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">14股</div>
+					<div class="clear"></div>
+				</div>
+				<div class="fl change tc  mt-5" onClick="change(this)">
+					<div class="increment_no" status="15"></div>
+					<div class="increment_option" style="margin-right: 10px;width:40px;">15股</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="type col-md-offset-1 col-md-9 col-xs-12">
+				<div class="col-md-6 change tr mt-30 col-xs-6" onClick="change(this)">
+					<div class="increment_yes" status="1"></div>
+					<div class="increment_option">增值积分</div>
+				</div>
+				<div class="col-md-6 change tr mt-30 col-xs-6" onClick="change(this)">
+					<div class="increment_no" status="2"></div>
+					<div class="increment_option">报单积分</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="col-md-offset-2 senior_left"></div>
+			<div class="senior_center">10%</div>
+			<div class="senior_right"></div>
+			<div class="clear"></div>
+			<input type="button" class="col-md-6 col-md-offset-3 col-xs-offset-3 col-xs-6 senior_join" value="立即加入" onClick="join_diately(this)">
+		</div>
+	</div>
+</div>
+<!--增值会场结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />
+<script>
+function change(_this){
+	/*var status = $(_this).find("div:first-child").attr("status");
+	if(status==0){
+		$(_this).find("div:first-child").removeClass("increment_no").addClass("increment_yes");
+		$(_this).find("div:first-child").attr("status",1);
+		$(_this).siblings(".change").find("div:first-child").attr("status",0);
+		$(_this).siblings(".change").find("div:first-child").removeClass("increment_yes").addClass("increment_no");
+	}*/
+	$(_this).find("div:first-child").addClass("increment_yes").removeClass("increment_no");
+	$(_this).siblings(".change").find("div:first-child").removeClass("increment_yes").addClass("increment_no");
+}
+function join_diately(_this){
+	var amount = $(_this).parents(".hd_content").find(".increment1").find(".change").find(".increment_yes").attr("status");
+	var type = $(_this).parents(".hd_content").find(".type").find(".change").find(".increment_yes").attr("status");
+	var level = $(_this).parents(".hd_content").find("div:first-child").attr("status");
+	$.ajax({
+		cache: true,
+		type: "POST",
+		url:"{:U('Project/run')}",
+		data:{'amount':amount,'type':type,'level':level},// 你的formid
+		async: false,
+		error: function(request) {
+			layer.msg(d['info']);
+		},
+		success: function(data) {
+			layer.msg(data['info']);
+			if(data['status'] == '1'){
+				setTimeout("JumpUrl()",1500);
+			}else{
+				getCode();
+			}
+		}
+	});
+}
+function JumpUrl(){
+	location.href="{:U('User/getProject')}";
+}
+$(document).ready(function(){
+	/*新手场*/
+	var new_parsent = {$project_count_bili1};
+	var new_width1 = parseFloat(new_parsent)*200;
+	var new_width2 = 200-new_width1;
+	$(".new_left").css("width",new_width1);
+	$(".new_right").css("width",new_width2);
+	$(".new_center").html(new_parsent*100+'%');
+	/*初级场*/
+	var primary_parsent = {$project_count_bili2};
+	var primary_width1 = parseFloat(primary_parsent)*200;
+	var primary_width2 = 200-primary_width1;
+	$(".primary_left").css("width",primary_width1);
+	$(".primary_right").css("width",primary_width2);
+	$(".primary_center").html(primary_parsent*100+'%');
+	/*高级场*/
+	var senior_parsent = {$project_count_bili3};
+	var senior_width1 = parseFloat(senior_parsent)*200;
+	var senior_width2 = 200-senior_width1;
+	$(".senior_left").css("width",senior_width1);
+	$(".senior_right").css("width",senior_width2);
+	$(".senior_center").html(senior_parsent*100+'%');
+})
+</script>

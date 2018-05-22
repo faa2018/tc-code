@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+<link rel="stylesheet" href="/Public/Admin/css/admin.css">
+<script src="/Public/Admin/js/jquery.js"></script>
+<script src="/Public/Admin/js/pintuer.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/kindeditor/plugins/prettify.js"></script>
+<style>
+.pic_text{
+	<eq name="list.type" value="pic_text" > <else />display:none</eq>
+}
+.text{
+	<eq name="list.type" value="text"><else />display:none</eq>
+};
+</style>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>商品添加</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:U('ProjectGoods/doAddProject_goods')}" enctype="multipart/form-data">
+	<input type="hidden" name="project_goods_id" value="{$Project_goods['project_goods_id']}" />
+      <div class="form-group">
+        <div class="label">
+          <label>图片</label>
+        </div>
+        <div class="field" id="preview">
+         <input type="hidden" name="pic" value="">
+                <img style="width:250px;height:250px;border: 1px solid;" src="{$Project_goods['image']}"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field" id="preview">
+			<a href=''><input size="100" type="file" name="image" onchange="preview(this)"/></a>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>名称</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="name" value="{$Project_goods.name}"  data-validate="required:名称"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>价格</label>
+        </div>
+        <div class="field">
+          <input type="number" class="input w50" name="price" value="{$Project_goods.price}"  data-validate="required:价格"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+	  <div class="form-group">
+        <div class="label">
+          <label>详情图片</label>
+        </div>
+        <div class="field" id="preview1">
+         <input type="hidden" name="pic" value="">
+                <img style="width:250px;height:250px;border: 1px solid;" src="{$Project_goods['content']}"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field" id="preview1">
+			<a href=''><input size="100" type="file" name="content" onchange="preview1(this)"/></a>
+        </div>
+      </div>
+	  
+      <div class="form-group">
+        <div class="label">
+          <label>是否上架</label>
+        </div>
+        <div class="field" id="cats">
+          <select name="is_sale" id="select" class="button border-main icon-search">
+			<option value="1" <eq name="goods['is_sale']" value="1">selected</eq>>上架</option>
+			<option value="-1" <eq name="goods['is_sale']" value="-1">selected</eq>>下架</option>
+		  </select>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+	function changeSelect(b){
+	
+		var c = $(b).val();
+		//alert(c);
+		if(c == ''){
+			$(".text").css('display','none');
+			$(".pic_text").css('display','none');
+		}else if(c == 'text'){
+		
+			$(".text").css('display','block');
+			$(".pic_text").css('display','none');
+			$("#text_content").attr('data-validate','required:请输入文本内容');
+			$("#text_content").attr('name','content');
+			$("#pic_url").attr('data-validate','');
+			$("#pic_pic").attr('data-validate','');
+			$("#pic_con").attr('data-validate','');
+			$("#pic_title").attr('data-validate','');
+			$("#pic_url").attr('name','');
+			
+		}else{
+			$(".text").css('display','none');
+			$(".pic_text").css('display','block');
+			$("#pic_url").attr('name','content');
+			$("#pic_url").attr('data-validate','required:请输入图文地址');
+			$("#pic_pic").attr('data-validate','required:请输入图文地址');
+			$("#pic_con").attr('data-validate','required:请输入图文地址');
+			$("#pic_title").attr('data-validate','required:请输入图文地址');
+			$("#text_content").attr('data-validate','');
+			$("#text_content").attr('name','');
+		}
+	}
+</script>
+<script type="text/javascript"> 
+	
+ function preview(file)  
+ {  
+ var prevDiv = document.getElementById('preview');  
+ if (file.files && file.files[0])  
+ {  
+ var reader = new FileReader();  
+ reader.onload = function(evt){  
+ prevDiv.innerHTML = '<img src="' + evt.target.result + '" style="width:250px;height:250px;border: 1px solid;"/>';  
+}    
+ reader.readAsDataURL(file.files[0]);  
+}  
+ }
+  function preview1(file)  
+ {  
+ var prevDiv = document.getElementById('preview1');  
+ if (file.files && file.files[0])  
+ {  
+ var reader = new FileReader();  
+ reader.onload = function(evt){  
+ prevDiv.innerHTML = '<img src="' + evt.target.result + '" style="width:250px;height:250px;border: 1px solid;"/>';  
+}    
+ reader.readAsDataURL(file.files[0]);  
+}  
+ }
+ </script>
+</body></html>

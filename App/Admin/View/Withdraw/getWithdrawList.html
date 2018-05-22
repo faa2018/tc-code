@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>会员管理</title>
+	<bootstrapcss />
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+	<a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+	&gt;
+	会员充值记录
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+		 <a href="#home" data-toggle="tab">提现记录</a>
+   </li>
+</ul>
+<form method='post'>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+            <th width="5%">搜索</th>
+            <td width="15%">
+               	<input class="form-control" type="text" name="username" value="{$Think.post.username}" placeholder="用户名" >
+            </td>
+            <td width="15%">
+            <select class="form-control" name="status" id="droCoinType">
+					<option  value="" >==选择提现状态==</option>
+					<volist name='withdraw_status' id='vo'>
+					<option  value="{$key}" <heq name='status_old' value="$key">selected</heq> >{$vo}</option>
+					</volist>
+			</select>
+			</td>
+            <td width="80%">
+                <input class="btn btn-success" type="submit" value="搜索">
+            </td>
+        </tr>
+    </table>
+</form>
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr>
+				<th style="text-align:center;">编号</th>
+				<th style="text-align:center;">用户名</th>
+				<th style="text-align:center;">提现金额</th>
+				<th style="text-align:center;">手续费</th>
+				<th style="text-align:center;">资金类型</th>
+				<th style="text-align:center;">提现方式</th>
+				<th style="text-align:center;">备注</th>
+                <th style="text-align:center;">提现时间</th>
+				<th style="text-align:center;">状态</th>
+				<th style="text-align:center;">操作</th>
+              <!--  <th>钱包地址</th>-->
+			</tr>
+			<volist name="list" id="v">
+				<tr>
+					<td align="center">{$v['id']|default='暂无'}</td>
+					<td align="center">{$v['username']|default='暂无'}</td>
+					<td align="center">{$v['money']|default='暂无'}</td>
+					<td align="center">{$v['fee']|default='暂无'}</td>
+					<td align="center">{$v['money_type']|default='暂无'}</td>
+					<td align="center">{$v['tixian_type']|default='暂无'}</td>
+					<td align="center">{$v['beizhu']|default='暂无'}</td>
+					<td align="center">{$v.add_time|date='Y-m-d H:i:s',###}</td>
+					<td align="center">{$v.tixian_status}</td>
+					<td align="center">
+						<eq name="v['status']" value="0">
+							<a class="btn btn-success" href="{:U('UserMoney/withdraw_adopt',array('id'=>$v['id']))}">通过 </a>
+							<a class="btn btn-success" href="{:U('UserMoney/withdraw_refuse',array('id'=>$v['id']))}">拒绝</a>	
+						<else/>
+							当前无法操作
+						</eq>
+					</td>
+				</tr>
+			</volist>
+		</table>
+   </div>
+</div>
+
+<bootstrapjs />
+</body>
+</html>

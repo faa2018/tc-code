@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+<link rel="stylesheet" href="/Public/Admin/css/admin.css">
+<script src="/Public/Admin/js/jquery.js"></script>
+<script src="/Public/Admin/js/pintuer.js"></script>
+<style>
+.pic_text{
+	<eq name="list.type" value="pic_text" > <else />display:none</eq>
+}
+.text{
+	<eq name="list.type" value="text"><else />display:none</eq>
+};
+</style>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 分类添加</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:U('Goods/doAddAttr')}">
+	<input type="hidden" name="cat_id" value="{$cat_id}" />
+	<input type="hidden" name="attr_id" value="{$list.attr_id}" />
+      <div class="form-group">
+        <div class="label">
+          <label>属性名称</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="name" value="{$list.name}"  data-validate="required:属性名称"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>属性详细</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="detail" value="{$list.detail}"  data-validate="required:属性详细"  />
+          <div class="tips">请用英文的逗号隔开（如怕输入有误可粘贴右侧逗号   （,））</div>
+        </div>
+      </div>
+	 
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>

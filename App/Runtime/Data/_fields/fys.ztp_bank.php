@@ -1,0 +1,1 @@
+a:7:{i:0;s:7:"bank_id";i:1;s:9:"bank_name";i:2;s:8:"username";i:3;s:8:"card_num";i:4;s:6:"status";s:3:"_pk";s:7:"bank_id";s:5:"_type";a:5:{s:7:"bank_id";s:16:"int(22) unsigned";s:9:"bank_name";s:11:"varchar(22)";s:8:"username";s:11:"varchar(40)";s:8:"card_num";s:12:"varchar(100)";s:6:"status";s:10:"tinyint(2)";}}

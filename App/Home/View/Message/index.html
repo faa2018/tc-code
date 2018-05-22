@@ -1,0 +1,89 @@
+<include file="App/Home/View/Public/header.html" />
+							      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+							          <script type="text/javascript" src="__PUBLIC__/js/layer/layer.js"></script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(4).addClass("nav-active")
+});
+ </script>
+				    <div class="head">
+        <div class="headBox">
+             <a class="backIcon" href="javascript:history.go(-1)"></a>
+            <h3>留言</h3>
+            <input type="hidden" id="count" value="14">
+            <a class="searchIcon"></a>
+        </div>
+    </div>
+    
+    <div class="mailTile" style="font-size:16px">
+
+        <div class="mailLT mailSlt">
+           留言
+        </div>
+        <div class="mailRt">
+            <a href="{:U('Message/mc_list')}"> 发件箱</a>
+        </div>
+    </div>
+	<form id="myform">
+    <div class="changeBox" style="height:100%">
+        <div class="search1">
+            <ul style="height:100%">
+			 <li>
+                    <div class="search1Lt">
+                        标题：
+                    </div>
+                    <div class="search1Rt search1Rt2">
+                        <input class="iptTxt" id="title" name="title"  type="text"   >
+                    </div>
+                </li>
+                <li style="height:100%">
+                    <div class="search1Lt">
+                        内容：
+                    </div>
+                    <div >
+                       <textarea style="width:200px;height:100px" name="content" id="content" class="iptTxt" ></textarea>
+                    </div>
+                </li>
+               
+            </ul>
+			<div class="changeBtnBox">
+        <input type="button" id="tijiao" style="width:20%;margin-left:3%" class="changeBtn" style="border:0" value="提交 " onclick="ms_but()">
+    </div>
+        </div>
+		    
+    </div>
+	</form>
+<script>
+				function ms_but(){
+					
+					//var type=$('select').val();//选择问题
+					var title=$('#title').val();
+					var content=$('#content').val();
+					if(title=="" || content==""){
+						layer.msg("信息不全，无法提交留言");return;
+					}
+					$.ajax({
+						  cache: true,
+						  type: "POST",
+						  url:"{:U('Message/add_question')}",
+						  data:$('#myform').serialize(),// 你的formid
+						  async: false,
+						  error: function(request) {
+							  layer.msg(d['info']);
+						  },
+						  success: function(data) {
+							  layer.msg(data['info']);
+							  if(data['status'] == 1){
+								  setTimeout("JumpUrl()",1500);
+							  }
+						  }
+					  });
+				}
+				function JumpUrl(){
+					location.href="{:U('Message/mc_list')}";
+				}
+				
+			</script>
+
+<include file="App/Home/View/Public/footer.html" />
+			

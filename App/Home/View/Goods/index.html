@@ -1,0 +1,79 @@
+
+				<!-- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+                <link href="__PUBLIC__/Home1/css/style.css" rel="stylesheet">
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+				<link href="__PUBLIC__/Home1/css/bootstrap.min.css" rel="stylesheet">
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(3).addClass("nav-active")
+});
+</script>
+<style>
+@media screen and (max-width: 768px){
+	.sticky-header .header-section{
+		left:0;
+	}
+	.main-content{
+		margin-left:0px;
+	}
+	.panelstart{
+		padding:0px;
+		}
+	.wrapper{
+		padding:0px;
+	}
+    .img img{
+		/*margin-left:20%;*/
+}
+
+
+}
+</style>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+				<!--body wrapper start-->
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+						<section  class="panelstart">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel">
+										<div class="panel-heading">
+											<h3 class="panel-title">商品列表</h3>
+										</div>
+										<div class="widget-body innerAll overthrow" style="padding: 20px;overflow: auto;">
+													<volist name='list' id='vo'>
+                                                      <div style="float:left;" class="col-xs-12 col-md-3">
+														<div class="img" style="text-align:center;"><a href="{:U('Goods/details',array('id'=>$vo['id']))}"><img src="{$vo.pic}"></a></div>
+                                                        <div class="particulars"><a class="panel-particulars" href="{:U('Goods/details',array('id'=>$vo['id']))}">{$vo.title}</a><br>
+                                                    	 积分 :   {$vo.price}<br>
+                                                      <a href="{:U('Goods/details',array('id'=>$vo['id']))}">  <input type="button" value="立即购买" class="btn btn-primary"  /></a>
+                                                         <hr/>
+                                                        </div>
+               										  </div>
+               										  </volist>
+                                                       </div>
+											<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+												{$page}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+			
+				<!---------------------------footer引入位置--------------------------->
+			

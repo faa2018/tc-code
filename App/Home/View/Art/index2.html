@@ -1,0 +1,233 @@
+<include file="App/Home/View/Public/header.html" />
+    <link href="__PUBLIC__/zx2/css/scrollbar.css" rel="stylesheet">
+        
+    <style>
+        #wrapper {
+            position: absolute;
+            z-index: 1;
+            top: 84px;
+            bottom: 48px;
+            left: 0;
+            width: 100%;
+            overflow: auto;
+        }
+
+        .middle {
+            padding-bottom: 0px;
+        }
+    </style>
+    <script src="__PUBLIC__/zx2/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="__PUBLIC__/zx2/js/app.js"></script>
+    <script src="__PUBLIC__/zx2/js/Jquery.TouchSwipe.min.js"></script>
+    <script src="__PUBLIC__/zx2/js/iscroll.js"></script> 
+    <script>
+        //日期格式转换
+        function parseDate(date) {
+            var time = date.replace("/Date(", "").replace(")/", "");
+            var date = new Date(parseInt(time));
+            return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : +date.getSeconds());
+        }
+
+        //点击查看详情
+        $(function () {
+            $(".middle").on("tap", ".DD", function () {
+                var Id = $(this).attr("did");
+                location.href = "/InforMationPhone/XiangXi?Id=" + Id;
+            });
+
+            $(".mailTile").on("tap", ".mailRt", function () {
+                location.href = "/InforMationPhone/ZiliaoXiaZaiPhone"
+            });
+
+            $("#sy").click(function () {
+                location.href = "{:U('Index/index')}";
+            });
+            $("#gg").click(function () {
+                location.href = "/InforMationPhone/GongGaoSeach";
+            });
+            $("#xx").click(function () {
+                location.href = "/MailPhone/Mail_SJX";
+            });
+            $("#aq").click(function () {
+                location.href = "/MemberDateUpdatePhone/Index";
+            });
+        });
+
+    </script>
+
+
+
+    <div class="head">
+        <div class="headBox">
+            <a class="backIcon ui-link" href="javascript:history.go(-1)"></a>
+            <h3>公告</h3>
+            <input type="hidden" id="count" value="0">
+        </div>
+    </div>
+    <div class="mailTile">
+        <!--
+         class setting:
+         mailSlt    :   选中邮箱按钮后样式
+        -->
+        <div class="mailSlt" style="text-align:center">
+            公告查阅
+        </div>
+    </div>
+    <div id="wrapper" style="overflow: hidden; left: 0px;">
+        <div id="scroller" style="transition-property: transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) translateZ(0px);">
+            <div class="middle">
+                <table class="table table-bordered table-primary">
+                    <thead>
+                        <tr class="tac">
+                            <th>标题</th>
+                            <th>类型</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="art" item="vo">
+                            <tr class="tac">
+                                <td>{$vo.title}</td>
+                                <td>[ {$vo.type} ]</td>
+                                <td>{$vo.add_time|date="Y-m-d",###}</td>
+                                <td><a href="{:U('Art/see_art',array('id'=>$vo['id']))}">查看</a></td>
+                            </tr>
+                        </foreach>
+                    </tbody>
+                </table>
+                <div class="dataTables_paginate paging_simple_numbers" id="example_paginate" style="text-align:center">
+                  {$page}
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <div class="foot">
+        <div class="footBox">
+            <ul>
+                <li><a class="option1 ui-link" id="sy" href="{:U('Index/index')}">首 页</a></li>
+                <li><a class="option2 optionSlt2 ui-link" id="gg" href="{:U('Art/index')}">公告</a></li>
+                <li><a class="option3 ui-link" id="xx" href="{:U('Message/mc_list')}">消息</a></li>
+               <!--  <li><a class="option4 ui-link" id="aq" href="http://guoji.chibianchina.com/InforMationPhone/GongGaoSeach#">安全修改</a></li> -->
+                 <li><a class="option4 ui-link" id="aq" href="{:U('login/logout')}">安全退出</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+<script type="text/javascript">
+    var HuiFang = {
+        m_tishi: null,//全局变量 判断是否存在div,
+        //提示div 等待2秒自动关闭
+        Funtishi: function (content, url) {
+            if (HuiFang.m_tishi == null) {
+                HuiFang.m_tishi = '<div class="xiaoxikuang none" id="app_tishi" style="z-index:9999;left: 15%;width:70%;position: fixed;background:none;bottom:10%;"> <p class="app_tishi" style="background: none repeat scroll 0 0 #000; border-radius: 10px;color: #fff; margin: 0 auto;padding: 8px;text-align: center;width: 40%;opacity: 0.8; font-family:Microsoft YaHei;letter-spacing: 1px;font-size: 12px;"></p></div>';
+                $(document.body).append(HuiFang.m_tishi);
+            } $("#app_tishi").show();
+            $(".app_tishi").html(content);
+            if (url)
+            { window.setTimeout("location.href='" + url + "'", 1500); }
+            else { setTimeout('$("#app_tishi").fadeOut()', 1500); }
+        },
+    }
+
+
+    var myScroll,
+
+        pullUpEl, pullUpOffset,
+        generatedCount = 0;
+
+
+    /**
+     * 滚动翻页 （自定义实现此方法）
+     * myScroll.refresh();		// 数据加载完成后，调用界面更新方法
+     */
+    function pullUpAction() {
+        setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+            var el, li, i;
+            el = document.getElementById('thelist');
+            pageInfo();
+            myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+        }, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+    }
+    var num = 1;
+    var upmax = Math.ceil($("#count").val() / 5);
+    function pageInfo() {
+        if (num == upmax) {
+            myScroll.refresh();
+            //document.getElementById('pullUp').querySelector('.pullUpLabel').innerHTML = '已经没有更多了...';
+            $("#pullUp").hide();
+            HuiFang.Funtishi("已经加载全部了");
+        }
+        else {
+            num = num + 1 > upmax ? upmax : num + 1;
+            $.ajax({
+                Type: "get",
+                async: false,
+                url: "/InforMationPhone/GetGongGaoSeach?pageIndex=" + num,
+                success: function (data) {
+                    //alert(data);
+                    var f = "";
+                    $.each(data, function (i, ele) {
+                        f += '<div class="DD" did=' + ele.Id + '><ul><li><div class="DDLt">'
+                           + '<b>' + ele.ggTitle + '</b></div>'
+                           + '</li><li>'
+                           + '<div class="DDLt fjxLt">编号：<i>' + ele.OpBh + '</i></div>'
+                           + '<div class="DDRt fjxRt">' + parseDate(ele.OpTime) + '</div>'
+                           + '</li></ul></div>';
+                    })
+                    $(".middle").append(f);
+                }
+            });
+        }
+    }
+    /**
+     * 初始化iScroll控件
+     */
+    function loaded() {
+        pullUpEl = document.getElementById('pullUp');
+        pullUpOffset = pullUpEl.offsetHeight;
+
+        myScroll = new iScroll('wrapper', {
+
+            scrollbarClass: 'myScrollbar', /* 重要样式 */
+            useTransition: false, /* 此属性不知用意，本人从true改为false */
+
+            onRefresh: function () {
+                if (pullUpEl.className.match('loading')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            },
+            onScrollMove: function () {
+                if (this.y < 0 && this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'flip';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                    this.maxScrollY = this.maxScrollY;
+                } else if (this.y < 0 && this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                    this.maxScrollY = pullUpOffset;
+                }
+            },
+            onScrollEnd: function () {
+                if (pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'loading';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+                    pullUpAction();	// Execute custom function (ajax call?)
+                }
+            }
+        });
+
+        setTimeout(function () { document.getElementById('wrapper').style.left = '0'; }, 800);
+    }
+
+    //初始化绑定iScroll控件
+    document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    document.addEventListener('DOMContentLoaded', loaded, false);
+
+</script>
+</div><div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon-loading"></span><h1>loading</h1></div></body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>网站信息设置 </title>
+    <bootstrapcss />
+    <icheckcss />
+</head>
+<body>
+
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <i class="fa fa-home"></i> 首页
+    &gt;
+    系统设置
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+        <a href="{:U('Admin/Config/editConfig')}">网站信息设置</a>
+    </li>
+</ul>
+<form id="bjy-form" class="form-inline" action="{:U('Config/editConfig')}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="uid" value="0">
+	
+	<table class="table table-striped table-bordered table-hover table-condensed">
+	<!-- <tr>
+			<th width="15%"><i class="require-red">*</i>微信二维码：</th>
+			<td>
+				<img style="width: 150px;height: 150px;border: 1px solid;" src="{$weixin.value}">
+			</td>
+		</tr>
+		<tr>
+			<th><i class="require-red"></i></th>
+			<td><input type="file" name="weixin" class="common-text"></td>
+		</tr>
+		<tr>
+			<th width="15%"><i class="require-red">*</i>支付宝二维码：</th>
+			<td>
+				<img style="width: 150px;height: 150px;border: 1px solid;" src="{$zhifu_code.value}">
+			</td>
+		</tr>
+		<tr>
+			<th><i class="require-red"></i></th>
+			<td><input type="file" name="zhifu_code" class="common-text"></td>
+		</tr> -->
+		 <volist name="config" id="vo" >
+	        <tr>
+	            <th>{$vo['name']}</th>
+	            <td>
+	                <input class="form-control" type="text" name="{$vo['key']}" value="{$vo['value']}">
+	            </td>
+	            <td>
+	            </td>
+	        </tr>
+	    </volist> 
+		<tr>
+			<th width="15%"><i class="require-red">*</i>点击结算：</th>
+			<td>
+				<a href='http://www.huasu-nvxing.com//AUTO_Z/auto/ceshi_money_auto.php' target='_blank'>点击结算</a>
+			</td> 
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<input class="btn btn-success" type="submit" value="提交">
+			</td>
+		</tr>
+	</table>
+	
+</form>
+<bootstrapjs />
+<icheckjs color="blue" />
+</body>
+</html>

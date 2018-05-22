@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>修改图标 </title>
+    <bootstrapcss />
+    <icheckcss />
+</head>
+<body>
+
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <i class="fa fa-home"></i> 首页
+    &gt;
+   图标管理
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+ 	<li>
+		 <a href="{:U('Banner/iconList')}" data-toggle="tab">首页图标列表</a>
+   </li>
+   <li class="active">
+        <a href="#">修改图标</a>
+    </li>
+</ul>
+<form id="bjy-form" class="form-inline" action="{:U('Banner/addIcon')}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="id" value="{$list.id}">
+	<table class="table table-striped table-bordered table-hover table-condensed">
+		<tr>
+			<th>图片</th>
+            <td>
+            	<div class="field" id="preview">
+            	<input type="hidden" name="pic" value="{$list.pic}">
+                 <img style="width: 200px;height:200px;border: 1px solid;" src="{$list.pic}">
+                 </div>
+            </td>
+		</tr>
+		<tr>
+			<th><i class="require-red">*</i>图片上传：</th>
+			<td><a href=''><input size="100" type="file" name="pic" onchange="preview(this)"/></a></td>
+		</tr>		
+		<tr>
+			<th><i class="require-red">*</i>标题：</th>
+			<td>
+				<input class="form-control" type="text" name="title" value="{$list.title}">
+			</td>
+		</tr>
+		<tr>
+			<th><i class="require-red">*</i>排序：</th>
+			<td>
+				<input class="form-control" type="text" name="sort" value="{$list.sort}">
+			</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<input class="btn btn-success" type="submit" value="提交">
+			</td>
+		</tr>
+	</table>
+</form>
+<script type="text/javascript">    
+ function preview(file)  
+ {  
+ var prevDiv = document.getElementById('preview');  
+ if (file.files && file.files[0])  
+ {  
+ var reader = new FileReader();  
+ reader.onload = function(evt){  
+ prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+}    
+ reader.readAsDataURL(file.files[0]);  
+}  
+ }
+ </script>
+<bootstrapjs />
+<icheckjs color="blue" />
+</body>
+</html>

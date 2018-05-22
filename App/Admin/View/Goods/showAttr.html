@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>  
+    <link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+    <link rel="stylesheet" href="/Public/Admin/css/admin.css">
+    <script src="/Public/Admin/js/jquery.js"></script>
+    <script src="/Public/Admin/js/pintuer.js"></script>  
+    <script src="/Public/js/jquery-2.1.1.min.js"></script>  
+	
+    <script src="/Public/js/layer/layer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 商品属性</strong></div>
+ <form method="post" action="{:U('Message/index')}" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 属性列表</strong> </div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="{:U('Goods/addAttr',array('cat_id'=>$cat_id))}"> 添加属性</a> </li>必须设置一个价格依赖
+      </ul>
+    </div>
+	<div class="table-responsive">
+    <table class="table table-hover text-center">
+      <thead>
+		<tr>
+			<th >序号</th>
+			<th >名称</th>
+			<th >属性详细</th>
+			<th >是否价格依赖</th>
+			<th >操作</th>
+		</tr>
+      </thead>
+	  <tbody>
+      <volist name="list" id="vo" key='k'>
+        <tr>
+          
+          <td>{$k}</td>
+          <td>{$vo.name}</td>
+          <td>{$vo.detail}</td>
+          <td><eq name="vo['is_yilai']" value="1">是<else/>否</eq></td>
+          <td>
+				<a href="{:U('Goods/delAttr',array('attr_id'=>$vo['attr_id'],'cat_id'=>$vo['cat_id']))}"  class="button border-red icon-trash-o">删除</a>
+				<a href="{:U('Goods/addAttr',array('attr_id'=>$vo['attr_id'],'cat_id'=>$vo['cat_id']))}"  class="button border-main icon-search"  >修改</a>
+				<eq name="vo['is_yilai']" value="0">
+				<a href="{:U('Goods/setYilai',array('attr_id'=>$vo['attr_id'],'cat_id'=>$vo['cat_id']))}"  class="button border-main icon-search"  >价格依赖</a>
+				</eq>
+		  </td>
+        </tr>
+   	  </volist>
+       </tbody> 
+    </table>
+	</div>
+  </div>
+</form>
+  <div class="pagelist"> <ul>{$page}</ul></div>
+</div>
+
+
+</body></html>

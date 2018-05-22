@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>会员管理</title>
+	<bootstrapcss />
+</head>
+<script src="/Public/Admin/js/jquery.min.js"></script>
+<script src="/Public/Admin/js/jquery.js"></script>
+     <script src="/Public/js/laydate/laydate.js"></script>
+<body>
+<!-- 导航栏开始 -->
+
+<div class="bjy-admin-nav">
+	<a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+	&gt;
+	管理员修改资金记录
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+		 <a href="#home" data-toggle="tab">管理员修改资金记录</a>
+   </li>
+</ul>
+<form>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+            <th width="5%">搜索</th>
+            <td width="15%">
+               	<input class="form-control" type="text" name="username" value="{$Think.post.username|default=''}"  placeholder="用户名" >
+            </td>
+            <td width="80%">
+                <input class="btn btn-success" type="submit" value="搜索">
+            </td>
+        </tr>
+    </table>
+</form>
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr>
+				<th width="10%">资金类型</th>
+				<th width="15%">用户名</th>
+				<th width="15%">管理员</th>
+				<th width="15%">类型</th>
+				<th width="15%">增减</th>
+				<th width="10%">金额</th>
+				<th width="10%">说明</th>
+				<th width="30%">时间</th>
+			</tr>
+			<volist name="list" id="v">
+				<tr>
+					<td><eq name="v.type" value="1">{$v.money_type}<else/>{$v.coin_type}</eq></td>
+					<td>{$v['username']|default='未知'}</td>
+					<td>{$v['admin_name']|default='未知'}</td>
+					<td><eq name="v.type" value="1">[ 资金 ]<else/>[  ]</eq></td>
+					<td><eq name="v.inc_type" value="1">增加<else/>减少</eq></td>
+					<td>{$v['num']|default='暂无'}</td>
+					<td>{$v['desc']|default='暂无'}</td>
+					<td>{$v['add_time']|date='Y-m-d H:i:s',###}</td>
+				</tr>
+			</volist>
+		</table>
+		<div class="xb-page" style="margin-bottom:50px;">{$page}</div>
+   </div>
+</div>
+<bootstrapjs />
+</body>
+</html>

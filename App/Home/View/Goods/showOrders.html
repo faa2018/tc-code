@@ -1,0 +1,180 @@
+<include file="App/Home/View/Public/header.html" />  
+<!--头部导航结束-->
+<!--核对订单信息开始-->
+<div class="container mt-40" style="background-color: #FFF;">
+	<div class="settlement_content">
+		<div class="fl">收货人信息</div>
+		<div class="fr" onClick="add_address()"><a href="#">新增收货地址</a></div>
+		<div class="clear"></div>
+		<foreach name="address" item="vo">
+			<div class="fl add_ch" style="margin-top:15px;width:10px;"><input type="radio" name="address" id="{$vo['id']}"></div>
+			<div class="settlement_address">{$vo['name']} - {$vo['phone']} -  {$vo['address']}</div>
+			<eq name="vo['is_moren']" value="1">
+				<div class="settlement_default">默认地址</div>
+				<else/>
+				<div class="settlement_default" onclick="setMoren({$vo['id']})">设为默认</div>
+			</eq>
+			<div class="clear"></div>
+		</foreach>
+		<div class="qwe table-responsive">
+			<form class="form-horizontal register_form" id="myform">
+				<div class="form-group mt-10">
+					<label for="inputEmail3" class="col-sm-2 col-xs-6 control-label tl">所在地区</label>
+					<div class="col-sm-8 col-xs-10">
+						<select id="selProvince">
+							<option value="0">--请选择省份--</option>
+						</select><select id="selCity">
+							<option value="0">--请选择城市</option>
+						</select>
+						<select id="selDistrict">
+							<option value="0">--请选择区/县--</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group mt-10">
+					<label for="inputEmail3" class="col-sm-2 control-label tl">收货人</label>
+					<div class="col-sm-8">
+						<input type="text" id="names" class="form-control" placeholder="请输入收货人姓名" name="tuijian">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword3" class="col-sm-2 control-label tl" >详细地址</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" placeholder="请输入详细地址" name="pass" id="xiangxi">
+					</div>
+				</div>
+				<div class="form-group mt-10">
+					<label for="inputEmail3" class="col-sm-2 control-label tl">手机号</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="phone" placeholder="请输入手机号" id="phone" name="phone">
+					</div>
+				</div>
+				<div class="form-group" style="text-align: center;">
+					<input type="button" class="col-sm-offset-1 col-sm-9 index_login_btn" value="保存" style="font-size: 18px; margin-top: 15px;" onClick="save()">
+				</div>
+				<div class="clear"></div>
+			</form>
+		</div>
+		<div class="settlement_division"></div>
+		<div class="fl">支付方式</div>
+		<div class="fr"><a href="#">返回修改购物车</a></div>
+		<div class="clear"></div>
+		<div class="change1 change mt-15 col-xs-6" onClick="change(this)">
+			<div class="change1_img" status="1"></div>
+			<div class="change_option">七乐积分</div>
+		</div>
+		<div class="change2 change mt-15 col-xs-6" onClick="change(this)">
+			<div class="change2_img" status="2"></div>
+			<div class="change_option">消费积分</div>
+		</div>
+		<div class="clear"></div>
+		<div class="settlement_division"></div>
+		<div class="clear"></div>
+		<div class="fl">送货清单</div>
+		<div class="clear"></div>
+		<foreach name="carts" item="vo">
+		<div class="row cart_shopping">
+			<div class="col-md-2" style="width: 11%;">
+				<div class="fl tl">
+					<img src="{$vo['goods']['image']}" class="w_100">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="col-md-5 cart_details">
+				<div class="fl">{$vo['goods']['name']}</div>
+			</div>
+			<div class="col-md-2 col-xs-4 xie_gai cart_total">￥<span>{$vo['goods']['price']}</span></div>
+			<div class="col-md-2 col-xs-4 xie_gai cart_total">数量：X<span>{$vo['num']}</span></div>
+		</div>	
+		</foreach>
+	</div>
+	<div class="settlement_result">
+		<div class="settlement_submit" onclick="tijiao()">提交订单</div>
+		<!-- <div class="settlement_infomation">收货人：郭德纲&nbsp;&nbsp;&nbsp;12345678998&nbsp;&nbsp;&nbsp;收货地址：北京朝阳区北四环中路27号&nbsp;&nbsp;&nbsp;</div> -->
+		<div class="clear"></div>
+	</div>
+</div>
+<!--核对订单信息结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />  
+
+<script>
+function change(_this){
+	
+	$(_this).find("div:first-child").removeClass("change2_img").addClass("change1_img");
+	$(_this).siblings(".change").find("div:first-child").removeClass("change1_img").addClass("change2_img");
+}
+function add_address(){
+	$(".qwe").css("display","block")
+}
+
+
+function setMoren(id){
+	$.post("{:U('Goods/setMoRenAddress')}",{'address_id':id},function(d){
+		layer.msg(d['msg']);
+		if(d['status'] == 1){
+			window.location.reload();
+		}
+	},'json');
+}
+
+function tijiao(){
+	var information = $("input:radio[name='address']:checked").attr("id");
+	var type = $(".change1_img").attr("status");
+	$.post("{:U('Goods/submitOrders')}",{'type':type,'address_id':information},function(d){
+		layer.msg(d['msg']);
+		if(d['status'] == 1){
+			//alert("提交成功");
+			window.location.href="{:U('Order/index')}";
+		}
+	},'json');
+}
+
+function save(){
+	var selProvince = $('#selProvince option:selected').text();
+	var selCity = $('#selCity option:selected').text();
+	var selDistrict = $('#selDistrict option:selected').text();
+	var address_new = selProvince+','+selCity+','+selDistrict
+	//console.log(address_new);
+	var names = $('#names').val();
+	var phone = $('#phone').val();
+	var xiangxi = $('#xiangxi').val();
+	$.post("{:U('Goods/newAddress')}",{'name':names,'phone':phone,'address':address_new,'xiangxi':xiangxi},function(d){
+		layer.msg(d['msg']);
+		if(d['status'] == 1){
+			window.location.reload();
+		}
+	},'json');
+	$(".qwe").css("display","none");
+}
+</script>
+<script type="text/javascript">
+
+$(function() {
+    $.each(provinceJson, function(k, p) {
+        var option = "<option value='" + p.id + "'>" + p.province + "</option>";
+        $("#selProvince").append(option);
+    });
+    $("#selProvince").change(function() {
+        var selValue = $(this).val();
+        $("#selCity option:gt(0)").remove();
+        $.each(cityJson, function(k, p) {
+            // 直辖市处理.|| p.parent == selValue，直辖市为当前自己
+            if (p.id == selValue || p.parent == selValue) {
+                var option = "<option value='" + p.id + "'>" + p.city + "</option>";
+                $("#selCity").append(option);
+            }
+        });
+    });
+    $("#selCity").change(function() {
+        var selValue = $(this).val();
+        $("#selDistrict option:gt(0)").remove();
+        $.each(countyJson, function(k, p) {
+            if (p.parent == selValue) {
+                var option = "<option value='" + p.id + "'>" + p.county + "</option>";
+                $("#selDistrict").append(option);
+            }
+        });
+    });
+});
+</script>

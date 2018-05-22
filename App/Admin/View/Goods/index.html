@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>  
+    <link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+    <link rel="stylesheet" href="/Public/Admin/css/admin.css">
+    <script src="/Public/Admin/js/jquery.js"></script>
+    <script src="/Public/Admin/js/pintuer.js"></script>  
+    <script src="/Public/js/jquery-2.1.1.min.js"></script>  
+    <script src="/Public/js/layer/layer.js"></script>
+</head>
+<body>
+<script>
+//页面层
+function save(id){
+	$('#abc').val(id);
+layer.open({
+  type: 1,
+  skin: 'layui-layer-rim', //加上边框
+  area: ['420px', '240px'], //宽高
+  content: '<div id="close" style="font-size:16px;padding:30px;"><center><span>设置销量：</span><input type="text" id="jifen_a"/></center></div><center><div style="font-size:12px;"><input onclick="jifen()"  type="button" class="btn btn-success" value="确定" style="margin-right:10px;padding:3px 6px;"/></div></center>'
+});
+
+}
+function jifen(){
+	var id = $("#abc").val();
+	var jifen = $("#jifen_a").val();
+	$.post("{:U('Goods/setSaleCount')}",{id:id,num:jifen},function(d){
+		if(d.status==1){
+			alert("操作成功");
+			window.location.reload();
+		}else{
+			alert("参数错误，稍后再试");
+		}
+	})
+}
+</script>
+<input id="abc" type="hidden">
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 商品列表</strong></div>
+ 
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 商品列表</strong> </div>
+   <form method="post" action="{:U('Goods/index')}" id="listform">
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="{:U('Goods/addGoods')}"> 添加商品</a> </li>
+      <li>
+          <input type="text" placeholder="{$search|default='请输入商品名称关键字'}" name="name" class="input" value="{$search_title}" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+      </ul>
+    </div>
+    </form>
+    <script>
+    function changesearch(){	
+		$('#listform').submit();
+}
+    </script>
+	<div class="table-responsive">
+    <table class="table table-hover text-center">
+      <thead>
+		<tr>
+			<th >序号</th>
+			<th width='20%'>名称</th>
+			<th >图片</th>
+			<th >所属企业</th>
+			<th >是否在售</th>
+			<!-- <th >是否推荐</th> -->
+			<th >操作</th>
+		</tr>
+      </thead>
+	  <tbody>
+      <volist name="list" id="vo" key='k'>
+        <tr>
+          
+          <td>{$k}</td>
+          <td>{$vo.name}</td>
+          <td><img src="{$vo['image']}" style="width:50px;"></td>
+          <td>{$vo.title}</td>
+          <td><eq name="vo['is_sale']" value="1">是<else/>否</eq></td>
+         <!--  <td><eq name="vo['is_tuijian']" value="1">是<else/>否</eq></td> -->
+          <td>
+          <a href="javascript:if(confirm('确定删除？'))location='{:U('Goods/delGoods',array('goods_id'=>$vo['goods_id']))}'" class="button border-red icon-trash-o">删除</a>
+				<a href="{:U('Goods/addGoods',array('goods_id'=>$vo['goods_id']))}"  class="button border-main icon-search"  >修改</a>
+<!-- 				<a href="{:U('Goods/images',array('goods_id'=>$vo['goods_id']))}"  class="button border-main "  >多图管理</a> -->
+				<!-- <a href="{:U('Goods/tuijian',array('goods_id'=>$vo['goods_id']))}"  class="button border-main"  >
+				<eq name="vo['is_tuijian']" value="1">取消推荐商品<else/>设置推荐商品</eq></a>
+				 --><!-- <a href="javascript:;" onclick="save({$vo['goods_id']})"  class="button border-main"  >
+				设置销量</a> -->
+				<a href="{:U('Goods/setSale',array('goods_id'=>$vo['goods_id']))}"  class="button border-main"  >
+				<eq name="vo['is_sale']" value="1">下架商品<else/>上架商品</eq></a>
+				<a href="{:U('Goods/toComment',array('goods_id'=>$vo['goods_id']))}"  class="button border-main "  >评价管理[{$vo.comment}]</a>
+				</td>
+        </tr>
+   	  </volist>
+       </tbody> 
+    </table>
+	</div>
+  </div>
+
+  <div class="pagelist"> <ul>{$page}</ul></div>
+</div>
+
+
+</body></html>

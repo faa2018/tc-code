@@ -1,0 +1,205 @@
+<include file="App/Home/View/Public/left.html" />
+<script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(0).addClass("nav-active")
+});
+</script>
+				
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+					
+						<section>
+							<div class="row">
+								<div class="col-md-6 tablet-column-reset" style="padding: 10px 40px;">
+
+									<div class="panel panel-default">
+										<div class="panel-heading">
+                            <h3 class="panel-title">帐户详情</h3>
+                        </div>
+										<form class="form-horizontal margin-none" id="loginForm" method="post" action="{:U('User/updateMessage')}" onSubmit="return checkform_profile1();">
+											<input type="hidden" name="id" value="{$list.id}">
+											<div class="widget-body" style="padding: 20px;overflow: auto;">
+											
+											
+												<div class="form-group">
+													<label class="col-md-4 control-label">登录用户名 :</label>
+													<div class="col-md-8">
+														<input type="text" autocomplete="off" value="{$list.username}" id="usernameq" class="form-control" name="account" required readonly>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">手机号码 :</label>
+													<div class="col-md-8">
+														<input id="phone" type="text"  value="{$list.phone}" id="phone" class="form-control" name="phone" required readonly >
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">邮箱 :</label>
+													<div class="col-md-8">
+														<input type="text" require value="{$list.email}" id="truename" class="form-control" name="name" required readonly >
+													</div>
+												</div>
+
+												<div style="clear:both;"></div>
+
+											</div>
+											<footer class="data-footer innerAll half text-right clearfix">
+												<!-- <button type="submit" class="btn btn-primary btn-sm">更新</button> -->
+											</footer>
+										</form>
+									</div>
+								</div>
+								
+
+								<div class="col-md-6 tablet-column-reset" style="padding: 10px 40px;">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+                            <h3 class="panel-title">修改登录密码</h3>
+                        </div>
+										<form class="form-horizontal margin-none" id="myform">
+											<div class="widget-body" style="padding: 20px;overflow: auto;">
+												<!-- <div class="form-group">
+													<label class="col-md-4 control-label" for="firstname">原密码 :</label>
+													<div class="col-md-8">
+														<div class="controls">
+															<input type="password" class="form-control" name="old_password" value="" required id="old_password"/>
+														</div>
+													</div>
+												</div> -->
+												<div class="form-group">
+													<label class="col-md-4 control-label" for="firstname">新密码 :</label>
+													<div class="col-md-8">
+														<div class="controls">
+															<input type="password" class="form-control" name="new_password" value="" required id="new_password" />
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">确认新密码 :</label>
+													<div class="col-md-8"><input class="form-control" id="confirm_password" name="confirm_password" value="" type="password" required></div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">手机验证码 :</label>
+													<div class="col-md-8"><input style="border: 1px solid #ccc;height: 34px;color: #555;border-radius: 4px;outline:none;width:50%;" name="phone_code" value="" type="text" required>
+													<input id="phone" style=" color: #0e131d; background-color: #c1c8d2;" class="btn btn-primary btn-sm"  value="发送验证码" onclick="sendPhone()" type="button"></div>
+												</div>
+											</div>
+											<footer class="data-footer innerAll half text-right clearfix">
+												<button type="button" class="btn btn-primary btn-sm" onclick="savepwd();">更新</button>
+											</footer>
+										</form>
+										<script>
+										function savepwd(){
+								            $.ajax({
+								                cache: true,
+								                type: "POST",
+								                url:"{:U('User/updatePwd')}",
+								                data:$('#myform').serialize(),// 你的formid
+								                async: false,
+								                error: function(request) {
+								                    layer.msg(d['info']);
+								                },
+								                success: function(data) {
+								                    layer.msg(data['info']);
+								                    if(data['status'] == 1){
+								                        setTimeout("JumpUrl()",1500);
+								                    }
+								                }
+								            });
+								        }
+										function JumpUrl(){
+										            location.href="{:U('Login/index')}";
+										        }
+										function sendPhone(){
+									        var phone = $('#phone').val();
+									        $.post("{:U('User/sendphone')}",{'type':1},function(d){
+									        layer.msg(d['info']);
+									        });
+									     }	
+										</script>
+									</div>
+								<div class="panel panel-default" style="margin-top: 20px;">
+										<div class="panel-heading">
+                            <h3 class="panel-title">修改二级密码</h3>
+                        </div>
+										<form class="form-horizontal margin-none" id="myform1">
+											<div class="widget-body" style="padding: 20px;">
+												<!-- <div class="form-group">
+													<label class="col-md-4 control-label" for="firstname">原二级密码 :</label>
+													<div class="col-md-8">
+														<div class="controls">
+															<input type="password" class="form-control" name="old_twopwd" value="" required id="pwd" />
+														</div>
+													</div>
+												</div> -->
+												<div class="form-group">
+													<label class="col-md-4 control-label" for="firstname">新二级密码 :</label>
+													<div class="col-md-8">
+														<div class="controls">
+															<input type="password" class="form-control" name="new_twopwd" value="" required  id="npwd1"/>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label">确认新二级密码 :</label>
+													<div class="col-md-8"><input class="form-control" id="npwd2" name="renew_twopwd" value="" type="password" required></div>
+												</div>
+												<!-- <div class="form-group">
+													<label class="col-md-4 control-label">手机号 :</label>
+													<div class="col-md-8"><input class="form-control" id="phone" name="phone" value="" type="text" required></div>
+												</div> -->
+												<div class="form-group">
+													<label class="col-md-4 control-label">手机验证码 :</label>
+													<div class="col-md-8"><input style="border: 1px solid #ccc;height: 34px;color: #555;border-radius: 4px;outline:none;width:50%;" name="phone_code" value="" type="text" required>
+													<input id="phone" style=" color: #0e131d; background-color: #c1c8d2;" class="btn btn-primary btn-sm"  value="发送验证码" onclick="sendPhone()" type="button"></div>
+												</div>
+											</div>
+											<footer class="data-footer innerAll half text-right clearfix">
+												<button type="button" class="btn btn-primary btn-sm" onclick="savetwopwd();">更新</button>
+											</footer>
+										</form>
+									<script>
+									function savetwopwd(){
+							            $.ajax({
+							                cache: true,
+							                type: "POST",
+							                url:"{:U('User/updateTwopwd')}",
+							                data:$('#myform1').serialize(),// 你的formid
+							                async: false,
+							                error: function(request) {
+							                    layer.msg(d['info']);
+							                },
+							                success: function(data) {
+							                    layer.msg(data['info']);
+							                    if(data['status'] == 1){
+							                        setTimeout("JumpUrl()",1500);
+							                    }
+							                }
+							            });
+							        }
+										</script>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+				
+				<!---------------------------footer引入位置--------------------------->
+	

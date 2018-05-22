@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<script src="/Public/Admin/js/jquery.js"></script>
+<script src="/Public/Admin/js/pintuer.js"></script>
+<link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+<link rel="stylesheet" href="/Public/Admin/css/admin.css">
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh_CN.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/kindeditor/plugins/prettify.js"></script>
+<style>
+.pic_text{
+	<eq name="list.type" value="pic_text" > <else />display:none</eq>
+}
+.text{
+	<eq name="list.type" value="text"><else />display:none</eq>
+};
+</style>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>商品添加</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:U('Goods/doAddGoods')}" enctype="multipart/form-data">
+	<input type="hidden" name="cat_id" value="{$list.cat_id}" />
+      <div class="form-group">
+        <div class="label">
+          <label>图片</label>
+        </div>
+        <div class="field" id="preview">
+         <input type="hidden" name="pic" value="">
+                <img style="width:250px;height:250px;border: 1px solid;" src="{$goods['image']}"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>图片上传</label>
+        </div>
+        <div class="field" id="preview">
+			<a href=''><input size="100" type="file" name="image" onchange="preview(this)"/></a>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>名称</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="name" value="{$goods.name}"  data-validate="required:名称"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>所属企业</label>
+        </div>
+        <div class="field" id="cats">
+          <select name="cat" id="select" onchange="getChild()" class="button border-main icon-search">
+			<option value="">请选择</option>
+		  <volist name="cat" id="vo">
+			<option value="{$vo['cat_id']}" <eq name='goods.cat_id' value='$vo.cat_id'>selected</eq> >{$vo['name']}</option>
+		  </volist>
+		  </select>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>价格</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="price" value="{$goods.price}"  data-validate="required:价格"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+		  <!-- <div class="form-group">
+			<div class="label">
+			  <label>属性</label>
+			</div>
+			<div class="field" id="attr">
+			<foreach name="attr" item="vo">
+			<eq name="vo['is_yilai']" value="1">
+				<foreach name="vo['totle']" item="co">
+					{$vo['name']}<input type="text" name="{$co['attr_val']}" value="{$co['attr_val']}" readonly> 
+					<input type="text" name="{$co['attr_val']}_jiage" placeholder="价格" value="{$co['price']}">
+					<input type="text" name="{$co['attr_val']}_kucun" placeholder="库存" value="{$co['attr_kucun']}">
+					<input type="text" name="{$co['attr_val']}_jifen" placeholder="积分价格" value="{$co['jifen']}">
+					<input type="text" name="{$co['attr_val']}_fanjifen" placeholder="返还积分" value="{$co['fanjifen']}">
+					是否推荐<input type="radio" name="yilai" value="{$co['attr_val']}" <eq name="co['is_price_main']" value="1">checked</eq>><br/>
+				</foreach>
+			<else/>
+			<foreach name="vo['totle']" item="co">
+					{$vo['name']}:{$co['key']}:<input type="checkbox" name="{$vo['attr_id']}_check[]" value="{$co['key']}" <eq name="co['status']" value="1">checked</eq>>
+				</foreach>
+			</eq>
+			</foreach>
+			
+			</div>
+      </div> -->
+<!--       <div class="form-group" >
+        <div class="label">
+          
+        </div>
+        <font style="color:red;font-size:18px;">现金商品不要填写积分价，积分商品不要填写现金价格，注意将<strong>第一个</strong>属性勾选是否推荐</font>
+          
+      </div> -->
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>邮费</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="send_money" value="{$goods.send_money}"  data-validate="required:邮费"  />
+		  <input type="hidden" value="{$goods_id}" name="goods_id">
+          <div class="tips">包邮则填写 0，货到付款填写9999，积分商品默认货到付款</div>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <div class="label">
+          <label>商品短描述</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="content" value="{$goods.content}"  data-validate="required:描述"  />
+		  <input type="hidden" value="{$goods_id}" name="goods_id">
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>商品详情</label>
+        </div>
+        <div class="field">
+          <textarea id="content" name="content_all" cols="30" style="width:800px;height:300px;" rows="10">{$goods.content_all}</textarea>
+		  <script>									
+                    KindEditor.ready(function(K) {
+                            window.editor = K.create('#content');	
+                    });
+
+            </script>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <div class="label">
+          <label>PC版商品详情</label>
+        </div>
+        <div class="field">
+          <textarea id="content1" name="content_all_pc" cols="30" style="width:800px;height:300px;" rows="10">{$goods.content_all_pc}</textarea>
+		  <script>									
+                    KindEditor.ready(function(K) {
+                            window.editor = K.create('#content1');	
+                    });
+
+            </script>
+          <div class="tips"></div>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+	function changeSelect(b){
+	
+		var c = $(b).val();
+		//alert(c);
+		if(c == ''){
+			$(".text").css('display','none');
+			$(".pic_text").css('display','none');
+		}else if(c == 'text'){
+		
+			$(".text").css('display','block');
+			$(".pic_text").css('display','none');
+			$("#text_content").attr('data-validate','required:请输入文本内容');
+			$("#text_content").attr('name','content');
+			$("#pic_url").attr('data-validate','');
+			$("#pic_pic").attr('data-validate','');
+			$("#pic_con").attr('data-validate','');
+			$("#pic_title").attr('data-validate','');
+			$("#pic_url").attr('name','');
+			
+		}else{
+			$(".text").css('display','none');
+			$(".pic_text").css('display','block');
+			$("#pic_url").attr('name','content');
+			$("#pic_url").attr('data-validate','required:请输入图文地址');
+			$("#pic_pic").attr('data-validate','required:请输入图文地址');
+			$("#pic_con").attr('data-validate','required:请输入图文地址');
+			$("#pic_title").attr('data-validate','required:请输入图文地址');
+			$("#text_content").attr('data-validate','');
+			$("#text_content").attr('name','');
+		}
+	}
+</script>
+<script type="text/javascript"> 
+	function getAttr(){
+		var cat_id = $('#select2').val();
+		$('#attr').empty();
+		$.post("{:U('Goods/getAttr')}",{'cat_id':cat_id},function(d){
+			var length = d.length;
+			for(i=0;i<length;i++){
+				if(d[i]['is_yilai']==1){
+					for(k=0;k<d[i]['attr'].length;k++){
+						$('#attr').append(d[i]['name']+':<input type="text" name="'+d[i]['attr'][k]+'" value="'+d[i]['attr'][k]+'" readonly> <input type="text" name="'+d[i]['attr'][k]+'_jiage" placeholder="价格"><input type="text" name="'+d[i]['attr'][k]+'_kucun" placeholder="库存"><input type="text" name="'+d[i]['attr'][k]+'_jifen" placeholder="积分价格">是否推荐展示<input type="radio" name="yilai" value="'+d[i]['attr'][k]+'"><br/>');
+					}
+				}else{
+					$('#attr').append(d[i]['name']);
+					for(k=0;k<d[i]['attr'].length;k++){
+						$('#attr').append(d[i]['attr'][k]+':<input type="checkbox" name="'+d[i]['attr_id']+'_check[]" value="'+d[i]['attr'][k]+'">');
+					}
+					$('#attr').append("<br/>");
+				}
+			}
+		},'json');
+	}   
+	function getChild(){
+		var pid = $('#select').val();
+		$('#attr').empty();
+		$('#select3').empty();
+		$('#select3').append("<option value=''>请选择</option>")
+		$.post("{:U('Goods/getCatChildByPid')}",{'pid':pid},function(d){
+		var length = d.length;
+			for(i=0;i<length;i++){
+				$('#select3').append("<option value='"+d[i]['cat_id']+"'>"+d[i]['name']+"</option>")
+			}
+		});
+	}
+	function getChild1(){
+		var pid = $('#select3').val();
+		$('#attr').empty();
+		$('#select2').empty();
+		$('#select2').append("<option value=''>请选择</option>")
+		$.post("{:U('Goods/getCatChildByPid')}",{'pid':pid},function(d){
+		var length = d.length;
+			for(i=0;i<length;i++){
+				$('#select2').append("<option value='"+d[i]['cat_id']+"'>"+d[i]['name']+"</option>")
+			}
+		});
+	}
+ function preview(file)  
+ {  
+ var prevDiv = document.getElementById('preview');  
+ if (file.files && file.files[0])  
+ {  
+ var reader = new FileReader();  
+ reader.onload = function(evt){  
+ prevDiv.innerHTML = '<img src="' + evt.target.result + '" style="width:250px;height:250px;border: 1px solid;"/>';  
+}    
+ reader.readAsDataURL(file.files[0]);  
+}  
+ }
+ </script>
+</body></html>

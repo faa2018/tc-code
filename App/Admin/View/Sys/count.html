@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>系统统计信息 </title>
+    <bootstrapcss />
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+    &gt;
+    系统统计信息
+</div>
+<!-- 导航栏结束 -->
+<div style="padding-top:30px;">
+<div class="result-wrap">
+        <div class="result-title">
+            <h1></h1>
+        </div>
+        <div class="result-content">
+            
+		<table class="table table-striped table-bordered table-hover table-condensed">
+					
+                <volist name='sys' id='vo'>
+					<tr style="text-align:center">
+					   <td colspan='2'><h2>{$vo.month}月</h2></td>
+					</tr>
+					<tr>
+						<td width="20%">总收入</td>
+						<td width="20%">{$vo.money_s}</td>
+					</tr>
+					<tr>
+						<td width="20%">总支出</td>
+						<td width="20%">{$vo.money_z}</td>
+					</tr>
+					<tr>
+					   <td width="20%">上次统计时间</td>
+						<td width="20%">{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+					</tr>
+					
+				</volist>
+				<tr>
+					<td style="text-align:center" colspan='2'><a class="btn btn-success" href="/Admin/Sys/count/last_time/{$last_time}">统计 </a></td>
+					
+				</tr>
+				<tr>
+					<td style='color:red;' colspan='2'>备注：
+						<br>1.需点击按钮统计收支数据，本数据统计根据财务日志记录。
+						<br>2.统计只能统计本月和上月。请不要超出期限，否则统计可能出现问题。
+						<br>3.如果数据量较大，可能速度较慢，请等待。
+						<br>4.本统计只做参考作用，请保证确认好全部财务日志才会统计准确数据。
+					</td>
+				</tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="xb-page">{$page}</div>
+<bootstrapjs />
+</body>
+</html>

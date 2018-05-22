@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>会员管理</title>
+	<bootstrapcss />
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+	<a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+	&gt;
+	币种管理
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+		 <a href="#home" data-toggle="tab">币种列表</a>
+   </li>
+	<li>
+		<a href="{:U('Currency/addCurrency')}">添加/修改币种</a>
+	</li>
+</ul>
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr>
+				<th width="8%">编号</th>
+				<th width="8%">币种名称</th>
+				<th width="8%">币种缩写</th>
+				<th width="8%">提币市值</th>
+				<th width="8%">充币路径</th>
+				<th width="8%">钱包名</th>
+				<th width="8%">钱包密码</th>
+				<th width="8%">钱包IP地址</th>
+				<th width="8%">端口号</th>
+				<th width="8%">总开关</th>
+				<th width="8%">添加时间</th>
+				<th width="8%">操作</th>
+			</tr>
+			<foreach name="list" item="v">
+				<tr>
+					<td>{$v['id']}</td>
+					<td>{$v['name']|default='暂无'}</td>
+					<td>{$v['mark']|default='暂无'}</td>
+					<td>{$v['bili']|default='暂无'}</td>
+					<td>{$v['url']|default='暂无'}</td>
+					<td>{$v['rpc_username']|default='暂无'}</td>
+					<td>{$v['rpc_pwd']|default='暂无'}</td>
+					<td>{$v['rpc_host']|default='暂无'}</td>
+					<td>{$v['rpc_port']|default='暂无'}</td>
+					<td>
+					<eq name="v.switch" value="0">
+					关闭
+					<else/>
+					开启
+					</eq>
+					</td>
+					<td>{$v.add_time|date='Y-m-d H:i:s',###}</td>
+					<td>
+						<a href="{:U('Currency/addCurrency',array('id'=>$v['id']))}">修改</a> |
+						<a href="{:U('Currency/setCurrencySwitch', array('id'=>$v['id']))}">
+						<eq name="v.switch" value="0">
+						开启
+						<else/>
+						关闭
+						</eq>
+                       </a>
+					</td>
+				</tr>
+			</foreach>
+		</table>
+   </div>
+</div>
+<bootstrapjs />
+</body>
+</html>

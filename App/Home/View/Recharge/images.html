@@ -1,0 +1,57 @@
+<include file="App/Home/View/Public/header.html" />
+    <style>
+        .fly_11 {
+            display: none;
+            position: absolute;
+            top: 60px;
+            width: 80%;
+            background: #F50;
+            height: 350px;
+            left: 10%;
+            right: 10%;
+            border-radius: 5px;
+        }
+    </style>
+
+
+    <div class="head">
+        <div class="headBox">
+             <a class="backIcon" href="javascript:history.go(-1)"></a>
+            <h3>充值申请</h3>
+            <!--<a class="searchIcon deleteIcon"></a>-->
+        </div>
+    </div>
+
+    <div class="middle">
+            <div>
+                <div style="margin-left:45%;">
+                    <!-- <p><a href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#" id="cksm">查看说明</a></p> -->
+                </div>
+            </div>
+            <ul>
+                <li>
+                    <div class="changeLt">请使用<eq name="payway" value="1">微信<else/>支付宝</eq>扫描下面的二维码</div>
+                    <div class="changeRt">
+                        <i><img src="{$image}"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="fly_11" style="display:none;">
+            <div>
+               
+            </div>
+
+
+        </div>
+
+
+        
+        <input type="hidden" id="hide">
+		</form>
+        <div class="changeBtnBox zc">
+            已完成？<a class="changeBtn" id="btn_Apply" href="{:U('Recharge/index')}">返&nbsp;&nbsp;&nbsp;&nbsp;回</a>
+        </div>
+    </div>
+  <include file="App/Home/View/Public/footer.html" />

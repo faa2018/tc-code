@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>接口配置 </title>
+    <bootstrapcss />
+    <icheckcss />
+</head>
+<body>
+
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <i class="fa fa-home"></i> 首页
+    &gt;
+    后台管理
+    &gt;
+    接口配置
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+        <a href="#">接口配置</a>
+    </li>
+</ul>
+<form class="form-inline" method="post" action="{:U('Admin/Config/changeInterfaceConfig')}">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+            <th colspan="2" style="text-align:center;">短信配置</th>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>用户名</th>
+            <td>
+                <input class="form-control" type="text" name="PHONE_USER" value="{$config['PHONE_USER']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>密码</th>
+            <td>
+                <input class="form-control" type="text" name="PHONE_PASS" value="{$config['PHONE_PASS']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>网站名称</th>
+            <td>
+                <input class="form-control" type="text" name="PHONE_SEND_NAME" value="{$config['PHONE_SEND_NAME']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2" style="text-align:center;">邮箱配置</th>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>企业邮局域名</th>
+            <td>
+                <input class="form-control" type="text" name="EMAIL_HOST" value="{$config['EMAIL_HOST']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>邮局用户名</th>
+            <td>
+                <input class="form-control" type="text" name="ENAIL_USERNAME" value="{$config['ENAIL_USERNAME']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>邮局密码</th>
+            <td>
+                <input class="form-control" type="text" name="EMAIL_PASSWORD" value="{$config['EMAIL_PASSWORD']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>发送者名称</th>
+            <td>
+                <input class="form-control" type="text" name="EMAIL_FORMNAME" value="{$config['EMAIL_FORMNAME']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th>网站名称</th>
+            <td>
+                <input class="form-control" type="text" name="EMAIL_SEND_NAME" value="{$config['EMAIL_SEND_NAME']}">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input class="btn btn-success" type="submit" value="更新">
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+</form>
+<bootstrapjs />
+<icheckjs color="blue" />
+</body>
+</html>

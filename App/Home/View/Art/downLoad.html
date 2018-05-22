@@ -1,0 +1,51 @@
+
+
+				<!-- page heading start-->
+		<include file="App/Home/View/Public/left.html" />
+	<script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(4).addClass("nav-active")
+});
+</script>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						<section style="padding: 28px;">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"> 下载中心</h3>
+										</div>
+										<div class="widget-body innerAll overthrow">
+										<volist name="list" id="vo">
+											<div class="col-md-12" style="padding:15px;">
+												{$vo.content}
+											</div>
+										</volist>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+	<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+	
+				<!---------------------------footer引入位置--------------------------->
+	

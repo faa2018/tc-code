@@ -1,0 +1,135 @@
+<include file="App/Home/View/Public/header.html" />
+<!--头部导航结束-->
+<!--订单内容开始-->
+<div class="container mt-50" style="min-height:570px;">
+	<div style="font-size: 22px; color: #ea6e2e;">累计收益：{$leji_money|default='0'}</div>
+	<div class="table-responsive mt-20">
+		<table class="table table-striped tc">
+			<thead>
+				<tr>
+					<th class="tc">订单号</th>
+					<th class="tc">级别</th>
+					<th class="tc">数量</th>
+					<th class="tc">申请时间</th>
+					<!-- <th class="tc">本轮获取收益时间</th> -->
+					<th class="tc">当前可领取收益</th>
+					<th class="tc">入场轮次</th>
+					<th class="tc">状态</th>
+					<th class="tc">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name='log' id='vo' key='key'>
+					<tr>
+						<td>Q{$key}</td>
+						<td>{$vo.level_name}</td>
+						<td>{$vo.money}</td>
+						<td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+						<!-- <td>
+							<eq name='vo.over_time' value='0'>
+								暂无
+							<else/>
+								{$vo.over_time|date='Y-m-d H:i:s',###}
+							</eq>
+						</td> -->
+						<td>{$vo.money_huoqu}</td>
+						<eq name='vo.status' value='-1'>
+							<td>{$vo.in_num}</td>
+							<td style="color: #000">已结束</td>
+							<td>暂无
+								</td>
+						</eq>
+						<eq name='vo.status' value='0'>
+							<td>{$vo.in_num}</td>
+							<td style="color: green">进行中</td>
+							<if condition='$vo.in_num gt 0'>
+								<td>
+									<input type='button' class="btn btn-primary" onclick="shouqu('{$vo['id']}')" value='收获'>
+									<input type='button' class="btn btn-primary" onclick="tuiben('{$vo['id']}')" value='提取'>
+								</td>
+							<else/>
+								<td>暂无
+								</td>
+							</if>
+						</eq>
+						<eq name='vo.status' value='1'>
+							<td>{$vo.in_num}</td>
+							<td style="color: #ea6e2e">已出局</td>
+								<td>
+									<input type='button' class="btn btn-primary" onclick="shouqushouyi('{$vo['id']}')" value='获取收益'>
+								</td>
+						</eq>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	<!--分页开始-->
+	<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+		{$page}
+	</div>
+	<!--分页结束-->
+</div>
+</div>
+</div>
+<script>
+
+	function tuiben(id){
+		 $.ajax({
+             cache: true,
+             type: "POST",
+             url:"{:U('Project/tuiben')}",
+             data:{id:id},// 你的formid
+             async: false,
+             error: function(request) {
+                 layer.msg(d['info']);
+             },
+             success: function(data) {
+                 layer.msg(data['info']);
+                 if(data['status'] == 1){
+                     setTimeout("JumpUrl()",1500);
+                 }
+             }
+         });
+	}
+	function shouqu(id){
+		 $.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('Project/shouqu')}",
+            data:{id:id},// 你的formid
+            async: false,
+            error: function(request) {
+                layer.msg(d['info']);
+            },
+            success: function(data) {
+                layer.msg(data['info']);
+                if(data['status'] == 1){
+                    setTimeout("JumpUrl()",1500);
+                }
+            }
+        });
+	}
+	function shouqushouyi(id){
+		 $.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('Project/shouqushouyi')}",
+            data:{id:id},// 你的formid
+            async: false,
+            error: function(request) {
+                layer.msg(d['info']);
+            },
+            success: function(data) {
+                layer.msg(data['info']);
+                if(data['status'] == 1){
+                    setTimeout("JumpUrl()",1500);
+                }
+            }
+        });
+	}
+	function JumpUrl(){
+        location.href="{:U('User/getProject')}";
+    }
+</script>
+<include file="App/Home/View/Public/footer.html" />

@@ -1,0 +1,68 @@
+
+				<!-- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(0).addClass("nav-active")
+});
+</script>
+
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						<section style="padding: 28px;">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">币种管理</h3>
+										</div>
+										<div class="widget-body innerAll overthrow" style="padding: 20px;overflow: auto;">
+											<volist name='coin' id='vo'>
+											<div class="col-md-12">
+												<div style="height:25px; margin:10px 10px; width:95px; float:left; line-height:35px;">
+													{$vo.name}数量	:&nbsp;
+												</div>
+												<div style=" float:left; margin:10px 15px;">
+													<input class="inputclass" style="width:145px"  type='text' disabled value="{$vo['num']|default=0}">
+												</div>
+												<div id=""  style=" height:45px; margin:10px 20px; width:125px; float:left;">
+													<a class="btn btn-primary" href="{:U('UserMoney/recharge')}">充币</a> 
+												</div>
+												<div id=""  style=" height:45px; margin:10px 20px; width:125px; float:left;">
+													<a class="btn btn-primary" href="{:U('UserMoney/withdraw',array('type'=>$vo['type']))}">提币</a>
+												</div>
+												<div id=""  style=" height:45px; margin:10px 20px; width:125px; float:left;" >
+													<a class="btn btn-primary" href="{:U('UserMoney/getCash',array('type'=>$vo['type']))}">转换到总钱包</a>
+												</div>
+												<div id=""  style=" height:45px; margin:10px 20px; width:125px; float:left;" >
+													<a class="btn btn-primary" href="{:U('UserMoney/getCash',array('type'=>$vo['type'],'money'=>1))}">总钱包换币</a>
+												</div>
+											</div>
+											</volist>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+			
+				<!---------------------------footer引入位置--------------------------->
+			

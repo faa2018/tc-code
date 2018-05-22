@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>  
+    <link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+    <link rel="stylesheet" href="/Public/Admin/css/admin.css">
+    <script src="/Public/Admin/js/jquery.js"></script>
+    <script src="/Public/Admin/js/pintuer.js"></script>  
+    <script src="/Public/js/jquery-2.1.1.min.js"></script>  
+	
+    <script src="/Public/js/layer/layer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+
+ <form method="post" action="{:U('Message/index')}" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 商品评论</strong> </div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+      </ul>
+    </div>
+	<div class="table-responsive">
+    <table class="table table-hover text-center">
+      <thead>
+		<tr>
+			<th >序号</th>
+			<th >昵称</th>
+			<th >评分</th>
+			<th >评价</th>
+			<th >时间</th>
+			<th >操作</th>
+		</tr>
+      </thead>
+	  <tbody>
+      <volist name="list" id="vo" key='k'>
+        <tr>
+          
+          <td>{$k}</td>
+          <td>{$vo.username}</td>
+          <td>{$vo.score}</td>
+          <td>{$vo.content}</td>
+          <td>{$vo.time|date="Y-m-d H:i:s",###}</td>
+          <td>
+				<a href="{:U('Goods/delComment',array('id'=>$vo['cid']))}"  class="button border-red icon-trash-o">删除</a>
+				
+		  </td>
+        </tr>
+   	  </volist>
+       </tbody> 
+    </table>
+	</div>
+  </div>
+</form>
+  <div class="pagelist"> <ul>{$page}</ul></div>
+</div>
+
+
+</body></html>

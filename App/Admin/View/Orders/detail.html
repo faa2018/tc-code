@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/Public/Admin/css/pintuer.css">
+<link rel="stylesheet" href="/Public/Admin/css/admin.css">
+<script src="/Public/Admin/js/jquery.js"></script>
+<script src="/Public/Admin/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 订单详情</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:U('Orders/setStatus')}">
+    <input type='hidden' name='order_id' value='{$list.order_id}'   />
+      <div class="form-group">
+        <div class="label">
+          <label>用户昵称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="nickname" readonly value="{$list.username}"    />
+          <div class="tips"></div>
+        </div>
+      </div>
+	  <div class="form-group">
+        <div class="label">
+          <label>订单号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="order_no" readonly value="{$list.order_no}"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+	  <div class="form-group">
+        <div class="label">
+          <label>电话号码：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="" value="{$list.phone}"  readonly />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      
+<if condition="$tui eq 1">
+
+<div class="form-group">
+<volist name='goods' id='vo' key='k'>
+        <div class="label">
+          <label>商品{$k}：</label>
+        </div>
+         <div> 
+         <p style="padding-top:5px">商品名称:	</p>
+         <input style="width:400px;margin-left:10%" type="text" class="input w51"  value="{$vo.name}" readonly />
+         <p style="padding-top:5px ;margin-left:10%"> 商品图:</p>
+       	<img src="{$vo.image}" readonly style="padding-top:5px ;margin-left:10%"/>
+       	<p style="padding-top:5px ;margin-left:10%"> 购买数量:</p>
+       	<input type="text" class="input w51"  value="{$vo.num}" readonly style="width:400px;margin-left:10%" />
+       	<p style="padding-top:5px;margin-left:10%"> 商品价格:</p>
+        <input type="text" class="input w51"  value="{$vo.price}" readonly style="width:400px;margin-left:10%"/>
+       	<!-- <p style="padding-top:5px;margin-left:10%"> 积分价格:</p> -->
+        <!-- <input type="text" class="input w51"  value="{$vo.jifen}" readonly style="width:400px;margin-left:10%"/> -->
+     <!-- <p style="padding-top:5px;margin-left:10%"> 商品属性:</p> -->
+        <!-- <input type="text" class="input w51"  value="{$vo.attr_name}" readonly style="width:400px;margin-left:10%"/> -->
+        
+        
+        <p style="padding-top:5px;margin-left:10%"> 退货状态:</p>
+        <input type="text" class="input w51"  value="{$vo.tui}" readonly style="width:400px;margin-left:10%"/>
+        
+         
+          <a href='javascript:;' style="width:9%;margin-left:10%" class="button bg-main icon-check-square-o" onclick="q('{$vo.goods_id}','{$vo.attr_name}','{$list.order_id}','{$list.open_id}')">确认受理退款</a>
+          <a href='javascript:;' style="width:9%;" class="button bg-main icon-check-square-o" onclick="j('{$vo.goods_id}','{$vo.attr_name}','{$list.order_id}','{$list.open_id}')">拒绝受理退款</a>
+            </div>
+            </volist>
+            <script>
+            function q(goods_id,attr_name,order_id,open_id){
+            	var q =1;
+            	$.post("{:U('Orders/setTuiStatus')}",{goods_id:goods_id,attr_name:attr_name,order_id:order_id,open_id:open_id,q:q},function(d){
+            		alert(d.msg);
+            		if(d.status ==1){
+            			
+            			window.location.reload();
+            		}
+            	})
+            }
+            function j(goods_id,attr_name,order_id,open_id){
+            	var j =1 ;
+            	$.post("{:U('Orders/setTuiStatus')}",{goods_id:goods_id,attr_name:attr_name,order_id:order_id,open_id:open_id,j:j},function(d){
+            		alert(d.msg);
+            		if(d.status ==1){
+            			
+            			window.location.reload();
+            		}
+            	})
+            }
+            
+            </script>
+<else/>
+
+      <volist name='goods' id='vo' key='k'>
+      <div class="form-group">
+        <div class="label">
+          <label>商品{$k}：</label>
+        </div>
+         <div> 
+         <p style="padding-top:5px">商品名称:	</p>
+         <input style="width:400px;margin-left:10%" type="text" class="input w51"  value="{$vo.name}" readonly />
+         <p style="padding-top:5px ;margin-left:10%"> 商品图:</p>
+       	<img src="{$vo.image}" readonly style="padding-top:5px ;margin-left:10%"/>
+       	<p style="padding-top:5px ;margin-left:10%"> 购买数量:</p>
+       	<input type="text" class="input w51"  value="{$vo.num}" readonly style="width:400px;margin-left:10%" />
+       	<p style="padding-top:5px;margin-left:10%"> 商品价格:</p>
+        <input type="text" class="input w51"  value="{$vo.price}" readonly style="width:400px;margin-left:10%"/>
+       	<!-- <p style="padding-top:5px;margin-left:10%"> 积分价格:</p> -->
+        <!-- <input type="text" class="input w51"  value="{$vo.jifen}" readonly style="width:400px;margin-left:10%"/> -->
+    
+       	<!-- <p style="padding-top:5px;margin-left:10%"> 商品属性:</p> -->
+        <!-- <input type="text" class="input w51"  value="{$vo.attr_name}" readonly style="width:400px;margin-left:10%"/> -->
+<!--         <input type="text" class="input w51"  value="{$vo.attr_val}  &nbsp;{$vo.attr_name}" readonly style="width:400px;margin-left:10%"/> -->
+        
+        
+        </div>
+        
+      </div>
+      </volist>
+</if>
+      <div class="form-group">
+        <div class="label">
+          <label>下单时间：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="" value="{$list.oadd_time|date='Y-m-d H:i:s',###}"  readonly />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>付款时间：</label>
+        </div>
+        <div class="field">
+        <empty name="list['pay_time']" >
+        <input type="text" class="input w50" name="" value="未支付"  readonly />
+         <else/> <input type="text" class="input w50" name="" value="{$list.pay_time|date='Y-m-d H:i:s',###}"  readonly />
+         </empty> <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>收货地址：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style="width:80%" name="user_address" value="{$list.user_address}"  readonly />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>订单状态：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style='width:8%'
+          value="<switch name='list.order_status'>
+				<case value='-1'>未支付</case>
+				<case value='1'>已支付</case>
+				<case value='2'>已发货</case>
+				<case value='3'>已完成</case>
+				<case value='4'>售后</case>
+			</switch>"
+			  readonly />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>支付方式：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" style='width:8%'
+          value="<switch name='list.pay_type'>
+				<case value='0'>未支付</case>
+				<case value='1'>微信支付</case>
+				<case value='3'>积分支付</case>
+				<case value='2'>支付宝支付</case>
+			</switch>"
+			  readonly />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!-- <div class="form-group"> -->
+        <!-- <div class="label"> -->
+          <!-- <label>邮费：</label> -->
+        <!-- </div> -->
+        <!-- <div class="field"> -->
+          <!-- <input type="text" class="input w50" style='width:8%' -->
+          <!-- value="{$list.send_money}" readonly /> -->
+          <!-- <div class="tips"></div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+      <div class="form-group">
+        <div class="label">
+          <label>备注信息：</label>
+        </div>
+        <div class="field">
+          <textarea type="text" class="input w50"  value="{$list.remarks}"  readonly >{$list.remarks}</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <neq name="list['order_status']" value='1'>
+      <neq name="list['order_status']" value='-1'>
+      <div class="form-group">
+        <div class="label">
+          <label>物流单号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="kuaidi" value="{$list.kuaidi}"   />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>发货时间：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="send_time" value="{$list.send_time|date='Y-m-d H:i:s',###}"  readonly />
+          <div class="tips"></div>
+        </div>
+      </div>
+      </neq>
+      </neq>
+      <eq name="list['order_status']" value='1'>
+	   <div class="form-group">
+        <div class="label">
+          <label>是否发货：</label>
+        </div>
+        <div class="field">
+          <div class="button-group radio">
+          
+          <label class="button active">
+         	  <span class="icon icon-check"></span>             
+              <input name="status" value="-1" type="radio" onclick='addInput()' checked="checked">是             
+          </label>             
+        
+          <label class="button active"><span class="icon icon-times"></span>  	
+              <input name="status" value="1"  type="radio" onclick='hideInput()' checked="checked">否
+          </label><div class="tipss">★不选择默认为否</div>  
+           </div>   
+           <div id="wuLiuInput" style="display: none">
+           <div>
+            <label>填写物流单号：</label>
+            </div>
+            <label><input  type="text" class="input w50" name="kuaidi" value="{$list.kuaidi}"></label>
+            </div>  
+        </div>
+     </div>
+     </eq>
+     <eq name="list['order_status']" value='4'>
+      <div class="form-group">
+        <div class="label">
+          <label>退货理由：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50"  value="{$list.reason}"   />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>退货备注：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50"  value="{$list.content}"   />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>申请退货时间：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50"  value="{$list.time|date='Y-m-d H:i:s',###}"   />
+          <div class="tips"></div>
+        </div>
+      </div>
+      </eq>
+     <script>
+    	 function addInput(){
+    		  $("#wuLiuInput").css("display","block")
+    		}
+    		function hideInput(){
+    		  $("#wuLiuInput").css("display","none");
+    		  $("input[name='kuaidi']").val("");
+    		}
+     </script>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+        <eq name="list['order_status']" value="-1">
+        <a href="javascrpt:;" onclick="javascript:history.go(-1);" class="button bg-main icon-check-square-o" >返回</a>
+        <else/>
+        <neq name="list['order_status']" value='4'>
+          <button class="button bg-main icon-check-square-o" type="submit">提交</button>
+         </neq> 
+         </eq>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>

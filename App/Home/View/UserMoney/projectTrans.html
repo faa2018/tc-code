@@ -1,0 +1,105 @@
+<include file="App/Home/View/Public/header.html" />  
+<script src="__PUBLIC__/Home/js/echarts.js"></script>
+<script src="__PUBLIC__/Home/js/User_js.js"></script>
+<!--头部导航结束-->
+<!--中间部分-->
+<include file="App/Home/View/Public/left.html" /> 
+        <!--/左边-->
+        <!--右边-->
+    <div class="col-sm-9 uer_pa" id="con">
+            <div class="member_con">
+    <div class="">
+  <div class="pt-35">
+            <div class="register_title"><h3>账号互转</h3></div>
+            <form id="myform" class="form-horizontal register_form" >
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-3 control-label tl">转入用户名</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="请输入要转入的用户名" name="username">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-3 control-label tl">资金类型</label>
+                    <div class="col-sm-8">
+                        <select name="type" class="form-control" >
+                            <option  selected="selected">请选择互转钱包</option>
+                            <option  value="2">七乐积分：{$usermoney[0]['num']}</option>
+                            <option  value="4">报单积分：{$usermoney[1]['num']}</option>
+                            <option  value="5">增值券：{$usermoney[2]['num']}</option>
+                        </select>
+                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-3 control-label tl">金额</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="num">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-3 control-label tl">二级密码</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="password">
+                    </div>
+                </div>
+				<div class="form-group" style="text-align: center;">
+                      <div class="col-sm-2" ></div>
+                    <input type="button" class="col-sm-offset-1 col-sm-6 index_login_btn1" value="提交" style="font-size: 18px; margin-top: 15px;" onclick="zhuan()">
+                </div>
+                </form>
+    </div>
+        </div>
+        <!--/右边-->
+    </div>
+</div>
+   </div>
+</div>
+<!--/中间部分结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />  
+<!--底部结束-->
+<script>
+	function zhuan(){
+		 var phone=$("#phone").val();
+		if(phone == ""){
+			layer.msg("请输入用户电话");return;
+		}
+		var num =$('#num').val();
+		if(num == "" || num<0 ){
+			layer.msg("数量填写有误");return;
+		}
+		
+		var password=$("#pwd").val();
+		if(password == ""){
+			layer.msg("请输入二级密码");return;
+		} 
+		$.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('UserMoney/projectTrans')}",
+            data:$('#myform').serialize(),// 你的formid
+            async: false,
+            error: function(request) {
+                layer.msg(d['info']);
+            },
+            /*  beforeSend: function(){
+            	$("#tijiao").attr("disabled", true);
+            	},  */
+            success: function(data) {
+                layer.msg(data['info']);
+                $("#tijiao").removeAttr("disabled");
+                if(data['status'] == 1){
+                    setTimeout("JumpUrl()",1500);
+                }
+            }
+        });
+	}
+	function JumpUrl(){
+        location.href="{:U('/Finance/index')}";
+    }
+	function sendPhone(){
+        var phone = $('#phone').val();
+        $.post("{:U('User/sendphone')}",{'phone':phone,'type':3},function(d){
+        layer.msg(d['info']);
+        });
+     }
+	</script>

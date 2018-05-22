@@ -1,0 +1,12 @@
+[ 2018-04-03T11:15:13+08:00 ] 127.0.0.1 /API/Login/login/username/admin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.007000s ]
+INFO: Run Behavior\CheckLangBehavior [ RunTime:0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.010000s ]
+SQL: SELECT * FROM `ztp_config`  [ RunTime:0.0280s ]
+SQL: SELECT * FROM `ztp_config`  [ RunTime:0.0020s ]
+NOTIC: [8] Use of undefined constant HOME_USER - assumed 'HOME_USER' D:\WWW\fys\App\API\Controller\LoginController.class.php 第 13 行.
+

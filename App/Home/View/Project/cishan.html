@@ -1,0 +1,94 @@
+<include file="App/Home/View/Public/header.html" />
+<!--头部导航结束-->
+<!--主要内容开始-->
+<div class="container cishan_content">
+	<div class="cishan_title_big">慈善会场</div>
+	<div class="cishan_title_small">Charity venue</div>
+	<div class="cishan_solid"></div>
+	<div class="row">
+		<div class="col-md-4 mt-25" style="position: relative;">
+			<img src="__PUBLIC__/Home/image/cishan_01.png" style="width: 100%; height: 225px; cursor: pointer;">
+			<div class="cishan_active">
+				<div class="cishan_active_title_one">残疾人基金会</div>
+				<div class="cishan_active_title_two">
+					已有<span class="cishan_active_title_number">2000+</span>人行善
+				</div>
+			</div>
+			<div class="cishan_join" onClick="join(this)" status="1">日行一善</div>
+		</div>
+		<div class="col-md-4 mt-25" style="position: relative;">
+			<img src="__PUBLIC__/Home/image/cishan_01.png" style="width: 100%; height: 225px; cursor: pointer;">
+			<div class="cishan_active">
+				<div class="cishan_active_title_one">残疾人基金会</div>
+				<div class="cishan_active_title_two">
+					已有<span class="cishan_active_title_number">2000+</span>人行善
+				</div>
+			</div>
+			<div class="cishan_join" onClick="join(this)" status="1">日行一善</div>
+		</div>
+		<div class="col-md-4 mt-25" style="position: relative;">
+			<img src="__PUBLIC__/Home/image/cishan_01.png" style="width: 100%; height: 225px; cursor: pointer;">
+			<div class="cishan_active">
+				<div class="cishan_active_title_one">残疾人基金会</div>
+				<div class="cishan_active_title_two">
+					已有<span class="cishan_active_title_number">2000+</span>人行善
+				</div>
+			</div>
+			<div class="cishan_join" onClick="join(this)" status="1">日行一善</div>
+		</div>
+		<div class="col-md-4 mt-25" style="position: relative;">
+			<img src="__PUBLIC__/Home/image/cishan_01.png" style="width: 100%; height: 225px; cursor: pointer;">
+			<div class="cishan_active">
+				<div class="cishan_active_title_one">残疾人基金会</div>
+				<div class="cishan_active_title_two">
+					已有<span class="cishan_active_title_number">2000+</span>人行善
+				</div>
+			</div>
+			<div class="cishan_join" onClick="join(this)" status="1">日行一善</div>
+		</div>
+		<div class="col-md-4 mt-25" style="position: relative;">
+			<img src="__PUBLIC__/Home/image/cishan_01.png" style="width: 100%; height: 225px; cursor: pointer;">
+			<div class="cishan_active">
+				<div class="cishan_active_title_one">残疾人基金会</div>
+				<div class="cishan_active_title_two">
+					已有<span class="cishan_active_title_number">2000+</span>人行善
+				</div>
+			</div>
+			<div class="cishan_join" onClick="join(this)" status="1">日行一善</div>
+		</div>
+		<div class="col-md-4 mt-25" style="position: relative;">
+			<img src="__PUBLIC__/Home/image/cishan_01.png" style="width: 100%; height: 225px; cursor: pointer;">
+			<div class="cishan_active">
+				<div class="cishan_active_title_one">残疾人基金会</div>
+				<div class="cishan_active_title_two">
+					已有<span class="cishan_active_title_number">2000+</span>人行善
+				</div>
+			</div>
+			<div class="cishan_join" onClick="join(this)" status="1">日行一善</div>
+		</div>
+	</div>
+</div>
+<!--主要内容结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />
+<!--底部结束-->
+<script>
+$(".cishan_content .col-md-4").mouseenter(function(){
+	$(this).find(".cishan_active").fadeIn();
+});
+$(".cishan_content .col-md-4").mouseleave(function(){
+	$(this).find(".cishan_active").fadeOut();
+});
+/*点击加入 1是未加入*/	
+function join(_this){
+	var status = $(_this).attr("status");
+	if(status == 1){
+		layer.msg("加入成功！")
+		$(_this).removeClass("cishan_join").addClass("cishan_join_active");
+		$(_this).attr("status","2");
+	}
+	else{
+		layer.msg("您已加入成功！");
+	}
+}
+</script>

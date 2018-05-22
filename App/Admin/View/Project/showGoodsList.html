@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>会员管理</title>
+	<bootstrapcss />
+	<style>
+td { line-height:100px; }
+</style>
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+	<a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+	&gt;
+	商品管理
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+		 <a href="#home" data-toggle="tab">商品列表</a>
+   </li>
+	<li>
+		<a href="{:U('Goods/addGoods')}">添加商品</a>
+	</li>
+</ul>
+<form method='post'>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+            <th width="5%">搜索</th>
+            <td width="15%">
+               	<input class="form-control" type="text" name="title" value="{$Think.post.title}" placeholder="商品名" >
+            </td>
+            <td width="80%">
+                <input class="btn btn-success" type="submit" value="搜索">
+            </td>
+        </tr>
+    </table>
+</form>
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr>
+				<th width="10">编号</th>
+				<th width="10">商品图片</th>
+				<th width="15%">标题</th>
+				<th width="10%">价格</th>
+				<th width="10%">库存</th>
+				<th width="10%">添加/修改时间</th>
+				<th width="10%">操作</th>
+			</tr>
+			<foreach name="list" item="v">
+				<tr>
+					<td>{$v['id']}</td>
+					<td >
+					<notempty name="v['pic']">
+						<img style='height:80px' src="{$v['pic']}" >
+					</notempty>
+					<empty name="v['pic']">
+						暂无图片
+					</empty>
+					</td>
+					<td>{$v['title']}</td>
+					<td>{$v['price']}</td>
+					<td>{$v['stock']}</td>
+					<td>{$v.add_time|date='Y-m-d H:i:s',###}</td>
+					<td>
+						<a href="{:U('Goods/addGoods',array('id'=>$v['id']))}">修改 </a>|
+						<a href="javascript:if(confirm('确定要删除吗？'))location='{:U('Goods/delGoods',array('id'=>$v['id']))}'">删除</a>
+					</td>
+				</tr>
+			</foreach>
+		</table>
+   </div>
+</div>
+{$show}
+<bootstrapjs />
+</body>
+</html>

@@ -1,0 +1,163 @@
+<include file="App/Home/View/Public/header.html" />
+    <style>
+        #wrapper {
+            background: #e7e7e7;
+            position: absolute;
+            z-index: 1;
+            top: 83px;
+            bottom: 48px;
+            left: 0;
+            width: 100%;
+            overflow: auto;
+        }
+
+        #pullDown, #pullUp {
+            background: #fff;
+            height: 40px;
+            line-height: 40px;
+            padding: 5px 10px;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            font-size: 14px;
+            color: #888;
+        }
+
+            #pullDown .pullDownIcon, #pullUp .pullUpIcon {
+                display: block;
+                float: left;
+                width: 40px;
+                height: 40px;
+                background: url('../img/SysMemberPhoneImages/pull-icon@2x.png') 0 0 no-repeat;
+                -webkit-background-size: 40px 80px;
+                background-size: 40px 80px;
+                -webkit-transition-property: -webkit-transform;
+                -webkit-transition-duration: 250ms;
+            }
+
+            #pullDown .pullDownIcon {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            #pullUp .pullUpIcon {
+                -webkit-transform: rotate(-180deg) translateZ(0);
+            }
+
+            #pullDown.flip .pullDownIcon {
+                -webkit-transform: rotate(-180deg) translateZ(0);
+            }
+
+            #pullUp.flip .pullUpIcon {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            #pullDown.loading .pullDownIcon, #pullUp.loading .pullUpIcon {
+                background-position: 0 100%;
+                -webkit-transform: rotate(0deg) translateZ(0);
+                -webkit-transition-duration: 0ms;
+                -webkit-animation-name: loading;
+                -webkit-animation-duration: 2s;
+                -webkit-animation-iteration-count: infinite;
+                -webkit-animation-timing-function: linear;
+            }
+
+        @-webkit-keyframes loading {
+            from {
+                -webkit-transform: rotate(0deg) translateZ(0);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg) translateZ(0);
+            }
+        }
+
+        .DD.xjzhmx.CC li {
+            height: 120px;
+            padding: 10px;
+        }
+
+        .DD.xjzhmx.CC p {
+            line-height: 20px;
+            color: #414141;
+        }
+
+        .middle {
+            padding-bottom: 20px;
+        }
+    </style>
+    <script>
+
+        //点击查看详情
+        $(function () {
+            //$(".middle.BDZF_middle").on("tap", ".DD", function () {
+            //    var Id = $(this).attr("did");
+            //    location.href = "/MemberChargePhone/AccountDetails?Id=" + Id;
+            //});
+            //点击返回键
+            $(".backIcon").on("click", function () {
+                window.history.back(-1);
+            });
+        });
+
+        //日期格式转换
+        function parseDate(date) {
+            var time = date.replace("/Date(", "").replace(")/", "");
+            var date = new Date(parseInt(time));
+            return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : +date.getSeconds());
+        }
+    </script>
+
+
+    <div class="head">
+        <div class="headBox">
+            <a class="backIcon" href="javascript:history.go(-1)"></a>
+            <h3>提现明细</h3>
+            <input type="hidden" id="count" value="14">
+            <a class="searchIcon"></a>
+        </div>
+    </div>
+    
+    <div class="mailTile" style="font-size:16px">
+
+        <div class="mailLT mailSlt">
+           提现管理
+        </div>
+        <div class="mailRt">
+            <a href="{:U('Withdraw/add')}"> 提现申请</a>
+        </div>
+    </div>
+
+    
+        <div id="scroller" style="transition-property: transform; transform-origin: 0px 0px 0px; transform: translate(0px, 0px) scale(1) translateZ(0px);">
+            <div class="middle BDZF_middle" id="thelist">
+					<foreach name="list" item="co">
+                        <div class="DD xjzhmx CC" did="2405085">
+                            <ul>
+                                <li>
+                                    <p>时间：{$co['add_time']|date="Y-m-d H:i:s",###}</p>
+                                    <p>金额：{$co['money']}</p>
+                                    <p>手续费：{$co['fee']}</p>
+                                    <p>提现方式：<eq name="co['payway']" value="1">微信<else/>支付宝</eq></p>
+                                    <p>提现资金类型：<eq name="co['money_type']" value="3">静态收益<else/>动态收益</eq></p>
+                                    <p>状态：
+										<switch name="co['status']">
+											<case value="0">审核中</case>
+											<case value="1">已经通过</case>
+											<case value="2">未通过</case>
+										</switch>
+									</p>
+                                </li>
+                            </ul>
+                        </div>
+					</foreach>
+
+            </div>
+
+            <div id="pullUp">
+                <span class="pullUpIcon"></span><span class="pullUpLabel">{$page}</span>
+            </div>
+
+        </div>
+	
+   
+   
+    <include file="App/Home/View/Public/footer.html" />

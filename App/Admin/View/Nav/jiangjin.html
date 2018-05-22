@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<script src="__PUBLIC__/Home/js/jquery-1.11.3.js"></script>
+    <meta charset="UTF-8"/>
+    <title>添加会员 </title>
+    <bootstrapcss />
+    <icheckcss />
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <i class="fa fa-home"></i> 首页
+    &gt;
+    奖金设置
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+        <a href="">奖金设置</a>
+    </li>
+</ul>
+<form action="" method="post">
+<div style="margin-top:20px; margin-left:20px;" >
+	<input  style="width:100px; float:left;" type="text" name="ceng" class="form-control" onkeyup="add(this.value)" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+    <span style="float:left; margin-left:5px; font-size:16px; line-height:30px;">层</span>
+    <div style="clear:both;"></div>
+</div>
+<div style="margin-top:10px; width:1200px;" id="input_wrap">
+    <div style="clear:both;"></div>
+</div>
+</form>
+    
+<script>
+	//添加input方法
+	function add(e){
+		$("#input_wrap").empty();
+		for(var i=0;i<e;i++){
+				$("#input_wrap").append("<span style='float:left;  margin-left:20px;   font-size: 16px;margin-top:28px;'>第"+(i+1)+"层</span><input  name='dai[]' style='width:280px;float:left; margin-top:20px; margin-left:20px;' class='form-control'>%<div style='clear:both;'></div>");
+			}
+		$("#input_wrap").append("<input style='float:left;margin-top:20px; margin-left:305px;' class='btn btn-success' value='提交' type='submit'>")
+		}
+
+</script>
+</body>
+</html>

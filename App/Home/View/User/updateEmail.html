@@ -1,0 +1,66 @@
+<include file="App/Home/View/Public/header.html" />  
+<script src="__PUBLIC__/Home/js/echarts.js"></script>
+<script src="__PUBLIC__/Home/js/User_js.js"></script>
+<!--头部导航结束-->
+<!--中间部分-->
+  <include file="App/Home/View/Public/left.html" /> 
+        <!--/左边-->
+        <!--右边-->
+        <div class="col-sm-9 uer_pa" id="con">
+            <div class="member_con">
+    <div class="">
+        <div class="pt-35">
+            <div class="register_title">修&nbsp;&nbsp;改&nbsp;&nbsp;邮&nbsp;&nbsp;箱</div>
+            <form class="form-horizontal register_form" id="myform">
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-3 control-label tl">新的EMAIL</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="请输入EMAIL" name="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-3 control-label tl">二级密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" placeholder="请输入二级密码" name="two_password">
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <input type="button" class="col-sm-offset-1 col-sm-9 index_login_btn" value="提交" style="font-size: 18px; margin-top: 15px;" onclick="sub()">
+                </div>
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+</div>
+        </div>
+        <!--/右边-->
+    </div>
+</div>
+<!--/中间部分结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />  
+<!--底部结束-->
+<script>
+    function sub(){
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('User/saveEmail')}",
+            data:$('#myform').serialize(),// 你的formid
+            async: false,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(d) {
+                layer.msg(d['info']);
+                if(d['status']==1){
+                	setTimeout(function(){
+                		window.location.href="{:U('User/index')}"
+    					},1500);
+                }
+                
+            }
+        });
+    }
+</script>
+

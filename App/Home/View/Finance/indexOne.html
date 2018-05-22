@@ -1,0 +1,87 @@
+<include file="App/Home/View/Public/header.html" />
+<script type="text/javascript">
+        $(function () {
+            a.dianji();
+            a.fanhui();
+
+            //下面四个超链接
+            $("#sy").click(function () {
+                location.href = "/MemberHomePhone/Index";
+            });
+            $("#gg").click(function () {
+                location.href = "/InforMationPhone/GongGaoSeach";
+            });
+            $("#xx").click(function () {
+                location.href = "/MailPhone/Mail_SJX";
+            });
+            $("#aq").click(function () {
+                location.href = "/MemberDateUpdatePhone/Index";
+            });
+        })
+        var a = {
+            dianji: function () {
+                $(".DD").on("click", function () {
+                    $(this).children(".DDMsg").toggle();
+                })
+            },
+            fanhui: function () {
+                $(".backIcon").on("click", function () {
+                    location.href = "/MemberHomePhone/Index";
+                })
+            }
+        }
+    </script>
+    <div class="head">
+        <div class="headBox">
+            <a class="backIcon"></a>
+            <h3>最新奖金</h3>
+            <a class="searchIcon"></a>
+        </div>
+    </div>
+    <div class="middle BDZF_middle">
+        <div class="mailTile" style="font-size:16px">
+            <div class="mailLT mailSlt">
+                <a href="{:U('Finance/indexOne')}"> 最新奖金</a>
+               </div>
+            <div class="mailRt ">
+                <a href="{:U('Finance/index')}"> 历史奖金</a>
+            </div>
+本期收入：
+        </div>
+					<div class="DD">
+					<ul>
+						<li>
+							<div class="DDLt"><b>本期收入：</b></div>
+							<div class="DDRt"><b>{$vo.sum_money}</b></div>
+						</li>
+						<li>
+							<div class="DDLt dzzhmxLt">{$vo.add_time|date='Y-m-d H:i:s',###}</div>
+						</li>
+
+					</ul>
+					<div class="DDMsg dzzhmxMsg" >
+						奖金：
+						<br>
+						<ul>
+
+							<li>
+								<div class="">动静&nbsp;&nbsp;累计：<b>{$vo.sum_money} </b></div>
+							</li>
+
+							<li>
+								<div class="">动态&nbsp;&nbsp;收益：<b>{$vo.dongtai_money}</b></div>
+							</li>
+
+							<li>
+								<div class="">静态&nbsp;&nbsp;收益：<b>{$vo.jingtai_money}</b></div>
+							</li>
+							<li class="last">
+								<div class="">总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：<b>{$vo.sum_money}</b></div>
+							</li>
+						</ul>
+					</div>  
+					</div>
+          
+    </div>
+    
+	<include file="App/Home/View/Public/footer.html" />

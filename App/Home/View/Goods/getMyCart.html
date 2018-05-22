@@ -1,0 +1,199 @@
+<include file="App/Home/View/Public/header.html" />
+<!--头部导航结束-->
+<!--购物车开始-->
+<div class="container mt-50">
+	<div class="row cart_thead">
+		<div class="col-md-1 col-xs-4 tc"><input type="checkbox" style="margin-right: 20px;" class="allch" cartstatus="1" onClick="allcheck(this)">全选</div>
+		<div class="col-md-5 col-xs-2 tc cart_show">商品</div>
+		<div class="col-md-1 col-xs-2 tc cart_show">单价</div>
+		<div class="col-md-2 col-xs-2 tc cart_show">数量</div>
+		<div class="col-md-2 col-xs-2 tc cart_show">小计</div>
+		<div class="col-md-1 col-xs-2 tc cart_show">操作</div>
+	</div>
+	<div class="cart_hd">
+	<foreach name="cart" item="vo">
+		<div class="row cart_shopping">
+			<div class="col-md-2 cart_11">
+				<input type="checkbox" class="cart_img_check" id="{$vo.cart_id}" onClick="onecheck(this)">
+				<div class="fl tl" style="width:70%;line-height:65px;">
+					<img src="{$vo['goods']['image']}" class="w_100">
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="col-md-4 cart_details">
+				<div class="fl">{$vo['goods']['name']}</div>
+			</div>
+			<div class="col-md-2 col-xs-3 tc cart_price">￥<span>{$vo['goods']['price']|sprintf='%.2f',###}</span></div>
+			<div class="asd col-md-2 col-xs-5 cart_amount">
+				<input type="button" value="+" class="shopping_cart_btn add" onClick="add(this)">
+				<input type="button" value="{$vo['num']}" class="shopping_cart_btn amount">
+				<input type="button" value="-" class="shopping_cart_btn reduce" onClick="reduce(this)">
+			</div>
+			<div class="col-md-2 col-xs-4 tc cart_total">￥<span>{$vo['all_money']|sprintf='%.2f',###}</span></div>
+			<div class="col-md-1 col-xs-4 tc cart_operation" onclick="del({$vo['cart_id']})">删除</div>
+		</div>
+	</foreach>
+	</div>
+	<div class="row cart_shopping">
+		<div class="col-md-11" style="text-align: right; margin-left: -60px; height: 45px; line-height: 45px;">
+			总价：￥<span class="hd_total">0.00</span>
+		</div>
+		<div class="col-md-1">
+			<input type="button" class="cart_settlement" value="去结算" onClick="send()">
+		</div>
+	</div>
+</div>
+<!--购物车结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />
+<script>
+/*status=1为未选中状态*/
+/*增加数量*/	
+function add(_this){
+	/*计算商品总价*/
+	var list = $(".cart_img_check:checked");/*获取单选框数组*/
+	var length = $(".cart_img_check:checked").length;/*获取选中单选框的数量*/
+	var hd_total =parseFloat($(".hd_total").html());/*获取总价*/
+	var id = $(_this).parents(".cart_shopping").find(".cart_img_check").attr("id");/*获取当前商品ID*/
+	hd_total = 0;
+	if(!length==0){/*判断是否有选中商品*/
+		/*增加商品数量和小计*/
+		var amount = parseFloat($(_this).next("input").val());
+		var price = parseFloat($(_this).parents(".cart_shopping").find(".cart_price").find("span").html());
+		amount = amount+1;
+		var total = parseFloat(amount*price);
+		$(_this).parents(".cart_shopping").find(".cart_total").find("span").html(total);
+		$(_this).next("input").val(amount);
+		$(_this).parents(".asd").find(".reduce").attr("disabled",false);
+		for(i=0;i<list.length;i++){
+			var ischecked = $(list[i]).is(':checked');
+			if(ischecked){
+				hd_total+=parseFloat($(list[i]).parents(".cart_shopping").find(".cart_total").find("span").html());	
+			}
+		}
+		$(".hd_total").html(hd_total);
+		$.post("{:U('Goods/setNum')}",{'cart_id':id,'type':1},function(d){
+		})
+	}
+	else{
+		layer.msg("请选中商品！")
+	}
+}
+/*减少数量*/	
+function reduce(_this){
+	/*计算商品总价*/
+	var list = $(".cart_img_check:checked");/*获取单选框数组*/
+	var length = $(".cart_img_check:checked").length;/*获取选中单选框的数量*/
+	var hd_total =parseFloat($(".hd_total").html());/*获取总价*/
+	var id = $(_this).parents(".cart_shopping").find(".cart_img_check").attr("id");/*获取当前商品ID*/
+	hd_total = 0;
+	var amount = parseFloat($(_this).prev("input").val());
+	if(!length==0){/*判断是否有选中商品*/
+		if(amount<=1){
+			$(_this).attr("disabled",true);
+			return false;
+		}
+		else{
+			var price = parseFloat($(_this).parents(".cart_shopping").find(".cart_price").find("span").html());
+			amount = amount-1;
+			var total = amount*price;
+			$(_this).parents(".cart_shopping").find(".cart_total").find("span").html(total);
+			$(_this).prev("input").val(amount);
+			for(i=0;i<list.length;i++){
+				var ischecked = $(list[i]).is(':checked');
+				if(ischecked){
+					hd_total+=parseFloat($(list[i]).parents(".cart_shopping").find(".cart_total").find("span").html());	
+				}
+			}
+			$(".hd_total").html(hd_total);
+			$.post("{:U('Goods/setNum')}",{'cart_id':id,'type':2},function(d){
+			})
+		}
+	}
+	else{
+		layer.msg("请选中商品！");
+	}
+}
+/*点击选中*/
+function onecheck(_this){
+	var status = $(_this).attr("cartstatus");
+	if(status==1){
+		$(_this).attr("cartstatus",0);
+	}
+	else{
+		$(_this).attr("cartstatus",1);
+	}
+	var list = $(".cart_img_check");
+	var checkedhd = $(".cart_img_check:checked");
+	var length = $(".cart_img_check:checked").length;
+	var hd_total =parseFloat($(".hd_total").html());/*获取总价*/
+	hd_total = 0;
+	for(i=0;i<list.length;i++){
+		var ischecked = $(list[i]).is(':checked');
+		if(ischecked){
+			hd_total+=parseFloat($(list[i]).parents(".cart_shopping").find(".cart_total").find("span").html());	
+		}
+	}
+	$(".hd_total").html(hd_total);
+	if(list.length==length){
+		$(".allch").prop("checked",true);
+		$(".allch").attr("cartstatus",0);
+	}
+}
+
+
+
+function del(cart_id){
+	$.post("{:U('Goods/delCart')}",{'cart_id':cart_id},function(d){
+		layer.msg(d['msg']);
+		if(d['status']==1){
+			window.location.reload();
+		}
+	},'json');
+}
+/*全选全不选*/
+function allcheck(_this){
+	var cartstatus = $(_this).attr("cartstatus");
+	if(cartstatus==0){
+		$(_this).attr("cartstatus",1);
+		$(".cart_img_check").prop("checked",false);
+		$(".cart_img_check").prop("cartstatus",1);
+	}
+	else{
+		$(_this).attr("cartstatus",0);
+		$(".cart_img_check").prop("checked","checked");
+		$(".cart_img_check").prop("cartstatus",0);
+		var list = $(".cart_img_check");
+		var checkedhd = $(".cart_img_check:checked");
+		var length = $(".cart_img_check:checked").length;
+		var hd_total =parseFloat($(".hd_total").html());/*获取总价*/
+		hd_total = 0;
+		for(i=0;i<list.length;i++){
+			var ischecked = $(list[i]).is(':checked');
+			if(ischecked){
+				hd_total+=parseFloat($(list[i]).parents(".cart_shopping").find(".cart_total").find("span").html());	
+			}
+		}
+		$(".hd_total").html(hd_total);
+		}	
+}
+/*结算*/
+function send(){
+	var list = $(".cart_img_check:checked");
+	console.log(list.length);
+	var allid = "";
+	for(i=0;i<list.length;i++){
+		console.log(list[i].id);
+		allid+=list[i].id;
+		allid+=",";
+	}
+	allid = allid.substring(0,allid.length-1);
+	console.log(allid);
+	$.post("{:U('Goods/setSession')}",{'cart_id':allid},function(d){
+		layer.msg(d.msg);
+		setTimeout("JumpUrl()",1500);
+	})}
+function JumpUrl(){
+	window.location.href="{:U('Goods/showOrders')}";
+}
+</script>

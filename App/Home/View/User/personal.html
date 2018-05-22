@@ -1,0 +1,133 @@
+<include file="App/Home/View/Public/header.html" />  
+<script src="__PUBLIC__/Home/js/echarts.js"></script>
+<script src="__PUBLIC__/Home/js/User_js.js"></script>
+<!--头部导航结束-->
+<!--中间部分-->
+<include file="App/Home/View/Public/left.html" /> 
+        <!--/左边-->
+        <!--右边-->
+<div class="col-sm-9 uer_pa" id="con">
+    <div class="user_right">
+        <div class="user_ge_one"></div>
+        <div class="user_right_con">
+        </div>
+    </div>
+<div class="user_right">
+    <div class="user_ge_one"></div>
+    <div class="user_right_con">
+        <p class="mygeren">我的个人信息</p>
+       <!--  <div class="user_right_lis">
+                <div class="col-sm-4">
+                    <p>用户名</p>
+                </div>
+                <div class="col-sm-4">
+                    {$user.username}
+                </div>
+               <!--  <div class="col-sm-3">
+                    <input type="tel" class="form-control" placeholder="外网ID"/>
+                </div>
+                 <div class="col-sm-3">
+                    <input type="tel" class="form-control" placeholder="外网地址"/>
+                </div>
+                <div class="col-sm-4">
+                    <a class="user_ge_xiu" href="{:U('User/updateUsername')}">修改</a>
+                </div>
+        </div> -->
+        <div class="user_right_lis">
+            <form id="form_xiu" >
+                <div class="col-sm-4">
+                    <p>真实姓名</p>
+                </div>
+                <div class="col-sm-4">
+                    {$user.real_name|default="暂无"}
+                </div>
+                <div class="col-sm-4">
+                     <a class="user_ge_xiu" href="{:U('User/updateRealname')}">修改</a>
+                </div>
+            </form>
+        </div>
+        <div class="user_right_lis">
+            <div class="col-sm-4">
+                    <p>电话</p>
+                </div>
+            <div class="col-sm-4">
+               {$user.phone}
+            </div>
+             <div class="col-sm-4">
+                <a class="user_ge_xiu" href="{:U('User/updatePhone')}">修改</a>
+            </div>
+        </div>
+        <div class="user_right_lis">
+            <div class="col-sm-4">
+                    <p>EMAIL</p>
+                </div>
+            <div class="col-sm-4">
+               {$user.email|default="暂无"}
+            </div>
+             <div class="col-sm-4">
+                <a class="user_ge_xiu" href="{:U('User/updateEmail')}">修改</a>
+            </div>
+        </div>
+        <div class="user_right_lis">
+            <div class="col-sm-4">
+                <p>外网ID</p>
+            </div>
+            <div class="col-sm-4">
+                <p>{$coin.wai_id|default="暂无"}</p>
+            </div>
+            <div class="col-sm-4">
+                <empty name="coin['wai_id']">
+                    <a class="user_ge_xiu" href="{:U('Pay/tcoin')}">去添加</a>
+                </empty>
+            </div>
+            
+        </div>
+        <div class="user_right_lis">
+            <div class="col-sm-4">
+                <p>外网地址</p>
+            </div>
+            <div class="col-sm-4">
+                <p>{$coin.url|default="暂无"}</p>
+            </div>
+            <div class="col-sm-4">
+                <empty name="coin['url']">
+                    <a class="user_ge_xiu" href="{:U('Pay/tcoin')}">去添加</a>
+                </empty>
+            </div>
+        </div>
+    </div>
+
+    <div class="user_ge"></div>
+</div>
+        </div>
+        <!--/右边-->
+    </div>
+</div>
+<!--/中间部分结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />  
+<!--底部结束-->
+<!-- <script>
+ function sub(){
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('User/updatePwd')}",
+            data:$('#form_xiu').serialize(),// 你的formid
+            async: false,
+            error: function(request) {
+                alert("Connection error");
+            },
+            success: function(d) {
+                layer.msg(d['info']);
+                if(d['status']==1){
+                  window.location.href="{:U('User/index')}"
+                }
+                
+            }
+        });
+    }
+</script> -->
+
+
+

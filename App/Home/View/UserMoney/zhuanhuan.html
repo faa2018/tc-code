@@ -1,0 +1,92 @@
+<include file="App/Home/View/Public/header.html" />  
+<!--兑换内容开始-->
+  <div class="container mt-50 mb-50">
+	<div class="col-md-4 col-md-offset-4 change_content">
+		<div class="change_content_title">
+			<div class="change_content_title_chinese">七乐积分</div>
+			<div class="change_content_title_eng">Qile Integral</div>
+		</div>
+		<div class="change_division"></div>
+		<div class="change_content_wenzi">
+			<div>当前账户：<span>{$username}</span></div>
+			<volist name="usermoney" id="v">
+			<div>{$v.money_type_name}余额：<span>{$v.num}</span></div>
+			</volist>
+		</div>
+		<!-- <div class="change1 change" onClick="change(this)">
+			<div class="change1_img" status="1"></div>
+			<div class="change_option">兑换消费积分</div>
+		</div>
+		<div class="change2 change" onClick="change(this)">
+			<div class="change2_img" status="0"></div>
+			<div class="change_option">兑换七乐链</div>
+
+		</div> -->
+		<form class="form-horizontal change_content_form" id="myform">
+		<div class="change1 change" >
+			<div class="change_option">
+			<input type="radio" name="type" value="6" checked>
+			兑换消费积分</div>
+
+		</div>
+		<div class="change2 change" >
+			<div class="change_option">
+			<input type="radio" name="type"  value="1" >
+			兑换七乐链</div>
+		</div>
+		<div class="clear"></div>
+		
+			<div class="form-group">
+				<label for="inputPassword3" class="col-sm-4 control-label tl">兑换数量</label>
+				<div class="col-sm-8">
+					<input type="number" name="money" class="form-control" placeholder="请输入兑换数量">
+				</div>
+			</div>
+			<div class="form-group mt-20">
+				<label for="inputPassword3" class="col-sm-4 control-label tl">密码</label>
+				<div class="col-sm-8">
+					<input type="password" name="pwd" class="form-control" placeholder="请输入密码">
+				</div>
+			</div>
+			<div class="form-group" style="text-align: center;">
+				<input type="button" class="col-sm-offset-2 col-sm-8 index_login_btn1" value="开始兑换" style="font-size: 18px; margin-bottom: 25px;" onclick="run()">
+			</div> 
+		</form>
+	</div>
+</div>
+</div>
+</div>
+<include file="App/Home/View/Public/footer.html" /> 
+<script>
+function change(_this){
+	var status = $(_this).find("div:first-child").attr("status");
+	if(status==0){
+		$(_this).find("div:first-child").removeClass("change2_img").addClass("change1_img");
+		$(_this).find("div:first-child").attr("status",1);
+		$(_this).siblings(".change").find("div:first-child").attr("status",0);
+		$(_this).siblings(".change").find("div:first-child").removeClass("change1_img").addClass("change2_img");
+	}
+}
+function run(){
+          $.ajax({
+              cache: true,
+              type: "POST",
+              url:"{:U('UserMoney/runZhuanhuan')}",
+              data:$('#myform').serialize(),// 你的formid
+              async: false,
+              error: function(request) {
+                  layer.msg(d['info']);
+              },
+              success: function(data) {
+                  layer.msg(data['info']);
+                  if(data['status'] == 1){
+                	  setTimeout("JumpUrl()",1500);
+                  }
+              }
+          });
+		
+	}
+	function JumpUrl(){
+        location.href="{:U('Finance/index')}";
+    }
+</script>

@@ -1,0 +1,121 @@
+
+<!--头部引入位置->
+				<!分割线  以下为主体内容->
+				<!- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(0).addClass("nav-active")
+});
+</script>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 会员充币
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+						<section style="padding: 28px;">
+						<div class="row">
+							<div class="col-md-12">
+								<div style=" background-color:#3C8DBD; padding:10px; padding-bottom:20px; margin-bottom:20px; color:#fff;border-radius:5px;">
+									<h3 class="font-light m-b-xs">充币注意事项</h3>
+										{$cue['content']}
+								</div>
+							</div>
+						</div>
+			<div class="row">
+								<div class="col-md-12">
+					<div class="widget panel panel-default">
+						<div class="panel-heading">
+								<h3 class="panel-title"> 会员充币</h3>
+						</div>
+						    <div class="widget widget-body-white padding-none">
+								<div class="widget-body" style="padding: 20px; overflow: auto;">
+										<volist name='list' id='vo'>
+										<div class="row"  style=" padding:10px;">
+							     		<div class="form-group">
+                                		<label class="col-md-3 control-label">{$vo.coin_name}<eq name="vo['chongbikg']" value="0" >【已关闭充币业务】<else/>【已开启充币业务】</eq><span class="ast">*</span>:</label>
+                                			<div class="col-md-9">
+			                                  	<input onclick="oCopy(this)"  id="txt" class="form-control" id="cardnum" name="money" <eq name="vo['chongbikg']" value="0" >value='【已关闭充币业务】' disabled</eq>  type="text" value='{$vo.url}' size="400">
+                                			</div>
+                            			</div>
+                            			</div>
+                            			</volist>
+          <script>
+		function oCopy(obj){
+			var d = document.getElementById("txt");
+            obj.select(); 
+			document.execCommand("Copy");
+			 layer.msg('复制成功');
+		}
+		</script>
+		    </div>
+		    <div class="data-footer innerAll half text-right clearfix" style="text-align:center; padding:10px;">
+		    </div>
+		</div>
+	    </div>
+	    <br>
+	    <notempty name='chongbi'> 
+	    <div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">充币记录</h3>
+					</div>
+					<div class="widget-body innerAll overthrow" style="padding: 20px;overflow: auto;">
+						<table class="table table-bordered table-primary">
+							<thead>
+								<tr class="tac">
+									<th>ID</th>
+									<th>充币地址</th>
+									<th>充币数量</th>
+									<th>币种</th>
+									<th>状态</th>
+									<th>充值时间</th>
+								</tr>
+							</thead>
+							<tbody>
+								<foreach name="chongbi" item="vo">
+									<tr class="tac">
+										<td>{$vo.id}</td>
+										<td>{$vo.url}</td>
+										<td>{$vo.num}</td>
+										<td>{$vo.coin_type}</td>
+										<td>{$vo.chongbi_status}</td>
+										<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+									</tr>
+								</foreach>
+							</tbody>
+						</table>
+						{$page}
+						<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</notempty>
+    <script>
+	function recharge(){
+	}
+	</script>
+  	</div>
+				</div>
+               
+
+</div>				</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+					<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--分割线  主体内容  结束->
+				
+				<!-footer引入位置-->
+			

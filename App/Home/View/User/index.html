@@ -1,0 +1,261 @@
+<include file="App/Home/View/Public/header.html" />  
+<script src="__PUBLIC__/Home/js/echarts.js"></script>
+<script src="__PUBLIC__/Home/js/User_js.js"></script>
+<include file="App/Home/View/Public/left.html" /> 
+<!--头部导航结束-->
+<!--中间部分-->
+        <!--/左边-->
+        <!--右边-->
+        <div class="col-sm-9 uer_pa" id="con">
+            <div class="user_right">
+                <div class="user_right_head">
+                    <div class="col-sm-3 col-xs-6">
+                        <img class="user_right_head_img" src="__PUBLIC__/Home/image/cishan.png"/>
+                    </div>
+                    <div class="col-sm-2 col-xs-6">
+                        <p class="user_right_head_name">{$user.username|default="未设置"}</p>
+                        <p class="user_right_head_username">No.{$user.uid}</p>
+                    </div>
+                    <div class="col-sm-7 col-xs-12 user_right_head_xy">
+                        <div class="col-xs-6 col-md-4" style="padding:0 5px">
+                            <p><img class="user_right_head_ico" src="__PUBLIC__/Home/image/huang.png"/> 等级 : {$user.status|userStatus=###}</p>
+                        </div>
+                        <div class="col-xs-6 col-md-4" style="padding:0 5px">
+                            <p><img class="user_right_head_pho" src="__PUBLIC__/Home/image/phone.png"/> TEL : {$user.phone}</p>
+                        </div>
+                        <div class=" col-xs-6 col-sm-12 col-md-4" style="padding:0 5px">
+                            <p>外网ID: <span>{$coin.wai_id}</span></p>
+                        </div>
+                        <div class=" col-xs-12 col-sm-12" style="padding:0 5px">
+                            <p style="color:#ea6e2e ">外网地址: <span>{$coin.url}</span></p>
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-2 col-xs-6 user_right_head_xy">
+                        <p class="user_right_head_dj"><img class="user_right_head_ico" src="__PUBLIC__/Home/image/huang.png"/> 等级 : {$user.status|userStatus=###}</p>
+                        <p>外网地址: <span>{$user.url}</span></p>
+                    </div>-->
+                    <!--<div class="col-sm-2 col-xs-6">
+                        <p class="user_right_head_jf"><img class="user_right_head_pho" src="__PUBLIC__/Home/image/phone.png"/> TEL : {$user.phone}</p>
+                         <p>外网ID: <span>{$user.wai_id}</span></p>
+                    </div>-->
+                </div>
+                <div class="user_ge"></div>
+              <!--   <div class="user_right_article">
+                    <div class="col-xs-6">
+                        <p class="user_right_article_sy"><img class="user_right_head_mo" src="__PUBLIC__/Home/image/mone.png"/> 收益 （ 元 ）</p>
+                    </div>
+                    <div class="col-xs-6">
+                        <p><img class="user_right_head_mm" src="__PUBLIC__/Home/image/wenb.png"/> 历史纪录</p>
+                    </div>
+                </div> -->
+                <div class="user_ge_one"></div>
+                <div class="user_right_con">
+                    <div class="col-sm-3 col-xs-6">
+                        <p class="user_right_con_it">累计收益</p>
+                        <p class="user_right_con_p">{$relation_money['shouyi']}</p>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <p class="user_right_con_it">当日收益</p>
+                        <p class="user_right_con_p">{$relation_money['shouyi_new']}</p>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <p class="user_right_con_it">团队业绩</p>
+                        <p class="user_right_con_p ">{$relation_money['yeji']}</p>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <p class="user_right_con_it">今日新增业绩</p>
+                        <p class="user_right_con_p">{$relation_money['yeji_new']}</p>
+                    </div>
+                </div>
+                <div class="user_ge_one"></div>
+                <div class="user_right_foot">
+                    <div class="col-xs-12">
+                        <div id="main2" class="user_right_my_main"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/右边-->
+    </div>
+</div>
+<!--/中间部分结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />  
+<!--底部结束-->
+<script>
+    $(document).ready(function() {
+        /*ajxa异步切换右侧*/
+/*        $('.uer_pa a').each(function(index){
+            $(this).click(function(){
+                var hre = $(this).attr('title')+".html"
+                $.get(hre,function(result){
+                    $("#con").html(result);
+                });
+            })
+        })*/
+        /*ajxa异步切换右侧*/
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        // 使用
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/pie'// 使用柱状图就加载bar模块，按需加载
+                ],
+                function (ec) {
+                    // 基于准备好的dom，初始化echarts图表
+                    var myChart2 = ec.init(document.getElementById('main2'),'macarons');
+                    var option4 = {
+                        title:{
+                            text : '总资产:{$sum_money}',
+                            y: '250',
+                            textStyle:{
+                                color: '#ea6e2e'
+                            }
+                        },
+                        backgroundColor:'white',
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient : 'vertical',
+                            x : 'right',
+                            y : 'center',
+                            data:['七乐积分:{$money_info[0]["num"]}','增值积分:{$money_info[1]["num"]}','报单积分:{$money_info[2]["num"]}','增值券:{$money_info[3]["num"]}','消费积分:{$money_info[4]["num"]}','慈善积分:{$money_info[5]["num"]}','待解冻积分:{$money_info[6]["num"]}'],
+                            itemGap:20,
+                            textStyle:{
+                                fontSize:15,
+                                fontWeight:"bold",
+                                color:"rgba(0,0,0,0.7)"
+                            }
+                        },
+                        toolbox: {
+                            show : false,
+                            feature : {
+                                mark : {show: true},
+                                dataView : {show: true, readOnly: false},
+                                magicType : {
+                                    show: true,
+                                    type: ['pie', 'funnel'],
+                                    option: {
+                                        funnel: {
+                                            x: '25%',
+                                            width: '50%',
+                                            funnelAlign: 'center',
+                                            max: 1548
+                                        }
+                                    }
+                                },
+                                restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        calculable : false,
+                        series : [
+                            {
+                                name:'',
+                                type:'pie',
+                                center:['40%','55%'],
+                                radius : ['40%', '52%'],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : true
+                                        },
+                                        labelLine : {
+                                            show : true
+                                        }
+                                    },
+                                    emphasis : {
+                                        label : {
+                                            show : true,
+                                            position : 'center',
+                                            textStyle : {
+                                                fontSize : '13',
+                                                fontWeight : 'bold'
+                                            }
+                                        }
+                                    }
+                                },
+                                data:[
+ 
+                                    {
+                                        value:"{$money_info[0]['num']}",
+                                        name:'七乐积分:{$money_info[0]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FFC1C1'
+                                            }
+                                        }
+                                    },
+                                    {
+                                        value:"{$money_info[1]['num']}",
+                                        name:'增值积分:{$money_info[1]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FFB90F'
+                                            }
+                                        }
+                                    },
+                                    {
+                                        value:"{$money_info[2]['num']}",
+                                        name:'报单积分:{$money_info[2]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FFA54F'
+                                            }
+                                        }
+                                    },
+                                    {
+                                        value:"{$money_info[3]['num']}",
+                                        name:'增值券:{$money_info[3]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FF8C00'
+                                            }
+                                        }
+                                    },
+                                    {
+                                        value:"{$money_info[4]['num']}",
+                                        name:'消费积分:{$money_info[4]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FF7F50'
+                                            }
+                                        }
+                                    },
+                                    {
+                                        value:"{$money_info[5]['num']}",
+                                        name:'慈善积分:{$money_info[5]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FF6EB4'
+                                            }
+                                        }
+                                    },
+                                    {
+                                        value:"{$money_info[6]['num']}",
+                                        name:'待解冻积分:{$money_info[6]["num"]}',
+                                        itemStyle: {
+                                            normal: {
+                                                color: '#FF4500'
+                                            }
+                                        }
+                                    },
+                                ]
+                            }
+                        ]
+                    };
+                    window.onresize = myChart2.resize;
+                    myChart2.setOption(option4);
+                }
+        );
+    });
+</script>
+

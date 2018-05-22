@@ -1,0 +1,153 @@
+<include file="App/Home/View/Public/header.html" />
+    <style>
+        .fly_11 {
+            display: none;
+            position: absolute;
+            top: 60px;
+            width: 80%;
+            background: #F50;
+            height: 350px;
+            left: 10%;
+            right: 10%;
+            border-radius: 5px;
+        }
+    </style>
+
+
+    <div class="head">
+        <div class="headBox">
+            <a class="backIcon" href="javascript:history.go(-1)"></a>
+            <h3>提现申请</h3>
+            <!--<a class="searchIcon deleteIcon"></a>-->
+        </div>
+    </div>
+
+    <div class="middle">
+        <div class="mailTile">
+            <div class="mailLT mailSlt">
+                提现申请
+            </div>
+            <div class="mailRt ">
+                <a href="{:U('Withdraw/index')}">提现管理</a>
+            </div>
+
+        </div>
+        <input class="textBox" name="kye" type="hidden" id="kye" value="28">
+        <input class="textBox" name="zdtxe" type="hidden" id="zdtxe" value="200">
+        <input class="textBox" name="txmoney" type="hidden" id="txmoney" value="100">
+        <div class="changeBox zcMsg">
+		<form id="myform" method="post">
+            <div>
+                <div style="margin-left:45%;">
+                    <!-- <p><a href="http://guoji.chibianchina.com/MemberChargePhone/WithdrawApply#" id="cksm">查看说明</a></p> -->
+                </div>
+            </div>
+            <ul>
+			<li>
+					<div class="changeLt">提 &nbsp;&nbsp; 示：</div>
+                    <div class="changeRt">
+                        <i><span id="number">提现金额必须为100的整数倍</span></i>
+                    </div>
+				</li>
+                   
+				<li>
+					<div class="changeLt">静态收益：</div>
+                    <div class="changeRt">
+                        <i><span id="number">{$user_money[0]['num']}</span></i>
+                    </div>
+				</li>
+				<li>
+					<div class="changeLt">动态收益：</div>
+                    <div class="changeRt">
+                        <i><span id="number">{$user_money[1]['num']}</span></i>
+                    </div>
+				</li>
+				<li>
+					<div class="changeLt">提现类型：</div>
+                    <div class="changeRt">
+                        <select name="type">
+							<option value="3">静态</option>
+							<option value="4">动态</option>
+						</select>
+                    </div>
+				</li>
+                <li>
+                    <div class="changeLt">会员编号：</div>
+                    <div class="changeRt">
+                        <i><span id="number">{$user['username']}</span></i>
+                    </div>
+                </li>
+
+                <li class="zcSltHight">
+                    <div class="changeLt">提现金额：</div>
+                    <div class="changeRt">
+                        <input type="text" class="textBox" id="txtMoney" name="money" onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;) " onbeforepaste="clipboardData.setData(&#39;text&#39;,clipboardData.getData(&#39;text&#39;).replace(/[^\d]/g,&#39;&#39;))"><br>
+                       
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="changeLt">提现方式：</div>
+                    <div class="changeRt">
+                        <select name="payway">
+							<option value="1">微信</option>
+							<option value="2">支付宝</option>
+						</select>
+                    </div>
+                </li>
+                <li>
+                    <div class="changeLt">账号：</div>
+                    <div class="changeRt">
+                       <input type="text" name="number" class="textBox">
+                    </div>
+                </li>
+                <li class="zcSltHight txsq">
+                    <div class="changeLt">备注：</div>
+                    <div class="changeRt">
+                        <textarea name="remark" id="remark"></textarea>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="fly_11" style="display:none;">
+            <div>
+                <p>提现说明1提现说明1提现说明1提现说明1</p>
+            </div>
+
+
+        </div>
+
+
+        
+        <input type="hidden" id="hide">
+		</form>
+        <div class="changeBtnBox zc">
+            <a class="changeBtn" id="btn_Apply" href="javascript:void(0)" onclick="withdraw()">提&nbsp;&nbsp;现&nbsp;&nbsp;申&nbsp;&nbsp;请</a>
+        </div>
+    </div>
+    <include file="App/Home/View/Public/footer.html" />
+<script>
+
+		function withdraw(){
+		$.ajax({
+			cache: true,
+			type: "POST",
+			url:"{:U('Withdraw/doWithdraw')}",
+			data:$('#myform').serialize(),// 你的formid
+			async: false,
+			error: function(request) {
+				alert("Connection error");
+			},
+			success: function(d) {
+				layer.msg(d['info']);
+				if(d['status'] == 1){
+				layer.msg(d['info']);
+					window.location.href="{:U('Withdraw/index')}"
+				}
+				
+			}
+		});
+	}
+</script>
+

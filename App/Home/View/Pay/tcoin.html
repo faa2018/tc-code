@@ -1,0 +1,237 @@
+<include file="App/Home/View/Public/header.html" />
+<include file="App/Home/View/Public/left.html" />
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<script src="__PUBLIC__/Home/js/User_js.js"></script>
+<style>
+	.left{font-size: 16px;color:rgba(0,0,0,0.6)}
+	.pass_ybc{border: 1px solid rgba(0,0,0,0.1);background: rgba(200,200,200,0.1)}
+	.xuan{text-indent: 10px;}
+	.choose_one{border-bottom: 2px solid #eaa347;padding-bottom: 5px}
+	.my_add{width: 100%;margin-bottom: 50px;}
+	.cente th{text-align: center;height: 35px;line-height: 35px;}
+	.cente th p{margin: 0}
+	.gai_wocao input{display: inline-block;border: 1px solid rgba(0,0,0,0.1);border-radius: 5px;outline: none;height: 35px;}
+	.gai_wocao input:focus{border: 1px solid #bf0000; }
+	.turns{text-indent: 15px;font-size: 12px;font-weight: bold}
+	.lis th{text-align: center;line-height: 35px;}
+</style>
+        <!--/左边-->
+        <!--右边-->
+        <div class="col-sm-9 uer_pa" id="con">
+            <div class="member_con">
+                <div class="">
+                    <div class="deal_con">
+
+						<div class="raise right clearfix">
+							<div class="ybc_list">
+								<div class="ybcoin">
+									<h2 class="left">{$cuid.currency_name}提币</h2>
+									<div class="clear"></div>
+								</div>
+							</div>
+						<json id="json" ></json>
+        				<div class="support_ybc pass_ybc" id="verifyon">
+        					<div id="tagContent" class="passContent">
+        						<div class="tagContent selectTag" id="tagContent0">
+                    				<div class="choose_one clearfix">
+										<h2 class="left xuan">提币地址<span style="float:right;font-size: 13px;margin-top: 2px;"><strong id="coinout_showtips">请输入您的外网ID及外网钱包地址，提交后不可修改</strong></span></h2>
+	    							</div>
+	    							<table cellpadding="0" cellspacing="0" border="0" class="my_add">
+										<thead>
+											<tr align="center" class="cente">
+												<th style="width:221px"><p>外网ID</p></th>
+												<th style="width:300px;"><p>外网钱包地址</p></th>
+											</tr>
+											<tr align="center">
+								                  <td>{$info.wai_id}</td>
+												  <td>{$info.url}</td>
+											</tr>
+										</thead>
+										<tbody style="border: 1px solid rgba(100,100,100,0.1);">
+								            <form class="form-horizontal m-t" id="Newaddress" jump-url="{:U('Pay/tcoin',array('currency_id'=>$cuid['currency_id']))}" method="post" >
+								            <tr style="display:none;" id="coinout_newaddr" align="center">
+												<td><input class="sum" id="wai_id"  type="text" name="wai_id" ></td>
+												<td><input class="sum" id="url" style="width:300px;"  type="text" name="url" placeholder="例如：yja67fGc8UBXLWtjwvHFkjrmYhTFGH9PTs" ></td>
+												<td><input class="verify" style="background:#ea6e2e;color: #ffffff""  id="yes_add2" value="确认" type="button" onclick='submitPayTcoin()'></td>
+											</tr>
+											</form>
+											<br>
+											<empty name="info">
+											<tr align="center" id="addAddress_tr">
+												<td colspan="5"><a href="#" id="addNewAddress" onclick="addNewAddr()">点击添加一个新的提币地址</a></td>          
+											</tr>
+											</empty>
+										</tbody>
+	    							</table>
+						<script>	
+							function submitPayTcoin(){
+								var wai_id = $('#wai_id').val();
+								var url = $('#url').val();
+								$.post("{:U('Pay/setWaiIDAndAddress')}",{'wai_id':wai_id,'url':url},function(d){
+									layer.msg(d['info']);
+									if(d['status'] == '1'){
+										setTimeout("JumpUrl()",1500);
+									}else{
+										
+									}
+								});
+							}
+							function JumpUrl(){
+								location.href="{:U('Pay/tcoin')}";
+							}
+				           
+				           function addNewAddr(){
+								document.getElementById("coinout_newaddr").style.display="";//显示
+								document.getElementById("addAddress_tr").style.display="none";//隐藏
+							}
+						</script> 
+	    						<h4 class="choose_one xuan">输入要提出七乐积分的数额 
+									<span style="font-size: 12px;font-weight: bold">
+										(可用余额：<strong>{$money} </strong>
+										 当前价格：<strong>{$coin_price} </strong>)
+									</span>
+									<span style="float:right;margin-right:20px;">
+										<strong id="coinout2_showtips"></strong>
+									</span>
+								</h4>
+		<div class="table-responsive">
+		<table cellpadding="0" cellspacing="0" border="0" class="my_add table table-striped">
+			<form class="form-horizontal m-t">
+				<tbody class="gai_wocao">
+					<tr style="border-bottom:1px solid rgba(0,0,0,0.1);height: 50px;">
+						<td style="position:relative; padding-left:90px;">
+							七乐积分<input type="text" class="sum" id="num" name="num" >
+						</td>
+						<td>
+							实际到帐七乐链<input type="text" class="sum" id="true_coin" disabled> 
+							<span style="color:#f60;">(手续费{$coin_fee*100|mb_substr=0,4,"utf-8"}%)</span>
+						</td>
+					</tr>
+					<tr  style="border-bottom:1px solid rgba(0,0,0,0.1);height: 50px;">
+					    <td style=" padding-left:90px;">
+							交易密码 <input type="password" class="sum" name="paypwd" id='password'>
+						</td>
+					    <td>
+							验证码
+							<input class="sum" name="code" id="code" autocomplete="off" type="password">
+							<input style="background:#ea6e2e;color: #ffffff" class="confirm"  value="点击发送" type="button" id="msgt" data-key='off' onclick="sendPhone()">
+						</td>
+					</tr>
+					<tr>
+					  <td colspan="4"><input style=" float:right; margin-right:85px;background:#ea6e2e;color: #ffffff" type="button" class="confirm" onclick="cashout();" value="确认提币"></td>
+					</tr>
+				</tbody>
+			</form>
+		</table>
+		</div>
+        				</div>
+						<script>
+							$('#num').bind('input propertychange', function() {
+								var num=$("#num").val();
+								if(isNaN(num)){
+								   alert("请输入数字类型");
+								}else{
+								var fee="{$coin_fee}";
+								var price = "{$coin_price}";
+								var shiji=num*(1-fee)/price;
+								$("#true_coin").val(shiji.toFixed(2));
+								}
+							}); 
+							function sendPhone(){
+								var phone = $('#phone').val();
+								$.post("{:U('User/sendPhone')}",{'type':6},function(d){
+								layer.msg(d['info']);
+								});
+							}	
+							//提币方法
+							function cashout(){
+								var num = $('#num').val();
+								var password = $('#password').val();
+								var code = $('#code').val();
+								  $.ajax({
+									  cache: true,
+									  type: "POST",
+									  url:"{:U('Pay/runCoinWithdraw')}",
+									  data:{'num':num,'password':password,'code':code},// 你的formid
+									  async: false,
+									  error: function(request) {
+										  layer.msg(d['info']);
+									  },
+									  success: function(data) {
+										  layer.msg(data['info']);
+										  if(data['status'] == 1){
+											  window.location.reload();//刷新当前页面
+										  }
+									  }
+								  });
+							}
+						</script>
+				        <div class="tagContent" id="tagContent1">
+				       		<h4 class="choose_one xuan">转出七乐积分说明</h4>
+					        <div class="turns">
+					            <p>1.提币手续费为{$coin_fee*100|mb_substr=0,4,"utf-8"}%，请仔细确认后再操作。</p>
+					            <p>2.当前提走的是七乐积分，会根据当前价格，自动换算为七乐链</p>
+					            <!-- <p>2.每笔转出最大限额2000个币。</p> -->
+					        </div>
+				        </div>
+
+				<div class="ybc_list">
+					<div class="ybcoin">
+						<h2 class="left xuan">转出记录</h2>
+						<div class="clear"></div>
+					</div>
+					<div class="table-responsive">
+					<table cellspacing="0" cellpadding="0" border="0" class="raise_list table table-striped" align="center" style="border:1px solid #e1e1df;width: 100%">
+						<thead>
+						<tr class="lis">
+							<th width="16.66%"><p>转入钱包地址</p></th>
+							<th width="16.66%"><p>申请数量</p></th>
+							<th width="16.66%"><p>七乐链数量</p></th>
+							<th width="16.66%"><p>发送时间</p></th>
+							<th width="16.66%"><p>状态</p></th>
+						</tr>
+						</thead>
+						<tbody>
+						<volist name="log" id='vo'>
+						<tr id="btc_box" class="btc_new">
+							
+							<td id="btc_wallet">{$vo.url}</td>
+							<td id="btc_number">{$vo.money}</td>
+							<td id="btc_fee">{$vo['money']/$vo['bili']}</td>
+							<td id="btc_created">{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+							<td class="tableEnd" id="btc_status">
+							<if condition="$vo.status eq -1"> 
+							等待审核中
+							<elseif condition="$vo.status eq 0"/>
+							等待转出
+							<elseif condition="$vo.status eq 1"/>
+							已经到账
+							<elseif condition="$vo.status eq -2"/>
+							转出审核失败
+							<else /> 
+							未知状态
+							</if>
+							
+							</td>
+						</tr>
+								
+						</volist>
+								</tbody>
+					</table>
+					</div>
+				</div>
+			<style>
+			.btc_new,.btc_new td {background: #DDFFDD !important;}#cb_msg_box{background:#B50000;color:#FFF;display:none;text-align:center;padding:0px;}
+			</style>
+		</div>
+		<div class="clear"></div>
+	</div>
+            </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <!--/右边-->
+    </div>
+</div>
+<include file="App/Home/View/Public/footer.html"/>

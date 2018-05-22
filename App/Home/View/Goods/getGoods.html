@@ -1,0 +1,82 @@
+<include file="App/Home/View/Public/header.html" />
+<!--头部导航结束-->
+<!--商城商品列表开始-->
+<div class="container mt-50" style="margin-bottom: 150px;">
+<div class="row two_btn">
+	<div class="col-xs-6">
+		<a href="{:U('Goods/getMyCart')}" class="shopping_cart_settlement">去购物车结算</a>
+	</div>
+	<div class="col-xs-6">
+		<a href="{:U('Order/index')}" class="shopping_cart_settlement">查看我的订单</a>
+	</div>
+</div>
+	<!--商城商品列表内容开始-->
+	<div class="row">
+	<foreach name="goods" item="vo">
+		<div class="col-md-3 shopping_block">
+			<div class="shopping_img">
+				<img src="{$vo['image']}" class="w_100" style="max-height: 150px;">
+			</div>
+			<div class="shopping_title">{$vo['name']}</div>
+			<div class="mt-5">
+				<div class="shopping_price">￥{$vo['price']}</div>
+				<input type="button" value="+ 加入购物车" class="shopping_cart" onClick="jion(this,{$vo['goods_id']})"/>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</foreach>
+	</div>
+	<!--商城商品列表内容结束-->
+	<!--分页开始-->
+	<div class="shopping_page">
+	{$page}
+	</div>
+	<!--分页结束-->
+	<!--购物车开始-->
+	<div class="shopping_cart_block">
+		<span id="over" style="display:none;"><div class="fl" style="margin-left: 10px;">
+			<img src="__PUBLIC__/Home/image/right.png" class="w_100">
+		</div>
+		<div class="fl" style="margin-left: 10px;">商品已成功加入购物车</div>
+		</span>
+		<div class="clear asd"><span style="color: #CCC; display: block;">购物车空空如也！</span></div>
+		<div class="clear"></div>
+	</div>
+	<div class="fr mt-30">
+		<a href="{:U('Goods/getMyCart')}" class="shopping_cart_settlement">去购物车结算</a>
+	</div>
+	<div class="fr mt-30" style="margin-right: 15px;">
+		<a href="{:U('Order/index')}" class="shopping_cart_settlement">查看我的订单</a>
+	</div>
+	<!--购物车结束-->
+</div>
+<!--商城商品列表结束-->
+<!--底部开始-->
+<include file="App/Home/View/Public/footer.html" />
+<!--底部结束-->
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	
+})
+/*添加购物车*/
+function jion(_this,goods_id){
+	$.post("{:U('Goods/addCart')}",{'goods_id':goods_id},function(d){
+		layer.msg(d['msg']);
+		if(d['status']==1){
+			var img = $(_this).parents(".shopping_block").find("img").attr("src");
+	var title = $(_this).parents(".shopping_block").find(".shopping_title").html();
+	var price = $(_this).parents(".shopping_block").find(".shopping_price").html();
+	$(_this).removeClass("shopping_cart").addClass("shopping_cart2");
+	$(_this).attr("disabled",true);
+	$(".asd").find("span").css("display","none");
+	$(".shopping_cart_block").css("display","block");
+	$(".asd").after('<div class="fl shopping_cart_block_cart"><div class="fl shopping_img_small"><img style="width:100px;" src="'+img+'" class="w_100"></div><div class="fl mt-10 ml-10"><p>'+title+'</p><div class="shopping_cart_amount"><div class="fl" style="height: 30px; line-height: 30px;">数量：1</div></div><div class="clear"></div></div><div class="clear"></div></div>');
+		}
+	},'json');
+	
+	
+	
+}
+</script>

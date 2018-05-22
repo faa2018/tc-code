@@ -1,0 +1,64 @@
+<include file="App/Home/View/Public/header.html" />
+    <link href="__PUBLIC__/zx2/css/scrollbar.css" rel="stylesheet">
+      <style>
+        #wrapper {
+            position: absolute;
+            z-index: 1;
+            top: 84px;
+            bottom: 48px;
+            left: 0;
+            width: 100%;
+            overflow: auto;
+        }
+
+        .middle {
+            padding-bottom: 0px;
+        }
+    </style>
+    <script src="__PUBLIC__/zx2/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="__PUBLIC__/zx2/js/app.js"></script>
+    <script src="__PUBLIC__/zx2/js/Jquery.TouchSwipe.min.js"></script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(4).addClass("nav-active")
+});
+</script>
+<div class="head">
+        <div class="headBox">
+            <a class="backIcon ui-link" href="javascript:history.go(-1)"></a>
+            <h3>公告</h3>
+            <input type="hidden" id="count" value="0">
+        </div>
+</div>
+    <div class="mailTile">
+        <!--
+         class setting:
+         mailSlt    :   选中邮箱按钮后样式
+        -->
+        <div class="mailSlt" style="text-align:center">
+            公告详情
+        </div>
+    </div>
+	 <div class="changeBox">
+        <div class="search1"  style="text-align:center">
+		<h2 class="heading">{$view.title}</h2>
+           
+        </div>
+		<div class="search1"   style="text-align:center">
+		{$view.content}
+		
+	</div>
+	<div style="text-align:right">
+
+			{$view.add_time|date="Y年m月d日",###}
+
+		</div>
+        </div>
+		    
+
+	<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+	
+				<!---------------------------footer引入位置--------------------------->
+	

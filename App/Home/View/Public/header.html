@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>七乐国际</title>
+<link href="__PUBLIC__/Home/css/bootstrap.min.css" rel="stylesheet">
+<link href="__PUBLIC__/Home/css/hd.css" rel="stylesheet">
+<script src="__PUBLIC__/Home/js/jquery-1.11.3.min.js"></script>
+<script src="__PUBLIC__/Home/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/Home/layer/layer.js"></script>
+<script src="__PUBLIC__/Home/js/User_js.js"></script>
+<script src="__PUBLIC__/Home/js/china_area.js"></script>
+</head>
+
+<body>
+<!--头部导航开始-->
+<nav class="navbar navbar-default pb-25" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{:U('Index/index')}">
+                <img src="__PUBLIC__/Home/image/logo.png" class="w_100">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav fr">
+                <li><a href="{:U('Index/index')}">首页</a></li>
+                <li><a href="{:U('Art/index')}">新闻中心</a></li>
+                <li><a href="{:U('Goods/getGoods')}">七乐商城</a></li>
+                <li><a href="{:U('User/getProject')}">我的订单</a></li>
+                <li><a href="{:U('User/index')}">账户管理</a></li>
+                <!--<li><a href="#">账号：XXX 姓名：XXX 级别：XXX 总业绩：XXX</a></li>
+                <li><a href="#">退出</a></li>-->
+                <empty name= "Think.session.HOME_USER_ID">
+                    <li><a href="{:U('Reg/reg')}">注册</a></li>
+                    <li><a href="{:U('Login/index')}">登录</a></li>
+                <else/>
+                    <li><a href="{:U('Login/logout')}">退出</a></li>
+                </empty>
+                <!--<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Java <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">jmeter</a></li>
+                        <li><a href="#">EJB</a></li>
+                        <li><a href="#">Jasper Report</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">分离的链接</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另一个分离的链接</a></li>
+                    </ul>
+                </li>-->
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+</nav>
+<div style="width: 100%; height: 2px; background-color: #e8ecef;"></div>
+<script>
+    /*var hre=window.location.href
+    if(/Index\/index\.html/.test(hre)){
+        $('.fr li').eq(0).addClass('active')
+    }
+    if(/User\/index\.html/.test(hre)){
+        $('.fr li').eq(4).addClass('active')
+    }
+    if(/Reg\/reg\.html/.test(hre)){
+        $('.fr li').eq(5).addClass('active')
+    }
+    if(/Login\/index\.html/.test(hre)){
+        $('.fr li').eq(6).addClass('active')
+    }*/
+$(document).ready(function(){
+	$(".navbar .navbar-nav li a").each(function(){  
+		console.log($(this).attr("href").substring(0,10));
+		console.log(window.location.href);
+		if(window.location.href.indexOf($(this).attr("href").substring(0,15))>=0){ 
+			$(this).parent("li").addClass("active").siblings("li").removeClass("active"); 
+			return false;
+		}
+		else {
+			//console.log($(this).attr("href").substring(0,5));
+			$(this).parents(".navbar-nav").find("li").eq(3).addClass("active").siblings("li").removeClass("active");	
+		}
+	});
+})
+	
+
+</script>

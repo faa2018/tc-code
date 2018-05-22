@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Login</title>
+
+    <link href="__PUBLIC__/Home1/zj/css/style.css" rel="stylesheet">
+    <link href="__PUBLIC__/Home1/zj/css/style-responsive.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/layer/layer.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <form class="form-signin" id='myform'>
+        <div class="form-signin-heading text-center">
+            <!--<h1 class="sign-title">&nbsp; 登 &nbsp; 录 &nbsp;</h1>-->
+            <img src="__PUBLIC__/Home1/images/logo.png" alt="" style="width:70%;height:70%;"/>
+        </div>
+        <div class="login-wrap">
+            <div class="alert alert-danger" style="display:none;">
+     <!--    用户名或密码不正确。 -->      </div>    
+            <input type="text" class="form-control" placeholder="用户名/手机号/邮箱" id="username" name='username'  >
+            <input type="password" class="form-control" placeholder="密码" name='password' id="password" ><span id="passwordshow"></span>          
+            <input class="form-control" type="text" placeholder="验证码" name='code' id="captcha-form">
+           <div> 
+		   	<img src="{:U('Login/verify')}" style="width: 120px;height:50px;" onClick="getCode();" id="captcha">
+           <a style="vertical-align: bottom;margin-left: 20px; cursor:pointer;"  onClick="getCode();" >看不清，换一张</a>
+            </div> 
+            <input type="button" value="登录" class="btn btn-lg btn-login btn-block" onClick="login()">
+            <a href="{:U('Login/forgetPassword')}" style="float:left">忘记密码?</a>
+			
+            <a href="{:U('Reg/reg')}" style="float:right">立即注册</a>
+            <span style="float:right">还没有账号?</span>
+        </div>
+    </form>
+</div>
+
+<script>	
+		function login(){
+			$.ajax({
+                cache: true,
+                type: "POST",
+                url:"{:U('Login/login')}",
+                data:$('#myform').serialize(),// 你的formid
+                async: false,
+                error: function(request) {
+                    layer.msg(d['info']);
+                },
+                success: function(data) {
+					layer.msg(data['info']);
+                    if(data['status'] == '1111'){
+						setTimeout("JumpUrl()",1500);
+					}else{
+						getCode();
+					}
+                }
+            });
+		}
+		function JumpUrl(){
+			location.href="{:U('Index/index')}";
+		}
+		function getCode(){
+			document.getElementById('captcha').src="{:U('Login/verify')}?"+Math.random();	
+		}
+		
+	
+		$('#password').blur(function() {
+		var regex = /^[a-zA-Z0-9]{6,18}$/;
+		var password = $("#password").val();
+		if ("" != password && null != password) {
+			if (!regex.test(password)) {
+				$('#passwordshow').html("<span style='color: red'>请输入6~18位的密码</span>");
+			} else {
+				$("#passwordshow").html("<span style='color: red'></span>");
+			}
+		} else {
+			$("#passwordshow").html("<span style='color: red'></span>");
+		}
+	});
+		
+	</script> 
+</body>
+</html>

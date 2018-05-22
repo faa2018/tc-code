@@ -1,0 +1,212 @@
+
+				<!-- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+              <link href="__PUBLIC__/Home1/zj/css/style.css" rel="stylesheet">
+  <script src="__PUBLIC__/Home1/zj/js/xb_scroll.js"> </script>
+   
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(3).addClass("nav-active")
+});
+
+$(document).ready(function(){
+//获得文本框对象
+   var t = $("#text_box");
+//初始化数量为1,并失效减
+$('#min').attr('disabled',true);
+    //数量增加操作
+    $("#add").click(function(){    
+        t.val(parseInt(t.val())+1)
+        if (parseInt(t.val())!=1){
+            $('#min').attr('disabled',false);
+        }
+        var total = parseFloat($("#price").val())*parseInt($("#text_box").val()); 
+        $("#totalPrice").html(total.toFixed(2));  
+    }) 
+    //数量减少操作
+    $("#min").click(function(){
+        t.val(parseInt(t.val())-1);
+        if (parseInt(t.val())==1){
+            $('#min').attr('disabled',true);
+        }
+        var total = parseFloat($("#price").val())*parseInt($("#text_box").val());  
+        $("#totalPrice").html(total.toFixed(2));  
+    })
+   
+});
+ 
+</script>
+<style>
+#hl{
+	width:100%;
+	background:black;
+	opacity:0.6;
+	display:none;
+	position:absolute;
+	z-index:9999999;
+	display:nono;
+}
+@media screen and (max-width: 768px){
+	.sticky-header .header-section{
+		left:0;
+	}
+	.main-content{
+		margin-left:0px;
+	}
+	.panelstart{
+		padding:0px;
+		}
+	.wrapper{
+		padding:0px;
+	}
+	.imgs{
+		margin-left:0px;
+		display:block;
+		text-align:center;
+		width:100%;
+	}
+	.product-particulars{
+	
+		clear:both;
+	}
+	.test{
+	width:800px;
+	border:1px solid red;
+	margin:0 auto;
+	padding:20px;
+}
+
+</style>
+
+    			<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+				
+					<section class="panel">
+						<!--主体开始-->
+
+						<section class="panelstart">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default" id="panel-default" >
+									<div id="ding"></div>
+										<div class="panel-heading">
+											<h3 class="panel-title">商品详情</h3>
+										</div><br />
+                                                   <div class="imgs"><img src="{$list.pic}"/></div>
+                                                   <form id='myform'>
+                                                   <input name="id" type="hidden" value="{$list.id}">  
+                                                    <div class="product-particulars"><span class="introduce">{$list.title}</span><br><br>
+                                                     <input name="price" id="price" type="hidden" value="{$list.price}"> 
+                                                       <span class="price">积分 : &nbsp;&nbsp;&nbsp;&nbsp;<span id="totalPrice">{$list.price}</span> </span><br><br>
+                                                        <span class="price">库存 : &nbsp;&nbsp;&nbsp;&nbsp; <eq name="list.stock" value="0"><span style="color:red">已售完</span><else/>{$list.stock}件</eq></span><br><br>
+                                                       <input id="min" name="" style="width:25px;" type="button" value="-"  />  
+                                                         <input id="text_box"  name="num" type="text" value="1" style="width:30px; text-align:center" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"/>  
+                                                          <input id="add" name="" type="button" value="+" />  <br><br>
+                                                        <input id="button"  <eq name="list.stock" value="0">value="已售完" disabled</eq> type="button" value="立即购买" class="btn btn-primary"  onClick="addressfn()"  />
+                                                        </div>
+                                                 <div style="text-align:center" class="commodity"><br />
+                                                 <h3>商品详情</h3>
+                                                 {$list.content}
+                                                 </div>
+											</table>
+											<div class="col-md-12 dataTables_paginate paging_simple_numbers" id="example_paginate" >
+											</div>
+											<a href="#ding"><div class="imgimg"><img src='__PUBLIC__/Home1/zj/images/1.png'></div></a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+				<!-- <div id="hl"> -->
+				
+			<div class="background">
+                <div class="pop-up">
+                	<div class="pop-up-top">请输入收货地址</div> <br>
+                    <div class="pop-up-bottom">
+                            <div class="form-group-lg form-group-sm">
+                                <label for="you">
+                                   	&nbsp; 收货人姓名：
+                                </label>
+                                <input id="you"  name='name' type="text" placeholder="请输入您的名字">
+                            </div><br>
+                            <div class="form-group-lg form-group-sm">
+                                <label for="you">
+                                	 &nbsp;   请输入地址：
+                                </label>
+                                <input id="you"  name='address' type="text" placeholder="请输入您的收货地址" style="width:60%" >
+                            </div><br>
+                            <div class="form-group-lg form-group-sm">
+                                <label for="you">
+                                	&nbsp;    您的手机号：
+                                </label>
+                                <input id="you" name='phone' type="text" placeholder="请输入您的手机号">
+                            </div><br>
+                            <center>
+                            <button type="button" class='btn btn-primary'  onClick="buy()">确定提交</button>
+                            <button type="button" class='btn btn-primary'  onClick="back()">取 消</button>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+			</div>
+				<!-- </div> -->
+	<script>
+			function addressfn(){
+				var address = document.getElementsByClassName("background")[0];
+				address.style.display = "block";
+        	}
+			function back(){
+				var address = document.getElementsByClassName("background")[0];
+				address.style.display = "none";
+        	}
+			function buy(){
+				$.ajax({
+	                cache: true,
+	                type: "POST",
+	                url:"{:U('Buy/Buy')}",
+	                data:$('#myform').serialize(),// 你的formid
+	                async: false,
+	                error: function(request) {
+	                    layer.msg(d['info']);
+	                },
+	                success: function(data) {
+	                    layer.msg(data['info']);
+	                    if(data['status'] == 1){
+	                        layer.msg(data['info']);
+	                        setTimeout('JumpUrl()',1500);
+	                    }
+	                }
+	            });
+        	}
+		function JumpUrl(){
+            location.href="{:U('Buy/getOrders')}";
+        }	
+		
+
+</script>
+<script>
+	$(function(){
+		var a =$(document).height();
+		$("#hl").css("height",a+"px");
+	})
+</script>
+<!-- <script href="__PUBLIC__/Js/jquery-1.10.2.min.js"> </script> -->
+<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+			
+				<!---------------------------footer引入位置--------------------------->
+			

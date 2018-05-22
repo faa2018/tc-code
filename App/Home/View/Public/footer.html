@@ -1,0 +1,100 @@
+ <style>
+	 .center-block:hover{
+		 color: #FFF;
+	 }
+	 .center-block:active{
+		 color: #FFF;
+	 }
+	 
+	.footerSafety .safety02 a{
+	 	background-position: 0 -31px;
+	}
+	 .footerSafety .safety03 a {
+		background-position: 0 -62px;
+	}
+	 .footerSafety .safety04 a {
+		background-position: 0 -93px;
+	}
+	  .footerSafety .safety05 a {
+		background-position: 0 -0px;
+	}
+	.footerSafety li {
+		float: left;
+		/*width: 25%;*/
+		height: 31px;
+	}
+	 .footer-list a{
+		color: #000 !important;
+	 }
+</style>
+  <div class="container-fluid" style="position: relative; margin-top:35px; height:400px;">
+   <div class="footer">
+    <div class="container">
+       <!-- <div class="row"> 
+           <volist name="art_lists" id="vo">
+            <div class="col-md-3">
+				<ul>
+					<li style="width: 100%;">
+						<div class="fl"><a href="{:U('Art/see_art',array('id'=>$vo['id']))}">{$vo['title']}</a></div>
+						<div class="fr">{$vo['add_time'|date='Y-m-d',###]}</div>
+					</li>	
+				</ul>
+            </div>
+			</volist>
+        </div>-->
+		<div class="row">
+            <div class="footer-logo col-md-4 col-xs-12" style="margin-bottom: 15px;">
+                 <img src="__PUBLIC__/Home/image/logo.png" class="w_100">
+            </div>
+            <div class="col-xs-4 col-md-3 coin_nav">
+                <p class="footer-title">新闻中心</p>
+                <ul class="list-unstyled footer-list">
+				<volist name="art_lists" id="vo">
+                    <li><a href="{:U('Art/see_art',array('id'=>$vo['id']))}">{$vo['title']}</a></li><br/>
+					</volist>
+                </ul>
+            </div>
+            <div class="col-xs-4 col-md-2 coin_nav">
+                <p class="footer-title">
+                    友情链接 
+                </p>
+                <ul class="list-unstyled footer-list">
+				<volist name="linklist" id="v">
+                        <li><a href="{$v['url']}">{$v['title']}</a></li><br/>
+						
+                  </volist>     
+                </ul>
+            </div>
+            <div class=" col-xs-4 col-md-3 coin_phoneqq coin_nav" style="padding-left:15px; padding-right:0;">
+                <div class="footer-title" style="height: 40px; border-radius: 15px 15px; color: #FFF; text-align: center; background:#f60; line-height: 40px;">
+                    <input type="button" class="center-block" onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&uin=75509712&site=qq&menu=yes');" style="color: #FFF; background:#f60; width: 100%; border: none; outline:none;border-radius: 15px 15px;" value="在线客服">
+                </div>
+                <div style="text-align: center; margin-top: 15px;">工作时间 10：00-18:00</div>
+            </div>
+        </div>
+
+        <div class="col-md-12" style="text-align: center;">
+			<p>Copyright 2013-2017 七乐国际 All Rights Reserved. Powered by 七乐国际（亚洲）娱乐投资有限公司&nbsp;&nbsp;</p>
+       		<p>鲁ICP证160909号 &nbsp;&nbsp;鲁ICP备16017317号-2 &nbsp;&nbsp;鲁网文（2016）2097-245号 鲁公网安备 11010502032587号</p>
+        </div>
+        <div class="col-md-12 col-xs-12 table-responsive" style="text-align: center; border: none;">
+			<ul class="footerSafety row">
+				<li class="safety02 col-xs-3">
+					<a href="#"></a>
+				</li>
+				<li class="safety03 col-xs-3">
+					<a href="#"></a>
+				</li>
+				<li class="safety04 col-xs-3">
+					<a href="#"></a>
+				</li>
+				<li class="safety05 col-xs-3">
+					<a href="#"></a>
+				</li>
+			</ul>
+		</div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

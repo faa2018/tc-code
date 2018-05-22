@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>会员日回馈积分总统计日志</title>
+	<bootstrapcss />
+</head>
+<script src="/Public/Admin/js/jquery.min.js"></script>
+<script src="/Public/Admin/js/jquery.js"></script>
+     <script src="/Public/js/laydate/laydate.js"></script>
+<body>
+<!-- 导航栏开始 -->
+
+<div class="bjy-admin-nav">
+	<a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+	&gt;
+	会员日回馈积分总统计日志
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+		 <a href="#home" data-toggle="tab">会员日回馈积分总统计日志</a>
+   </li>
+</ul>
+<!-- <form action="{:U('Finance/index')}" method="post"> -->
+    <!-- <table class="table table-striped table-bordered table-hover table-condensed"> -->
+        <!-- <tr> -->
+            <!-- <th width="5%">财务管理链接</th> -->
+            <!-- <td width="15%"> -->
+				<!-- <a href="{:U('Finance/jifenList')}"> -->
+					<!-- <input class="btn btn-success" type="button" value="积分返还列表"> -->
+				<!-- </a> -->
+             <!-- </td> -->
+			<!-- <td width="15%"> -->
+				<!-- <a> -->
+					<!-- <input class="btn btn-success" type="button" value="每日积分总计列表"> -->
+				<!-- </a> -->
+            <!-- </td> -->
+			<!-- <td > -->
+            <!-- </td> -->
+        <!-- </tr> -->
+		<!-- <tr> -->
+            <!-- <th width="5%">搜索</th> -->
+            <!-- <td width="15%"> -->
+               	<!-- <input class="form-control" type="text" name="username" value="{$Think.post.username|default=''}"  placeholder="用户名" > -->
+            <!-- </td> -->
+			<!-- <td width="15%"> -->
+               	<!-- <select class="form-control" name="type" id="droCoinType"> -->
+					<!-- <option  value="0" >==选择日志类别==</option> -->
+					<!-- <volist name='type_name' id='vo'> -->
+						<!-- <option  value="{$key}" <eq name='Think.post.type' value="$key">selected</eq> >{$vo}</option> -->
+					<!-- </volist> -->
+				<!-- </select> -->
+            <!-- </td> -->
+            <!-- <td> -->
+<!-- 开始日：<input class="laydate-icon" id="start" name='start' value="{$start}" style="width:200px; margin-right:10px;" readonly/> -->
+<!-- 结束日：<input class="laydate-icon" id="end" name='end' value="{$end}" style="width:200px;" readonly/> -->
+<!-- <script> -->
+
+
+<!-- var start = { -->
+  <!-- elem: '#start', -->
+  <!-- format: 'YYYY-MM-DD,hh:mm:ss', -->
+  <!-- //min: laydate.now(), //设定最小日期为当前日期 -->
+  <!-- min:'2017-03-01 23:59:59', -->
+  <!-- max: '2099-06-16 23:59:59', //最大日期 -->
+  <!-- istime: true, -->
+  <!-- istoday: false, -->
+  <!-- choose: function(datas){ -->
+     <!-- end.min = datas; //开始日选好后，重置结束日的最小日期 -->
+     <!-- //end.start = datas; //将结束日的初始值设定为开始日 -->
+     <!-- var s = $('#start').html(); -->
+  <!-- } -->
+<!-- }; -->
+<!-- var end = { -->
+  <!-- elem: '#end', -->
+  <!-- format: 'YYYY-MM-DD,hh:mm:ss', -->
+  <!-- min: laydate.now(), -->
+  <!-- max: '2099-06-16 23:59:59', -->
+  <!-- istime: true, -->
+  <!-- istoday: false, -->
+  <!-- choose: function(datas){ -->
+    <!-- //start.max = datas; //结束日选好后，重置开始日的最大日期 -->
+    <!-- var ss = $('#end').html(); -->
+  <!-- } -->
+<!-- }; -->
+<!-- laydate(start); -->
+<!-- laydate(end); -->
+<!-- </script></td> -->
+            <!-- <td width="80%"> -->
+                <!-- <input class="btn btn-success" type="submit" value="搜索"> -->
+            <!-- </td> -->
+        <!-- </tr> -->
+		
+    <!-- </table> -->
+<!-- </form> -->
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr>
+				<th width="30%">用户名</th>
+				<th width="30%">金额</th>
+				<th width='30%'>日期</th>
+				<th width='30%'>操作</th>
+			</tr>
+			<volist name="list" id="v">
+				<tr>
+					<td>{$v['username']|default='0'}</td>
+					<td>{$v['money']|default='0'}</td>
+					<td>{$v['date']|default='0'}</td>
+					<td>
+						<a href="{:U('Finance/jifenList',array('uid'=>$v['uid']))}">
+							查看投资回馈积分记录
+						</a>
+					</td>
+					
+				</tr>
+			</volist>
+		</table>
+		<div class="xb-page" style="margin-bottom:50px;">{$page}</div>
+   </div>
+ <!--  <p style="color:black; font-size:14px ;font-weight:bold "  > 本页金额统计： {$money_count|default=0}元</p><br>
+  <p style="color:black; font-size:14px ;font-weight:bold "  > 总金额统计： {$money_count_zong|default=0}元</p><br>
+  <p style="color:red; font-size:14px ;font-weight:bold "  > 备注：请选择单项查询统计 全部财务日志统计可能并不准确</p><br>
+ --></div>
+<bootstrapjs />
+</body>
+</html>

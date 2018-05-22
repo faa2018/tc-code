@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>充值记录 </title>
+    <bootstrapcss />
+</head>
+<body>
+<!-- 导航栏开始 -->
+<div class="bjy-admin-nav">
+    <a href="{:U('Admin/Index/index')}"><i class="fa fa-home"></i> 首页</a>
+    &gt;
+    充值记录
+</div>
+<!-- 导航栏结束 -->
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+        <a href="#">充值记录</a>
+    </li>
+</ul>
+<!-- 导航栏结束 -->
+<form method='post' >
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <tr>
+            <th width="5%">搜索</th>
+            <td width="15%">
+               	<input class="form-control" type="text" name="username" value="{$Think.post.username}" placeholder="用户名" >
+            </td>
+            <td width="15%">
+             <select class="form-control" name="status" id="droCoinType">
+					<option  value="" >==选择充值状态==</option>
+					<volist name='recharge_status' id='vo'>
+					<<option  value="{$key}" <heq name='status_old' value="$key">selected</heq> >{$vo}</option>
+					</volist>
+				</select>
+			</td>
+            <td width="80%">
+                <input class="btn btn-success" type="submit" value="搜索">
+            </td>
+        </tr>
+    </table>
+</form>
+<table class="table table-striped table-bordered table-hover table-condensed">
+    <tr>
+        <th>充值id</th>
+        <th>用户名</th>
+        <th>充值金额</th>
+		<th>充值方式</th>
+        <th>支付账号</th>
+        <th>充值时间</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    <volist name="list" id="vo">
+        <tr>
+        	<td>{$vo['id']|default='暂无'}</td>
+            <td>{$vo['username']|default='暂无'}</td>
+            <td>{$vo['num']|default='暂无'}</td>
+			<td>{$vo['chongzhi_type']|default='暂无'}</td>
+            <td>{$vo['payment']|default='暂无'}</td>
+            <td>{$vo['add_time']|date='Y-m-d H:i:s',###}</td>
+            <td>
+				{$vo['chongzhi_status']|default='暂无'}
+			</td>
+			<td>
+				<eq name="vo['status']" value="0">
+					<a class="btn btn-success" href="{:U('UserMoney/chongzhi_adopt',array('id'=>$vo['id']))}">通过 </a>
+					<a class="btn btn-success" href="{:U('UserMoney/chongzhi_refuse',array('id'=>$vo['id']))}">拒绝</a>	
+				<else/>
+					当前无法操作
+				</eq>
+			</td>
+        </tr>
+    </volist>
+</table>
+<div class="xb-page">{$page}</div>
+<bootstrapjs />
+</body>
+<script>
+function adopt(id){
+		$.post("{:U('User/chongzhi_adopt')}",{'chongzhi_id':uid},function(d){
+			alert(d['info']);
+		if(d['status'] == 1){
+			window.location.reload();
+		}
+		});
+	}
+	function refuse(id){
+		$.post("{:U('Pack/chongzhi_refuse')}",{'chongzhi_id':uid},function(d){
+			alert(d['info']);
+		if(d['status'] == 1){
+			window.location.reload();
+		}
+		});
+	}
+</script>
+</html>

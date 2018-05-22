@@ -1,0 +1,98 @@
+<include file="App/Kuang/View/Public/header.html"/>
+<div class="top-text">你的位置：后台留言&nbsp;&nbsp;/&nbsp;&nbsp;留言</div>
+
+	<div class="page-content">
+
+		<div class="container-fluid">
+
+			<div class="row-fluid">
+            
+				<div class="span12">
+					<div class="portlet box blue">
+
+						<div class="portlet-title">
+
+							<div class="caption"><i class="icon-reorder"></i>发送邮件</div>
+
+						</div>
+						
+						<div class="portlet-body form">
+
+							<!-- BEGIN FORM-->
+
+							<form id="send" class="form-horizontal" method="post" action="{:U('Art/sendAjaxReturn')}" jump_url="{:U('Art/send')}">
+																
+								<h3 class="form-section">发送邮件</h3>
+								
+								<div class="control-group">
+									<label class="control-label">标题: <span class="mandatory">*</span></label>
+									<div class="controls">
+										<input id="title" name="title" class="m-wrap span4" value="" type="text">
+									</div>
+								</div>  
+								
+								<div class="control-group">
+									<label class="control-label">信息: <span class="mandatory">*</span></label>
+									<div class="controls">
+										<textarea name="content" cols rows class="m-wrap span4" style="height:120px; width:150px; background:#fff; border:1px solid #CCC;"></textarea>
+									</div>
+								</div>
+								<div class="form-actions">
+									
+									<input class="no_display" id="csrf_pkc_token" name="csrf_pkc_token" value="905c6139bad8982dfccbb704b01e75ed" type="hidden">
+									<button type="submit" class="btn blue"><i class="icon-ok"></i> 提交</button>
+
+								</div>
+
+							</form>
+						</div>
+                        </div>
+                        </div>
+					</div>					
+				</div><!-- End span12 -->
+				
+			</div> <!-- End Row Fluid -->
+
+			<!-- END PAGE CONTENT-->
+		</div><!-- End Dv Container-fluid -->
+		<!-- END PAGE CONTAINER--> 
+
+	</div>
+
+<!-- END PAGE --> 	
+	
+
+	</div>
+	
+	<!-- END CONTAINER -->
+
+    <script>
+	  $("#send").validate({
+        rules: {
+			
+			title: {
+				required: true,
+			},
+			content: {
+				required: true,
+			},
+        },
+        messages: {
+			title: {
+				required: "标题不能为空",
+			},
+			content: {
+				required: "内容不能为空",
+			},
+        },
+	    submitHandler:function(form){
+            ajax_submit_form(form);
+            return false;
+        },
+        invalidHandler: function() {  //不通过回调
+            return false;
+        }
+    });
+</script>
+
+	<include file="App/Kuang/View/Public/footer.html"/>

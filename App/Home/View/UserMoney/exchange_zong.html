@@ -1,0 +1,94 @@
+
+				<!-- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+				      <script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(0).addClass("nav-active")
+});
+</script>
+<style>
+.inputclass{
+    width: 230px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+	text-align:center;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+</style>
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 主菜单
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						<section style="padding: 28px;">
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">资金管理</h3>
+										</div>
+										<div class="widget-body innerAll overthrow" style="padding: 20px;overflow: auto;">
+											<volist name='money' id='vo'>
+											<div style="width:100%; height:70px">
+												<div style="height:25px; margin:10px 10px; width:95px; float:left; line-height:35px;">{$vo.money_type_name}数量	: 
+												</div>
+												<div style="width:175px; float:left; margin:10px 15px;">
+												<input class="inputclass" style="width:175px" type='text' disabled value="{$vo['num']|default=0}">
+												</div>
+												<div id="" style=" height:45px; margin:10px 20px; width:125px; float:left;">
+												<a class="btn btn-primary" href="{:U('UserMoney/toZongMoney',array('type'=>$vo['type']))}">转出到总钱包</a>
+												</div>
+												 <!-- <a class="btn btn-primary" href="{:U('UserMoney/getCash',array('type'=>$vo['id'],'money'=>1))}"></a> -->
+											</div>
+											</volist>
+											
+											<div style="width:100%; height:70px;">
+											
+											<div style="height:25px; margin:10px 10px; width:95px; float:left; line-height:35px;">{$money_zong.money_type_name}数量	: 
+											</div>
+												<div style="width:175px; float:left; margin:10px 15px;">											
+											<input class="inputclass" type='text' style="width:175px" disabled value="{$money_zong['num']|default=0}"></div>
+											<div id="" style=" height:45px; margin:10px 20px; width:125px; float:left;">
+											<a class="btn btn-primary" href="{:U('UserMoney/zhuanhuan',array('type'=>$money_zong['type']))}">转出到其他积分</a>
+											</div>
+											<div id=""  style=" height:45px; margin:10px 20px; width:125px; float:left;">
+											  <a class="btn btn-primary" href="{:U('Project/buySingleCurrency')}">购买交易点</a> </div>
+											</div>
+											
+											<div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+											</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--------------------------------------------------分割线  主体内容  结束--------------------------------->
+			
+				<!---------------------------footer引入位置--------------------------->
+			

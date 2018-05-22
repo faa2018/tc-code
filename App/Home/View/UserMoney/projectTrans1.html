@@ -1,0 +1,162 @@
+
+<!--头部引入位置->
+				<!分割线  以下为主体内容->
+				<!- page heading start-->
+				<include file="App/Home/View/Public/left.html" />
+<script src="__PUBLIC__/js/jquery-1.8.3.min.js"> </script>
+<script>
+ $(document).ready(function(){
+$(".nav-nav").eq(0).addClass("nav-active")
+});
+</script>
+          
+				<div class="page-heading">
+					<i class="fa fa-bar-chart-o"></i> 项目积分互转
+				</div>
+				<!-- page heading end-->
+
+				<!--body wrapper start-->
+
+				<div class="wrapper">
+					<section class="panel">
+						<!--主体开始-->
+
+						
+						<section style="padding: 28px;">
+						<div class="row">
+							<div class="col-md-12">
+								<div style=" background-color:#3C8DBD; padding:10px; padding-bottom:20px; margin-bottom:20px; color:#fff;border-radius:5px;">
+									<h3 class="font-light m-b-xs">注意事项</h3>
+									<span>
+										{$cue.content}
+									</span>
+								</div>
+							</div>
+					</div>
+
+<div class="row">
+								<div class="col-md-12">
+					<div class="widget panel panel-default">
+						<div class="panel-heading">
+								<h3 class="panel-title"> 项目互转</h3>
+						</div>
+						
+						
+						<form class="margin-none" name="register_form" method="post" id="myform">                 
+						    <div class="widget widget-body-white padding-none">
+								<div class="widget-body" style="padding: 20px; overflow: auto;">
+							    	
+										<div class="row"  style=" padding:10px;">
+							     		<div class="form-group">
+                                		<label class="col-md-3 control-label">项目积分剩余<span class="ast">*</span>:</label>
+                                			<div class="col-md-9">
+                                			{$money.num}
+                                			</div>
+                            			</div>
+                            			</div>
+                            			<div class="row"  style=" padding:10px;">
+							     		<div class="form-group">
+                                		<label class="col-md-3 control-label">转换给其他用户<span class="ast">*</span>:</label>
+                                			<div class="col-md-9">
+			                                  	<input class="form-control" id="username" name="username"  type="text"  size="100" >
+                                			</div>
+                            			</div>
+                            			</div>
+                            			<div class="row"  style=" padding:10px;">
+							     		<div class="form-group">
+                                		<label class="col-md-3 control-label">转换数量<span class="ast">*</span>:</label>
+                                			<div class="col-md-9">
+			                                  	<input class="form-control" id="num" name="num"  type="number"  size="100" min="0">
+                                			</div>
+                            			</div>
+                            			</div>
+										<div class="row"  style=" padding:10px;">
+                            			<div class="form-group">
+                                			<label class="col-md-3 control-label">二级密码<span class="ast">*</span></label>
+                                			<div class="col-md-9">
+		                                  		<input class="form-control" id="pwd" name="password"  type="password"   size="100">
+		                                	</div>
+                            			</div>
+                            			</div>
+                            			<div class="row"  style=" padding:10px;">
+                            			<div class="form-group">
+                                			<label class="col-md-3 control-label">手机验证码<span class="ast">*</span></label>
+                                			<div class="col-md-9">
+		                                  		<input style="border: 1px solid #ccc;height: 34px;color: #555;border-radius: 4px;outline:none;width:50%;" name="phone_code" value="" type="text" required>
+													<input id="phone" style=" color: #0e131d; background-color: #c1c8d2;" class="btn btn-primary btn-sm"  value="发送验证码" onclick="sendPhone()" type="button">
+		                                	</div>
+                            			</div>
+                            			</div>
+		    <div class="checkbox col-lg-12"   style=" padding:10px 30px;">
+			<div class="icheckbox_square-green checked" style="position: relative;"></div>
+		 	
+		    </div>
+		    </div>
+		    <div class="data-footer innerAll half text-right clearfix" style="text-align:center; padding:10px;">
+			<input type="button" id="tijiao" class="btn btn-primary" value="提交 " onclick="zhuan()">
+			 
+		    </div>
+		</div>
+	    </div>
+	</form>
+	 <script>
+	function zhuan(){
+		 var username=$("#username").val();
+		if(username == ""){
+			layer.msg("请输入用户名");return;
+		}
+		var num =$('#num').val();
+		if(num == "" || num<0 ){
+			layer.msg("数量填写有误");return;
+		}
+		
+		var password=$("#pwd").val();
+		if(password == ""){
+			layer.msg("请输入交易密码");return;
+		} 
+		$.ajax({
+            cache: true,
+            type: "POST",
+            url:"{:U('UserMoney/projectTrans')}",
+            data:$('#myform').serialize(),// 你的formid
+            async: false,
+            error: function(request) {
+                layer.msg(d['info']);
+            },
+            /*  beforeSend: function(){
+            	$("#tijiao").attr("disabled", true);
+            	},  */
+            success: function(data) {
+                layer.msg(data['info']);
+                $("#tijiao").removeAttr("disabled");
+                if(data['status'] == 1){
+                    setTimeout("JumpUrl()",1500);
+                }
+            }
+        });
+	}
+	function JumpUrl(){
+        location.href="{:U('/Finance/getFinance/type/11')}";
+    }
+	function sendPhone(){
+        var phone = $('#phone').val();
+        $.post("{:U('User/sendphone')}",{'phone':phone,'type':3},function(d){
+        layer.msg(d['info']);
+        });
+     }
+	</script>
+  	</div>
+				</div>
+               
+
+</div>				</section>
+
+						<!--./主体开始-->
+					</section>
+				</div>
+					<include file="App/Home/View/Public/footer.html" />
+				<!--body wrapper end-->
+				<!--分割线  主体内容  结束->
+				
+				<!-footer引入位置-->
+			
