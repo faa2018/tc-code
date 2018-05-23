@@ -1,0 +1,57 @@
+/**
+ * Created by xieronghua on 2017/7/1.
+ */
+$(function(){
+    /*个人中心首页*/
+    var one=true
+    var two=true
+    $('.user_drop_person').eq(0).on('click',function(){
+        if(one==true){
+            $(".user_drop_person_list").eq(0).slideUp()
+            one=false
+        }else{
+            $(".user_drop_person_list").eq(0).slideDown()
+            one=true
+        }
+    })
+    $('.gai').on('click',function(){
+        if(two==true){
+            $(".gai_list").slideUp()
+            two=false
+        }else{
+            $(".gai_list").slideDown()
+            two=true
+        }
+    })
+    var hre=window.location.href
+    if(/personal.html/.test(hre)){
+        $('#one').css({background:"rgba(100,100,100,0.1)"})
+    }
+    if(/mpassword.html/.test(hre)){
+        $('#two').css({background:"rgba(100,100,100,0.1)"})
+    }
+    if(/projectTrans.html/.test(hre)){
+        $('#three').css({background:"rgba(100,100,100,0.1)"})
+    }
+    if(/tuijian.html/.test(hre)){
+        $('#four').css({background:"rgba(100,100,100,0.1)"})
+    }
+    if(/Finance\/index.html/.test(hre)){
+        $('#five').css({background:"rgba(100,100,100,0.1)"})
+    }
+    if(/bpay.html/.test(hre)){
+        $('#six').css({background:"rgba(100,100,100,0.1)"})
+    }
+    if(/tcoin.html/.test(hre)){
+        $('#seven').css({background:"rgba(100,100,100,0.1)"})
+    }
+	if(/zhuanhuan.html/.test(hre)){
+        $('#eight').css({background:"rgba(100,100,100,0.1)"})
+    }
+	if(/User\/getProject.html/.test(hre)){
+        $('#ten').css({background:"rgba(100,100,100,0.1)"})
+    }
+	if(/Order\/index.html/.test(hre)){
+        $('#nine').css({background:"rgba(100,100,100,0.1)"})
+    }
+})
